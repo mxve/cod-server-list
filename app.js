@@ -39,7 +39,7 @@ async function getApiData() {
     }
 }
 
-async function getData(game = 'all') {
+async function getData(game = 'all', search = undefined) {
     if (apiCache === undefined) {
         apiCache = await getApiData()
     }
@@ -52,6 +52,20 @@ async function getData(game = 'all') {
 
     let servers = []
     for (server of api.json) {
+        if (search !== undefined) {
+            if (!server.hostname.toLowerCase().includes(search.toLowerCase()) &&
+            server.ip != search &&
+            server.port != search &&
+            server.maxplayers != search &&
+            server.players.length != search &&
+            !server.map.toLowerCase().includes(search.toLowerCase()) &&
+            !server.mapDisplay.toLowerCase().includes(search.toLowerCase()) &&
+            !server.gametype.toLowerCase().includes(search.toLowerCase()) &&
+            !server.gametypeDisplay.toLowerCase().includes(search.toLowerCase())) {
+                continue
+            }
+        }
+
         if (game !== 'all' && server.game != game) {
             continue
         }
@@ -103,9 +117,9 @@ app.get(['/', '/:game'], async (req, res) => {
         req.params.game === 't6zm' || 
         req.params.game === 't4mp' ||
         req.params.game === 't4sp') {
-            res.render('servers', { api: await getData(req.params.game) })
+            res.render('servers', { api: await getData(req.params.game, req.query.s) })
     } else {
-            res.render('servers', { api: await getData('all') })
+            res.render('servers', { api: await getData('all', req.query.s) })
     }
 })
 

@@ -19,13 +19,25 @@ h1 {
 #info {
     text-align: center;
     margin-bottom: 48px;
-    margin-top: 24px;
+    margin-top: 36px;
+}
+
+#search {
+    text-align: center;
+    margin-top: 36px;
+}
+
+#search input {
+    background-color: rgba(30,30,30);
+    border: 2px rgba(50,50,50) solid;
+    padding: 4px;
+    border-radius: 4px;
+    color: white;
 }
 
 #nav {
     margin: auto;
     text-align: center;
-    margin-bottom: 48px;
     font-size: 1.4em;
 }
 
