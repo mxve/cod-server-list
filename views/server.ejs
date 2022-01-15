@@ -33,8 +33,10 @@
         </div>
         <div id="server-details">
             <%
-            __append(`<span onClick="copy()" class="connect">connect ${server.ip}:${server.port}</span>
+                __append(`<span onClick="copy()" class="connect">connect ${server.ip}:${server.port}</span>
                     `)
+
+                if (server.players.length > 0) {
             %>
             <div id="players">
                 <div class="player header">
@@ -57,6 +59,7 @@
                                         </span>
                                     </div>
                                         `)
+                    }
                     }
                 %>
             </div>

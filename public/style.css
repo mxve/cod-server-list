@@ -166,6 +166,7 @@ h1 {
 @media screen and (max-width: 959px) {
     #server-container {
         width: 95%;
+        max-width: 430px;
     }
     
     .server.header {
@@ -174,6 +175,14 @@ h1 {
     
     .server img {
         display: none;
+    }
+
+    .server .hostname {
+        display: block;
+    }
+
+    .server {
+        margin-bottom: 14px;
     }
 }
 
