@@ -222,9 +222,22 @@ function mapDisplay(map) {
             return 'Battery'
         case 'mp_hangar':
             return 'Hangar'
-        case 'mp_aground_ss': {
+        case 'mp_aground_ss':
             return 'Aground'
-        }
+        case 'mp_hillside_ss':
+            return 'mp_hillside_ss'
+        case 'mp_overflow':
+            return 'Overflow'
+        case 'mp_downfall':
+            return 'Downfall'
+        case 'mp_burn_ss':
+            return 'U-Turn'
+        case 'mp_nola':
+            return 'Parish'
+        case 'mp_castaway':
+            return 'Cove'
+        case 'mp_restrepo_ss':
+            return 'Lookout'
         default:
             return map
     }
