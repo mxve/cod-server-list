@@ -39,6 +39,10 @@ function gametypeDisplay(gametype) {
             return 'One In The Chamber'
         case 'gtnw':
             return 'Global Thermonuclear War'
+        case 'shrp':
+            return 'Sharpshooter'
+        case 'cmp':
+            return 'Zombies'
         default:
             return gametype
     }
@@ -240,7 +244,6 @@ function mapDisplay(map) {
             return 'Lookout'
         case 'mp_kneedeep':
             return 'Knee Deep'
-            
         default:
             return map
     }
