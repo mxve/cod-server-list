@@ -12,6 +12,8 @@ body {
 
 h1 {
     margin-bottom: 12px;
+    text-align: center;
+    margin: 24px;
 }
 
 #info {

@@ -10,12 +10,7 @@
         <link rel="icon" type="image/png" href="/img/mxve.png">
     </head>
     <body>
-        <div id="info">
-            <h1>Plutonium Server List</h1>
-            Servers: <%= api.countServers %><br>
-            Players: <%= api.countPlayers %>/<%= api.maxPlayers %><br>
-            <sub>Data age: <%= api.age %></sub>
-        </div>
+        <h1>Plutonium Server List</h1>
         <div id="nav">
             <a href="/all">ALL</a>
             <a href="/iw5mp">MW3</a>
@@ -23,6 +18,11 @@
             <a href="/t6zm">BO2 ZM</a>
             <a href="/t4mp">WaW</a>
             <a href="/t4sp">WaW ZM</a>
+        </div>
+        <div id="info">
+            Servers: <%= api.countServers %><br>
+            Players: <%= api.countPlayers %>/<%= api.maxPlayers %><br>
+            <sub>Data age: <%= api.age %></sub>
         </div>
         <div id="server-container">
             <div class="server header">

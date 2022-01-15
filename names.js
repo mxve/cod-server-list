@@ -206,6 +206,22 @@ function mapDisplay(map) {
             return 'Skidrow'
         case 'mp_docks':
             return 'Docks'
+        case 'mp_roughneck':
+            return 'Off Shore'
+        case 'mp_radar':
+            return 'Outpost'
+        case 'mp_qadeem':
+            return 'Oasis'
+        case 'mp_makin':
+            return 'Makin'
+        case 'mp_bgate':
+            return 'Breach'
+        case 'mp_nachtfeuer':
+            return 'Nightfire'
+        case 'mp_drum':
+            return 'Battery'
+        case 'mp_hangar':
+            return 'Hangar'
         default:
             return map
     }
