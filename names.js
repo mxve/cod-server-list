@@ -1,0 +1,174 @@
+function gametypeDisplay(gametype) {
+    switch (gametype) {
+        case 'war':
+        case 'tdm':
+            return 'Team-Deathmatch'
+        case 'dm':
+            return 'Free-For-All'
+        case 'sd':
+            return 'Search & Destroy'
+        case 'sab':
+            return 'Sabotage'
+        case 'dom':
+            return 'Domination'
+        case 'koth':
+        case 'hq':
+            return 'Headquarters'
+        case 'ctf':
+            return 'Capture the Flag'
+        case 'dd':
+            return 'Demolition'
+        case 'tdef':
+            return 'Team Defender'
+        case 'conf':
+            return 'Kill Confirmed'
+        case 'grnd':
+        case 'dzone':
+            return 'Drop Zone'
+        case 'tjugg':
+            return 'Team Juggernaut'
+        case 'jugg':
+            return 'Juggernaut'
+        case 'gun':
+        case 'gg':
+            return 'Gun Game'
+        case 'infect':
+            return 'Infected'
+        case 'oic':
+        case 'oitc':
+            return 'One In The Chamber'
+        case 'gtnw':
+            return 'Global Thermonuclear War'
+        default:
+            return gametype
+    }
+}
+
+function mapDisplay(map) {
+    switch (map) {
+        case 'mp_mogadishu':
+            return 'Bakaara'
+        case 'mp_mirage':
+            return 'Mirage'
+        case 'mp_nuketown_2020':
+            return 'Nuketown 2025'
+        case 'mp_hijacked':
+            return 'Hijacked'
+        case 'mp_paris':
+            return 'Resistance'
+        case 'mp_hydro':
+            return 'Hydro'
+        case 'mp_skate':
+            return 'Grind'
+        case 'mp_studio':
+            return 'Studio'
+        case 'mp_village':
+            return 'Standoff'
+        case 'mp_slums':
+            return 'Slums'
+        case 'mp_raid':
+            return 'Raid'
+        case 'mp_rust':
+            return 'Rust'
+        case 'mp_concert':
+            return 'Encore'
+        case 'mp_nuked':
+            return 'Nuketown'
+        case 'zm_prison':
+            return 'Mob of the Dead'
+        case 'zm_transit':
+            return 'TranZit'
+        case 'zm_nuked':
+            return 'Nuketown Zombies'
+        case 'mp_vertigo':
+            return 'Vertigo'
+        case 'mp_six_ss':
+            return 'Vortex'
+        case 'mp_dome':
+            return 'Dome'
+        case 'zm_buried':
+            return 'Buried'
+        case 'mp_bridge':
+            return 'Detour'
+        case 'mp_paintball':
+            return 'Rush'
+        case 'mp_plaza2':
+            return 'Arkaden'
+        case 'mp_downhill':
+            return 'Downhill'
+        case 'mp_turbine':
+            return 'Turbine'
+        case 'zm_tomb':
+            return 'Origins'
+        case 'mp_bravo':
+            return 'Mission'
+        case 'zm_highrise':
+            return 'Die Rise'
+        case 'mp_takeoff':
+            return 'Takeoff'
+        case 'mp_meteora':
+            return 'Sanctuary'
+        case 'mp_highrise':
+            return 'Highrise'
+        case 'mp_favela':
+            return 'Favela'
+        case 'mp_express':
+            return 'Express'
+        case 'mp_alpha':
+            return 'Lockdown'
+        case 'mp_carrier':
+            return 'Carrier'
+        case 'mp_dig':
+            return 'Dig'
+        case 'mp_makin_day':
+            return 'Makin Day'
+        case 'mp_drone':
+            return 'Drone'
+        case 'mp_hardhat':
+            return 'Hardhat'
+        case 'mp_suburban':
+            return 'Upheaval'
+        case 'mp_underground':
+            return 'Underground'
+        case 'mp_bootleg':
+            return 'Bootleg'
+        case 'mp_asylum':
+            return 'Asylum'
+        case 'mp_meltdown':
+            return 'Meltdown'
+        case 'mp_exchange':
+            return 'Downturn'
+        case 'mp_shipbreaker':
+            return 'Decommission'
+        case 'mp_terminal':
+        case 'mp_terminal_cls':
+            return 'Terminal'
+        case 'mp_uplink':
+            return 'Uplink'
+        case 'mp_dockside':
+            return 'Cargo'
+        case 'mp_la':
+            return 'Aftermath'
+        case 'mp_overwatch':
+            return 'Overwatch'
+        case 'mp_castle':
+            return 'Castle'
+        case 'mp_vodka':
+            return 'Revolution'
+        case 'mp_lambeth':
+            return 'Fallen'
+        case 'mp_seatown':
+            return 'Seatown'
+        case 'mp_frostbite':
+            return 'Frost'
+        case 'mp_airfield':
+            return 'Airfield'
+        default:
+            return map
+    }
+}
+
+module.exports = {
+    map: mapDisplay,
+    gametype: gametypeDisplay
+}

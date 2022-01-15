@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;800&family=Roboto:wght@300;400&display=swap" rel="stylesheet"> 
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="info">
+            <h1>Plutonium Server List</h1>
+            Servers: <%= api.countServers %><br>
+            Players: <%= api.countPlayers %>/<%= api.maxPlayers %>
+        </div>
+        <div id="nav">
+            <a href="all">ALL</a>
+            <a href="iw5mp">MW3</a>
+            <a href="t6mp">BO2</a>
+            <a href="t6zm">BO2 ZM</a>
+            <a href="t4mp">WaW</a>
+            <a href="t4sp">WaW ZM</a>
+        </div>
+        <div id="server-container">
+            <div class="server header">
+                <img src="img/mxve.png" />
+                <span class="hostname">Name</span>
+                <span class="slots">Players</span>
+                <span class="gametype">Gamemode</span>
+                <span class="map">Map</span>
+            </div>
+        <%
+            for (const server of api.servers) {
+                __append(`  <a href="server/${server.ip}/${server.port}" class="server ${server.game}"> 
+                                <img src="img/${server.game}.jpg" />
+                                <span class="hostname">${server.hostname.replace(/\^\d/g, '')}</span>
+                                <span class="slots">${server.players.length}/${server.maxplayers}</span>
+                                <span class="gametype">${server.gametypeDisplay}</span>
+                                <span class="map">${server.mapDisplay}</span>
+                            </a>
+                            `)
+            }
+        %>
+        </div>
+        <div id="footer">
+            Made by mxve#3406<br>
+            This website is in no way endorsed by or affiliated with Plutonium, Activision, Treyarch, Infinity Ward or any other copyright holder whos assets and/or trademarks may have been used.<br>
+            Server data provided by <a href="https://plutonium.pw/api/servers">Plutonium server API</a>. Takedown and unlisting requests: hi@mxve.de<br>
+            <a href="https://github.com/mxve/plutonium-server-list">Source Code</a>
+    </body>
+</html>
