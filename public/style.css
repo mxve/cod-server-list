@@ -84,16 +84,31 @@ h1 {
     /*display: block;*/
     display: inline-block;
     width: 480px;
+    font-weight: 600;
 }
 
 .server .slots {
     display: inline-block;
-    width: 80px;
+    width: 70px;
 }
 
 .server .gametype {
     display: inline-block;
-    width: 200px;
+    width: 170px;
+}
+
+@media screen and (max-width: 959px) {
+    #server-container {
+        width: 95%;
+    }
+    
+    .server.header {
+        display: none;
+    }
+    
+    .server img {
+        display: none;
+    }
 }
 
 .iw5mp {
