@@ -42,6 +42,8 @@ function gametypeDisplay(gametype) {
         case 'shrp':
             return 'Sharpshooter'
         case 'cmp':
+        case 'zclassic':
+        case 'zstandard':
             return 'Zombies'
         default:
             return gametype
