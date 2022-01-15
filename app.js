@@ -21,17 +21,8 @@ async function getApiData() {
         return b.players.length - a.players.length
     })
 
-    let maxPlayers = 0
-    let countPlayers = 0
-    let countServers = 0
-
     let servers = []
     for (server of json) {
-        maxPlayers += server.maxplayers
-        countPlayers += server.players.length
-        countServers += 1
-
-        let users = []
         for (player of server.players) {
             player.userslug = slugify(player.username)
         }
@@ -44,10 +35,7 @@ async function getApiData() {
 
     return {
         json: servers,
-        date: Date.now(),
-        maxPlayers,
-        countPlayers,
-        countServers
+        date: Date.now()
     }
 }
 
@@ -57,20 +45,33 @@ async function getData(game = 'all') {
     }
 
     const api = apiCache
-    
+
+    let maxPlayers = 0
+    let countPlayers = 0
+    let countServers = 0
+
     let servers = []
     for (server of api.json) {
         if (game !== 'all' && server.game != game) {
             continue
         }
 
+        maxPlayers += server.maxplayers
+        countPlayers += server.players.length
+        countServers += 1
+
         servers.push(server)
     }
+ 
+    let age = `${Date.now() - apiCache.date}ms`
 
-    api.servers = servers
-    api.age = `${Date.now() - apiCache.date}ms`
-
-    return api
+    return {
+        servers,
+        age,
+        maxPlayers,
+        countPlayers,
+        countServers
+    }
 }
 
 async function getServer(ip, port) {
