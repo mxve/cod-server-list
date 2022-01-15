@@ -32,7 +32,7 @@
             for (const server of api.servers) {
                 __append(`  <a href="server/${server.ip}/${server.port}" class="server ${server.game}"> 
                                 <img src="img/${server.game}.jpg" />
-                                <span class="hostname">${server.hostname.replace(/\^\d/g, '')}</span>
+                                <span class="hostname">${server.hostnameDisplay}</span>
                                 <span class="slots">${server.players.length}/${server.maxplayers}</span>
                                 <span class="gametype">${server.gametypeDisplay}</span>
                                 <span class="map">${server.mapDisplay}</span>

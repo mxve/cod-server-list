@@ -29,6 +29,7 @@ async function getData(game = 'all') {
 
         server.gametypeDisplay = names.gametype(server.gametype)
         server.mapDisplay = names.map(server.map)
+        server.hostnameDisplay = sanitizer.escape(server.hostname.replace(/\^\d/g, ''))
         servers.push(server)
     }
 
