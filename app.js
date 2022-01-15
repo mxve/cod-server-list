@@ -14,6 +14,7 @@ const task = new Task('simple task', async () => { apiCache = await getApiData()
 const job = new SimpleIntervalJob({ seconds: 10, }, task)
 scheduler.addSimpleIntervalJob(job)
 
+
 async function getApiData() {
     const api = await got('https://plutonium.pw/api/servers')
     const json = JSON.parse(api.body)
@@ -27,7 +28,7 @@ async function getApiData() {
             player.userslug = slugify(player.username)
         }
 
-        server.gametypeDisplay = names.gametype(server.gametype)
+        server.gametypeDisplay = names.gametype(server.gametype, server.game)
         server.mapDisplay = names.map(server.map)
         server.hostnameDisplay = sanitizer.escape(server.hostname.replace(/\^\d/g, ''))
         servers.push(server)
@@ -105,6 +106,7 @@ async function getServer(ip, port) {
 
     return server
 }
+
 
 const app = express()
 app.disable("x-powered-by");

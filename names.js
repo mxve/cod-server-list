@@ -1,4 +1,4 @@
-function gametypeDisplay(gametype) {
+function gametypeDisplay(gametype, game = undefined) {
     switch (gametype) {
         case 'war':
         case 'tdm':
@@ -12,11 +12,15 @@ function gametypeDisplay(gametype) {
         case 'dom':
             return 'Domination'
         case 'koth':
+            if (game == 't6mp') { return 'Hardpoint' }
         case 'hq':
             return 'Headquarters'
         case 'ctf':
             return 'Capture the Flag'
+        case 'oneflag':
+            return 'One-flag CTF'
         case 'dd':
+        case 'dem':
             return 'Demolition'
         case 'tdef':
             return 'Team Defender'
@@ -42,9 +46,15 @@ function gametypeDisplay(gametype) {
         case 'shrp':
             return 'Sharpshooter'
         case 'cmp':
-        case 'zclassic':
-        case 'zstandard':
             return 'Zombies'
+        case 'zclassic':
+            return 'Classic'
+        case 'zstandard':
+            return 'Standard'
+        case 'zgrief':
+            return 'Grief'
+        case 'sas':
+            return 'Sticks & Stones'
         default:
             return gametype
     }
@@ -246,6 +256,8 @@ function mapDisplay(map) {
             return 'Lookout'
         case 'mp_kneedeep':
             return 'Knee Deep'
+        case 'mp_moab':
+            return 'Gulch'
         default:
             return map
     }
