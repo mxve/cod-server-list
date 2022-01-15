@@ -1,18 +1,39 @@
 const got = require('got')
 const sanitizer = require('sanitizer')
 const express = require('express')
+const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
 const names = require('./names.js')
 
+let apiCache
 
-async function getData(game = 'all') {
+const scheduler = new ToadScheduler()
+
+const task = new Task('simple task', async () => { apiCache = await getApiData() })
+const job = new SimpleIntervalJob({ seconds: 10, }, task)
+scheduler.addSimpleIntervalJob(job)
+
+async function getApiData() {
     const api = await got('https://plutonium.pw/api/servers')
-    
     const json = JSON.parse(api.body)
     json.sort((a, b) => {
         return b.players.length - a.players.length
     })
 
+    return {
+        json: json,
+        date: Date.now()
+    }
+}
+
+async function getData(game = 'all') {
+    if (apiCache === undefined) {
+        apiCache = await getApiData()
+    }
+
+    const json = apiCache.json
+
+    let age = `${Date.now() - apiCache.date}ms`
 
     let maxPlayers = 0
     let countPlayers = 0
@@ -37,16 +58,19 @@ async function getData(game = 'all') {
         servers,
         maxPlayers,
         countPlayers,
-        countServers
+        countServers,
+        age
     }
 
     return res
 }
 
 async function getServer(ip, port) {
-    const api = await got('https://plutonium.pw/api/servers')
+    if (apiCache === undefined) {
+        apiCache = await getApiData()
+    }
     
-    const json = JSON.parse(api.body)
+    const json = apiCache.json
 
     let server
     for (iserver of json) {

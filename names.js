@@ -202,6 +202,10 @@ function mapDisplay(map) {
             return 'Piazza'
         case 'mp_pod':
             return 'Pod'
+        case 'mp_nightshift':
+            return 'Skidrow'
+        case 'mp_docks':
+            return 'Docks'
         default:
             return map
     }
