@@ -222,6 +222,9 @@ function mapDisplay(map) {
             return 'Battery'
         case 'mp_hangar':
             return 'Hangar'
+        case 'mp_aground_ss': {
+            return 'Aground'
+        }
         default:
             return map
     }

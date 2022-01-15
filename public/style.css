@@ -18,7 +18,6 @@ h1 {
 
 #info {
     text-align: center;
-    margin-bottom: 48px;
     margin-top: 36px;
 }
 
@@ -69,6 +68,7 @@ h1 {
     margin: auto;
     display: block;
     width: 960px;
+    margin-top: 48px;
 }
 
 #server-details {
