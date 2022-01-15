@@ -44,7 +44,10 @@ async function getApiData() {
 
     return {
         json: servers,
-        date: Date.now()
+        date: Date.now(),
+        maxPlayers,
+        countPlayers,
+        countServers
     }
 }
 
@@ -53,12 +56,10 @@ async function getData(game = 'all') {
         apiCache = await getApiData()
     }
 
-    const json = apiCache.json
-
-    let age = `${Date.now() - apiCache.date}ms`
-
+    const api = apiCache
+    
     let servers = []
-    for (server of json) {
+    for (server of api.json) {
         if (game !== 'all' && server.game != game) {
             continue
         }
@@ -66,12 +67,10 @@ async function getData(game = 'all') {
         servers.push(server)
     }
 
-    let res = {
-        servers,
-        age
-    }
+    api.servers = servers
+    api.age = `${Date.now() - apiCache.date}ms`
 
-    return res
+    return api
 }
 
 async function getServer(ip, port) {
