@@ -44,6 +44,11 @@ function gametypeDisplay(gametype) {
     }
 }
 
+
+// For what ever reason you are reading this code so
+// I want to apologize, the following maps aren't in
+// any specific order at all.
+
 function mapDisplay(map) {
     switch (map) {
         case 'mp_mogadishu':
@@ -163,6 +168,40 @@ function mapDisplay(map) {
             return 'Frost'
         case 'mp_airfield':
             return 'Airfield'
+        case 'mp_interchange':
+            return 'Interchange'
+        case 'mp_socotra':
+            return 'Yemen'
+        case 'mp_nightclub':
+            return 'Plaza'
+        case 'mp_courtyard':
+        case 'mp_courtyard_ss':
+            return 'Courtyard'
+        case 'mp_outskirts':
+            return 'Outskirts'
+        case 'mp_carbon':
+            return 'Carbon'
+        case 'mp_morningwood': // bruh
+            return 'Black Box'
+        case 'mp_magma':
+            return 'Magma'
+        case 'mp_kwai':
+            return 'Banzai'
+        case 'mp_shrine':
+            return 'Cliffside'
+        case 'mp_roundhouse':
+            return 'Roundhouse'
+        case 'mp_seelow':
+            return 'Seelow'
+        case 'mp_boneyard':
+        case 'mp_scrapyard':
+            return 'Scrapyard'
+        case 'mp_poolparty':
+            return 'Poolparty'
+        case 'mp_italy':
+            return 'Piazza'
+        case 'mp_pod':
+            return 'Pod'
         default:
             return map
     }
