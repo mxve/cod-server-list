@@ -225,7 +225,7 @@ function mapDisplay(map) {
         case 'mp_aground_ss':
             return 'Aground'
         case 'mp_hillside_ss':
-            return 'mp_hillside_ss'
+            return 'Getaway'
         case 'mp_overflow':
             return 'Overflow'
         case 'mp_downfall':
@@ -238,6 +238,9 @@ function mapDisplay(map) {
             return 'Cove'
         case 'mp_restrepo_ss':
             return 'Lookout'
+        case 'mp_kneedeep':
+            return 'Knee Deep'
+            
         default:
             return map
     }
