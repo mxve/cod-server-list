@@ -56,6 +56,56 @@ h1 {
     width: 960px;
 }
 
+#server-details {
+    margin: auto;
+    width: 400px;
+    text-align: center;
+}
+
+#server-details #players {
+    width: 260px;
+    margin: auto;
+    display: block;
+}
+
+#server-details .connect {
+    background-color: rgb(50, 50, 50);
+    border-radius: 3px;
+    padding: 3px;
+    display: inline-block;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+#server-details .player {
+    display: block;
+    text-align: left;
+    color: #dddddd;
+}
+
+.player.header {
+    font-weight: 800;
+    border-bottom: 1px #5a5a5a dotted;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+#server-details .player a {
+    color: #dddddd;
+    text-decoration: none;
+    border-bottom: 1px white dotted;
+}
+
+#server-details .player a:hover {
+    border-bottom: 1px darkgray dotted;
+}
+
+#server-details .player .username {
+    width: 200px;
+    display: inline-block;
+}
+
 .server {
     /*background-color: #afafaf;*/
     margin-bottom: 8px;

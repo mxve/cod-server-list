@@ -4,6 +4,7 @@ const express = require('express')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
 const names = require('./names.js')
+const slugify = require('./slugify.js')
 
 let apiCache
 
@@ -20,8 +21,29 @@ async function getApiData() {
         return b.players.length - a.players.length
     })
 
+    let maxPlayers = 0
+    let countPlayers = 0
+    let countServers = 0
+
+    let servers = []
+    for (server of json) {
+        maxPlayers += server.maxplayers
+        countPlayers += server.players.length
+        countServers += 1
+
+        let users = []
+        for (player of server.players) {
+            player.userslug = slugify(player.username)
+        }
+
+        server.gametypeDisplay = names.gametype(server.gametype)
+        server.mapDisplay = names.map(server.map)
+        server.hostnameDisplay = sanitizer.escape(server.hostname.replace(/\^\d/g, ''))
+        servers.push(server)
+    }
+
     return {
-        json: json,
+        json: servers,
         date: Date.now()
     }
 }
@@ -35,30 +57,17 @@ async function getData(game = 'all') {
 
     let age = `${Date.now() - apiCache.date}ms`
 
-    let maxPlayers = 0
-    let countPlayers = 0
-    let countServers = 0
-
     let servers = []
     for (server of json) {
         if (game !== 'all' && server.game != game) {
             continue
         }
-        maxPlayers += server.maxplayers
-        countPlayers += server.players.length
-        countServers += 1
 
-        server.gametypeDisplay = names.gametype(server.gametype)
-        server.mapDisplay = names.map(server.map)
-        server.hostnameDisplay = sanitizer.escape(server.hostname.replace(/\^\d/g, ''))
         servers.push(server)
     }
 
     let res = {
         servers,
-        maxPlayers,
-        countPlayers,
-        countServers,
         age
     }
 
