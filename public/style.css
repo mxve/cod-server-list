@@ -123,6 +123,11 @@ h1 {
     color: var(--foreground);
 }
 
+#server-error {
+    text-align: center;
+    margin-top: 30px;
+}
+
 .player.header {
     font-weight: 800;
     border-bottom: 1px var(--background-highlight3) dotted;

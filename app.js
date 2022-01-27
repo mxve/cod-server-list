@@ -96,10 +96,12 @@ async function getServer(ip, port) {
     
     const json = apiCache.json
 
-    let server
+    let server = { ip, port, online: false, known: false }
     for (iserver of json) {
         if (iserver.ip == ip && iserver.port == port) {
             server = iserver
+            server.online = true
+            server.known = true
             break
         }
     }
@@ -113,20 +115,35 @@ app.disable("x-powered-by");
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-app.get(['/', '/:game'], async (req, res) => {
+app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
+    let servers
+
     if (req.params.game === 'iw5mp' ||
         req.params.game === 't6mp' ||
         req.params.game === 't6zm' || 
         req.params.game === 't4mp' ||
         req.params.game === 't4sp') {
-            res.render('servers', { api: await getData(req.params.game, req.query.s) })
+
+        servers = await getData(req.params.game, req.query.s)
     } else {
-            res.render('servers', { api: await getData('all', req.query.s) })
+        servers = await getData('all', req.query.s)
+    }
+
+    if (req.url.endsWith('json')) {
+        res.json(servers)
+    } else {
+        res.render('servers', { api: servers })
     }
 })
 
-app.get('/server/:ip/:port', async (req, res) => {
-    res.render('server', { server: await getServer(req.params.ip, req.params.port) })
+app.get(['/server/:ip/:port', '/server/:ip/:port/json'], async (req, res) => {
+    let server = await getServer(req.params.ip, req.params.port)
+
+    if (req.url.endsWith('json')) {
+        res.json(server)
+    } else {
+        res.render('server', { server })
+    }
 })
 
 app.listen(1998)

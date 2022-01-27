@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%= server.hostnameDisplay %></title>
+        
+        <title>
+            <% if (server.known === true) {
+                    __append(server.hostnameDisplay)
+                } else {
+                    __append('Unknown server')
+                }
+            %>
+        </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +27,7 @@
             <a href="/t4mp">WaW</a>
             <a href="/t4sp">WaW ZM</a>
         </div>
+        <% if (server.known === true) { %>
         <div id="server-container">
         <%
             __append(`  <a href="/server/${server.ip}/${server.port}" class="server ${server.game}"> 
@@ -64,6 +73,10 @@
                 %>
             </div>
         </div>
+        <% } else { %>
+
+            <div id="server-error">Unknown Server</div>
+        <% } %>
         <div id="footer">
             Made by mxve#3406<br>
             This website is in no way endorsed by or affiliated with Plutonium, Activision, Treyarch, Infinity Ward or any other copyright holder whos assets and/or trademarks may have been used.<br>
