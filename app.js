@@ -75,6 +75,9 @@ async function getData(game = 'all', search = undefined) {
         countPlayers += server.players.length
         countServers += 1
 
+        server.online = true
+        server.known = true
+
         servers.push(server)
     }
  
