@@ -23,6 +23,13 @@
             </div>
         <%
             for (const server of api.servers) {
+                if (server.hostnameDisplay.length > 44) {
+                    server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
+                }
+                if (server.mapDisplay.length > 24) {
+                    server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
+                }
+
                 __append(`  <a href="/server/${server.ip}/${server.port}" class="server ${server.game}"> 
                                 <img src="/img/${server.game}.jpg" />
                                 <span class="hostname">${server.hostnameDisplay}</span>
