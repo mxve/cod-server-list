@@ -12,7 +12,7 @@ function gametypeDisplay(gametype, game = undefined) {
         case 'dom':
             return 'Domination'
         case 'koth':
-            if (game == 't6mp') { return 'Hardpoint' }
+            if (game == 't6mp') { return 'Hardpoint' } // fall-through if not t6mp
         case 'hq':
             return 'Headquarters'
         case 'ctf':
@@ -258,6 +258,16 @@ function mapDisplay(map) {
             return 'Knee Deep'
         case 'mp_moab':
             return 'Gulch'
+        case 'mp_shipment':
+            return 'Shipment'
+        case 'mp_cbble':
+            return 'Cobblestone'
+        case 'mp_poolparty':
+            return 'Poolparty'
+        case 'mp_memegallery':
+            return 'Meme Gallery'
+        case 'mp_park':
+            return 'Liberation'
         default:
             return map
     }
