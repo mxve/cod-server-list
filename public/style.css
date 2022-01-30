@@ -326,8 +326,8 @@ h1 {
     #stats {
         position: fixed;
         bottom: 0;
+        left: 0;
         padding: 8px;
-        transform: translateX(50%);
-        right: 50%;
+        max-width: 100%;
     }
 }
