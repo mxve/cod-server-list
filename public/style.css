@@ -197,7 +197,7 @@ h1 {
     display: inline-block;
     width: 450px;
     font-weight: 600;
-    max-width: 100%;
+    max-width:
 }
 
 .server .slots {
@@ -208,44 +208,6 @@ h1 {
 .server .gametype {
     display: inline-block;
     width: 170px;
-}
-
-@media screen and (max-width: 959px) {
-    #server-container {
-        width: 95%;
-        max-width: 430px;
-    }
-    
-    .server.header {
-        display: none;
-    }
-    
-    .server img {
-        display: none;
-    }
-
-    .server .hostname {
-        display: block;
-    }
-
-    .server {
-        margin-bottom: 14px;
-    }
-
-    #search-container {
-        margin: auto;
-        width: 95%;
-        max-width: 430px;
-    }
-
-    #search {
-        text-align: center;
-        margin-top: 1em;
-    }
-
-    #logo {
-        margin-top: 3em;
-    }
 }
 
 .iw5mp {
@@ -321,5 +283,43 @@ h1 {
 @keyframes turnIt {
     100% {
         transform: rotate(1turn);
+    }
+}
+
+@media screen and (max-width: 959px) {
+    #server-container {
+        width: 95%;
+        max-width: 430px;
+    }
+    
+    .server.header {
+        display: none;
+    }
+    
+    .server img {
+        display: none;
+    }
+
+    .server .hostname {
+        display: block;
+    }
+
+    .server {
+        margin-bottom: 14px;
+    }
+
+    #search-container {
+        margin: auto;
+        width: 95%;
+        max-width: 430px;
+    }
+
+    #search {
+        text-align: center;
+        margin-top: 1em;
+    }
+
+    svg {
+        margin-top: 3em;
     }
 }
