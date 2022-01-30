@@ -329,7 +329,5 @@ h1 {
         padding: 8px;
         transform: translateX(50%);
         right: 50%;
-        width: 95%;
-        max-width: 430px;
     }
 }
