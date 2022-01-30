@@ -10,23 +10,17 @@
                 }
             %>
         </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;800&family=Roboto:wght@300;400&display=swap" rel="stylesheet"> 
-        <link href="/style.css" rel="stylesheet">
-        <link rel="icon" type="image/jpeg" href="/img/<%= server.game %>.jpg">
+        <%- include('head') %>
     </head>
     <body>
-        <h1>Plutonium Server List</h1>
-        <div id="nav">
-            <a href="/all">ALL</a>
-            <a href="/iw5mp">MW3</a>
-            <a href="/t6mp">BO2</a>
-            <a href="/t6zm">BO2 ZM</a>
-            <a href="/t4mp">WaW</a>
-            <a href="/t4sp">WaW ZM</a>
+        <div id="search-container">
+            <div id="search">
+                <form class="search" method="get">
+                    <input size="24" type="text" placeholder="Search" value="" name="s">
+                </form>
+            </div>
         </div>
+        <%- include('header') %>
         <% if (server.known === true) { %>
         <div id="server-container">
         <%
