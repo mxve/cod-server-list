@@ -322,4 +322,14 @@ h1 {
     #logo {
         margin-top: 3em;
     }
+
+    #stats {
+        position: fixed;
+        bottom: 0;
+        padding: 8px;
+        transform: translateX(50%);
+        right: 50%;
+        width: 95%;
+        max-width: 430px;
+    }
 }
