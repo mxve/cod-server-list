@@ -43,13 +43,13 @@ h1 {
 
 #stats {
     position: fixed;
-    right: -1em;
-    bottom: -1em;
+    right: -8px;
+    bottom: -8px;
     background-color: var(--background-highlight);
-    padding: .5em;
-    padding-bottom: 1.5em;
-    padding-right: 1.5em;
-    border-radius: .5em;
+    padding: 8px;
+    padding-bottom: 16px;
+    padding-right: 16px;
+    border-radius: 8px;
 }
 
 #search-container {
