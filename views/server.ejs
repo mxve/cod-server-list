@@ -23,16 +23,23 @@
         <%- include('header') %>
         <% if (server.known === true) { %>
         <div id="server-container">
-        <%
-            __append(`  <a href="/server/${server.ip}/${server.port}" class="server ${server.game}"> 
-                            <img src="/img/${server.game}.jpg" />
-                            <span class="hostname">${server.hostnameDisplay}</span>
-                            <span class="slots">${server.players.length}/${server.maxplayers}</span>
-                            <span class="gametype">${server.gametypeDisplay}</span>
-                            <span class="map">${server.mapDisplay}</span>
-                        </a>
-                        `)
-        %>
+            <a href="/server/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>"> 
+                <%
+                    if (!server.uptodate) {
+                        __append(`<abbr title="This server is running version ${server.revision}, latest is ${config.latestRevision}" class="outdated">`)
+                    }
+                %>
+                <img src="/img/<%= server.game %>.jpg" />
+                <span class="hostname"><%= server.hostnameDisplay %></span>
+                <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
+                <span class="gametype"><%= server.gametypeDisplay %></span>
+                <span class="map"><%= server.mapDisplay %></span>
+                <%
+                    if (!server.uptodate) {
+                        __append(`</abbr>`)
+                    }
+                %>
+            </a>
         </div>
         <div id="server-details">
             <%
@@ -41,6 +48,13 @@
 
                 if (server.players.length > 0) {
             %>
+
+            <%
+                    if (!server.uptodate) {
+                        __append(`<br>This server is out of date!<br>Server version: ${server.revision}<br>Latest version: ${config.latestRevision}`)
+                    }
+            %>
+
             <div id="players">
                 <div class="player header">
                     <span class="username">

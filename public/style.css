@@ -6,6 +6,7 @@
     --foreground: rgb(230, 225, 220);
     --foreground-highlight: rgb(170, 165, 160);
     --foreground-dim: rgb(100, 100, 100);
+    --foreground-warn: rgb(255, 160, 160);
 
     --iw5mp: rgb(112, 154, 39);
     --iw5mp-bg: rgba(76, 161, 83, 0.15);
@@ -178,6 +179,11 @@ h1 {
     text-decoration: none;
 }
 
+.server .outdated {
+    color: var(--foreground-warn);
+    text-decoration: none;
+}
+
 .server.header {
     font-weight: 800;
     border-bottom: 1px var(--background-highlight3) dotted;
@@ -197,7 +203,7 @@ h1 {
     display: inline-block;
     width: 450px;
     font-weight: 600;
-    max-width:
+    max-width: 100%;
 }
 
 .server .slots {

@@ -5,6 +5,7 @@ const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
 const names = require('./names.js')
 const slugify = require('./slugify.js')
+const config = require('./config.js')
 
 let apiCache
 
@@ -34,6 +35,13 @@ async function getApiData() {
         server.online = true
         server.known = true
         server.date = Date.now()
+
+        if (server.revision >= config.latestRevision) {
+            server.uptodate = true
+        } else {
+            server.uptodate = false
+        }
+
         servers.push(server)
     }
 
@@ -136,7 +144,7 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
     if (req.url.endsWith('json')) {
         res.json(servers)
     } else {
-        res.render('servers', { api: servers })
+        res.render('servers', { api: servers, config })
     }
 })
 
@@ -146,7 +154,7 @@ app.get(['/server/:ip/:port', '/server/:ip/:port/json'], async (req, res) => {
     if (req.url.endsWith('json')) {
         res.json(server)
     } else {
-        res.render('server', { server })
+        res.render('server', { server, config })
     }
 })
 
