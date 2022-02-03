@@ -2,7 +2,7 @@
 
 ## -> [Show server list](https://pluto.mxve.de)
 
-![](https://screen.sbs/i/5exe7erk.png)
+![](https://screen.sbs/i/nub625vm.png)
 
 ## API
 - ```/json```, ```/<game>/json```
@@ -50,3 +50,7 @@
     ```
 - ```/server/<ip>/<port>/json```
   - returns the matching server, see servers array above for keys
+
+
+## Credits
+- [NodeBB](https://github.com/NodeBB/NodeBB) authors for [slugify.js](slugify.js) | [Licensed under GPLv3](https://github.com/NodeBB/NodeBB/blob/master/LICENSE)
