@@ -46,13 +46,11 @@
                 __append(`<span onClick="copy()" class="connect">connect ${server.ip}:${server.port}</span>
                     `)
 
-                if (server.players.length > 0) {
-            %>
+                if (!server.uptodate) {
+                    __append(`<br>This server is out of date!<br>Server version: ${server.revision}<br>Latest version: ${config.latestRevision}`)
+                }
 
-            <%
-                    if (!server.uptodate) {
-                        __append(`<br>This server is out of date!<br>Server version: ${server.revision}<br>Latest version: ${config.latestRevision}`)
-                    }
+                if (server.players.length > 0) {
             %>
 
             <div id="players">
