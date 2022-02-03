@@ -40,10 +40,11 @@
                 hostnameDisplay: string,
                 known: boolean,
                 online: boolean,
+                date: string,
                 uptodate: boolean
             }
         ],
-        age: string,
+        date: string,
         maxPlayers: integer,
         countPlayers: integer,
         countServers: integer
