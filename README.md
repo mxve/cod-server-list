@@ -39,7 +39,8 @@
                 mapDisplay: string,
                 hostnameDisplay: string,
                 known: boolean,
-                online: boolean
+                online: boolean,
+                uptodate: boolean
             }
         ],
         age: string,
