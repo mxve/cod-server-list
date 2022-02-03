@@ -44,7 +44,7 @@
         <div id="stats">
             Servers: <%= api.countServers %> | 
             Players: <%= api.countPlayers %>/<%= api.maxPlayers %> | 
-            Data age: <%= api.age %>
+            Data age: <%= Date.now() - api.date %>ms
         </div>
         <div id="footer">
             Made by mxve#3406<br>

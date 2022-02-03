@@ -81,11 +81,9 @@ async function getData(game = 'all', search = undefined) {
         servers.push(server)
     }
  
-    let age = `${Date.now() - apiCache.date}ms`
-
     return {
         servers,
-        age,
+        date: apiCache.date,
         maxPlayers,
         countPlayers,
         countServers
