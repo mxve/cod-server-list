@@ -137,8 +137,10 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
         req.params.game === 't4sp') {
 
         servers = await getData(req.params.game, req.query.s)
+        servers.game = req.params.game
     } else {
         servers = await getData('all', req.query.s)
+        servers.game = 'all'
     }
 
     if (req.url.endsWith('json')) {
