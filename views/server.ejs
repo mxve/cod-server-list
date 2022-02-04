@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        
-        <title>
-            <% if (server.known === true) {
+
+<head>
+
+    <title>
+        <% if (server.known === true) {
                     __append(server.hostnameDisplay)
                 } else {
                     __append('Unknown server')
                 }
             %>
-        </title>
-        <%- include('head') %>
-    </head>
-    <body>
-        <div id="search-container">
-            <div id="search">
-                <form class="search" method="get" action="/">
-                    <input size="24" type="text" placeholder="Search" value="" name="s">
-                </form>
-            </div>
+    </title>
+    <%- include('head') %>
+</head>
+
+<body>
+    <div id="search-container">
+        <div id="search">
+            <form class="search" method="get" action="/">
+                <input size="24" type="text" placeholder="Search" value="" name="s">
+            </form>
         </div>
-        <%- include('header') %>
-        <% if (server.known === true) { %>
-        <div id="server-container">
-            <a href="/server/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>"> 
-                <%
+    </div>
+    <%- include('header') %>
+    <% if (server.known === true) { %>
+    <div id="server-container">
+        <a href="/server/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>">
+            <%
                     if (!server.uptodate) {
                         __append(`<abbr title="This server is running version ${server.revision}, latest is ${config.latestRevision}" class="outdated">`)
                     }
                 %>
-                <img src="/img/<%= server.game %>.jpg" />
-                <span class="hostname"><%= server.hostnameDisplay %></span>
-                <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
-                <span class="gametype"><%= server.gametypeDisplay %></span>
-                <span class="map"><%= server.mapDisplay %></span>
-                <%
+            <img src="/img/<%= server.game %>.jpg" />
+            <span class="hostname"><%= server.hostnameDisplay %></span>
+            <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
+            <span class="gametype"><%= server.gametypeDisplay %></span>
+            <span class="map"><%= server.mapDisplay %></span>
+            <%
                     if (!server.uptodate) {
                         __append(`</abbr>`)
                     }
                 %>
-            </a>
-        </div>
-        <div id="server-details">
-            <%
+        </a>
+    </div>
+    <div id="server-details">
+        <%
                 __append(`<span onClick="copy()" class="connect">connect ${server.ip}:${server.port}</span>
                     `)
 
@@ -53,16 +55,16 @@
                 if (server.players.length > 0) {
             %>
 
-            <div id="players">
-                <div class="player header">
-                    <span class="username">
-                        Username
-                    </span>
-                    <span class="ping">
-                        Ping
-                    </span>
-                </div>
-                <%
+        <div id="players">
+            <div class="player header">
+                <span class="username">
+                    Username
+                </span>
+                <span class="ping">
+                    Ping
+                </span>
+            </div>
+            <%
                     for (player of server.players) {
                         __append(`
                                     <div class="player">
@@ -77,23 +79,24 @@
                     }
                     }
                 %>
-            </div>
         </div>
-        <% } else { %>
+    </div>
+    <% } else { %>
 
-            <div id="server-error">Unknown Server</div>
-        <% } %>
-        <div id="footer">
-            Made by mxve#3406<br>
-            This website is in no way endorsed by or affiliated with Plutonium, Activision, Treyarch, Infinity Ward or any other copyright holder whos assets and/or trademarks may have been used.<br>
-            Server data provided by <a href="https://plutonium.pw/api/servers">Plutonium server API</a>. Takedown and unlisting requests: hi@mxve.de<br>
-            <a href="https://github.com/mxve/plutonium-server-list">Source Code</a>
-        </div>
-        <script>
-            function copy() {
-                navigator.clipboard.writeText("connect <%= server.ip %>:<%= server.port %>");
-                alert("Copied!");
-            }
-        </script>
-    </body>
+    <div id="server-error">Unknown Server</div>
+    <% } %>
+    <div id="footer">
+        Made by mxve#3406<br>
+        This website is in no way endorsed by or affiliated with Plutonium, Activision, Treyarch, Infinity Ward or any other copyright holder whos assets and/or trademarks may have been used.<br>
+        Server data provided by <a href="https://plutonium.pw/api/servers">Plutonium server API</a>. Takedown and unlisting requests: hi@mxve.de<br>
+        <a href="https://github.com/mxve/plutonium-server-list">Source Code</a>
+    </div>
+    <script>
+        function copy() {
+            navigator.clipboard.writeText("connect <%= server.ip %>:<%= server.port %>");
+            alert("Copied!");
+        }
+    </script>
+</body>
+
 </html>

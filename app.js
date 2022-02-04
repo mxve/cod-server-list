@@ -66,14 +66,14 @@ async function getData(game = 'all', search = undefined) {
     for (server of api.json) {
         if (search !== undefined) {
             if (!server.hostname.toLowerCase().includes(search.toLowerCase()) &&
-            server.ip != search &&
-            server.port != search &&
-            server.maxplayers != search &&
-            server.players.length != search &&
-            !server.map.toLowerCase().includes(search.toLowerCase()) &&
-            !server.mapDisplay.toLowerCase().includes(search.toLowerCase()) &&
-            !server.gametype.toLowerCase().includes(search.toLowerCase()) &&
-            !server.gametypeDisplay.toLowerCase().includes(search.toLowerCase())) {
+                server.ip != search &&
+                server.port != search &&
+                server.maxplayers != search &&
+                server.players.length != search &&
+                !server.map.toLowerCase().includes(search.toLowerCase()) &&
+                !server.mapDisplay.toLowerCase().includes(search.toLowerCase()) &&
+                !server.gametype.toLowerCase().includes(search.toLowerCase()) &&
+                !server.gametypeDisplay.toLowerCase().includes(search.toLowerCase())) {
                 continue
             }
         }
@@ -91,7 +91,7 @@ async function getData(game = 'all', search = undefined) {
 
         servers.push(server)
     }
- 
+
     return {
         servers,
         date: apiCache.date,
@@ -105,7 +105,7 @@ async function getServer(ip, port) {
     if (apiCache === undefined) {
         apiCache = await getApiData()
     }
-    
+
     const json = apiCache.json
 
     let server = { ip, port, online: false, known: false }
@@ -132,7 +132,7 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
 
     if (req.params.game === 'iw5mp' ||
         req.params.game === 't6mp' ||
-        req.params.game === 't6zm' || 
+        req.params.game === 't6zm' ||
         req.params.game === 't4mp' ||
         req.params.game === 't4sp') {
 

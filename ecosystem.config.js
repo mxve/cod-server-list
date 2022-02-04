@@ -1,7 +1,6 @@
 module.exports = {
-    apps : [{
-      name   : "pluto-server-list",
-      script : "./app.js"
+    apps: [{
+        name: "pluto-server-list",
+        script: "./app.js"
     }]
-  }
-  
+}

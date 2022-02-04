@@ -18,12 +18,12 @@
     --t4mp-bg: rgba(100, 149, 237, 0.15);
     --t4sp: var(--t4mp);
     --t4sp-bg: var(--t4mp-bg);
-}  
+}
 
 * {
     margin: 0;
     padding: 0;
-    
+
 }
 
 html {
@@ -248,7 +248,7 @@ h1 {
     background-color: var(--t4mp-bg);
 }
 
-.t4sp  {
+.t4sp {
     border-bottom: 1px var(--t4sp) solid;
 }
 
@@ -297,11 +297,11 @@ h1 {
         width: 95%;
         max-width: 430px;
     }
-    
+
     .server.header {
         display: none;
     }
-    
+
     .server img {
         display: none;
     }
