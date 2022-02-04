@@ -1,8 +1,8 @@
 <%
 let title
 if (server.known) {
-    title = server.hostnameDisplay
-    description = `View current players & server status of ${server.hostnameDisplay}`
+    title = `${server.hostnameDisplay} [${server.players.length}/${server.maxplayers}]`
+    description = `View current players [${server.players.length}/${server.maxplayers}] & server status of ${server.hostnameDisplay}`
 } else {
     title = "Unknown server"
     description = `Unknown or offline server`
