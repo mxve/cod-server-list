@@ -1,30 +1,46 @@
+<%
+let title
+let description
+switch (api.game) {
+    case 'iw5mp':
+        title = "IW5 Servers"
+        description = "View Plutonium IW5 Servers & Players online"
+        break
+    case 't6mp':
+        title = "T6 Servers"
+        description = "View Plutonium T6 Servers & Players online"
+        break
+    case 't6zm':
+        title = "T6 Zombies Servers"
+        description = "View Plutonium T6 Zombies Servers & Players online"
+        break
+    case 't4mp':
+        title = "T4 Servers"
+        description = "View Plutonium T4 Servers & Players online"
+        break
+    case 't4sp':
+        title = "T4 Zombies Servers"
+        description = "View Plutonium T4 Zombies Servers & Players online"
+        break
+    default:
+        title = "Plutonium Server List"
+        description = "View Plutonium Servers & Players online | IW5, T6, T6 Zombies, T4 and T4 Zombies"
+
+}
+%>
+
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>
-        <%
-        switch (api.game) {
-            case 'iw5mp':
-                __append("IW5 Servers")
-                break
-            case 't6mp':
-                __append("T6 Servers")
-                break
-            case 't6zm':
-                __append("T6 Zombies Servers")
-                break
-            case 't4mp':
-                __append("T4 Servers")
-                break
-            case 't4sp':
-                __append("T4 Zombies Servers")
-                break
-            default:
-                __append("Plutonium Server List")
-        }
-        %>
-    </title>
+    <title><%= title %></title>
+    <meta name="title" content="<%= title %>">
+    <meta name="description" content="<%= description %>">
+    <meta property="og:title" content="<%= title %>">
+    <meta property="og:site_name" content="<%= title %>">
+    <meta property="og:url" content="<%= config.url %>/<%= api.game %>">
+    <meta property="og:description" content="<%= description %>">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="<%= config.url %>/img/mxve.png">
     <%- include('head') %>
 </head>
 

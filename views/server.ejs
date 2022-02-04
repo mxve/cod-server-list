@@ -1,16 +1,27 @@
+<%
+let title
+if (server.known) {
+    title = server.hostnameDisplay
+    description = `View current players & server status of ${server.hostnameDisplay}`
+} else {
+    title = "Unknown server"
+    description = `Unknown or offline server`
+}
+%>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-
-    <title>
-        <% if (server.known === true) {
-                    __append(server.hostnameDisplay)
-                } else {
-                    __append('Unknown server')
-                }
-            %>
-    </title>
+    <title><%= title %></title>
+    <meta name="title" content="<%= title %>">
+    <meta name="description" content="<%= description %>">
+    <meta property="og:title" content="<%= title %>">
+    <meta property="og:site_name" content="<%= title %>">
+    <meta property="og:url" content="<%= config.url %>/server/<%= server.ip %>/<%= server.port %>">
+    <meta property="og:description" content="<%= description %>">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="<%= config.url %>/img/mxve.png">
     <%- include('head') %>
 </head>
 
