@@ -18,6 +18,9 @@ scheduler.addSimpleIntervalJob(job)
 
 async function getApiData() {
     const api = await got('https://plutonium.pw/api/servers')
+    let version = await got('https://cdn.plutonium.pw/updater/prod/info.json')
+    version = JSON.parse(version.body).revision
+    
     const json = JSON.parse(api.body)
     json.sort((a, b) => {
         return b.players.length - a.players.length
@@ -36,7 +39,7 @@ async function getApiData() {
         server.known = true
         server.date = Date.now()
 
-        if (server.revision >= config.latestRevision) {
+        if (server.revision >= version) {
             server.uptodate = true
         } else {
             server.uptodate = false
