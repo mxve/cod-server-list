@@ -50,7 +50,8 @@ async function getApiData() {
 
     return {
         json: servers,
-        date: Date.now()
+        date: Date.now(),
+        revision: version
     }
 }
 
@@ -149,7 +150,7 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
     if (req.url.endsWith('json')) {
         res.json(servers)
     } else {
-        res.render('servers', { api: servers, config })
+        res.render('servers', { api: servers, config, revision: apiCache.revision })
     }
 })
 
@@ -159,7 +160,7 @@ app.get(['/server/:ip/:port', '/server/:ip/:port/json'], async (req, res) => {
     if (req.url.endsWith('json')) {
         res.json(server)
     } else {
-        res.render('server', { server, config })
+        res.render('server', { server, config, revision: apiCache.revision })
     }
 })
 

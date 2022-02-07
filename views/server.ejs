@@ -39,7 +39,7 @@ if (server.known) {
         <a href="/server/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>">
             <%
                     if (!server.uptodate) {
-                        __append(`<abbr title="This server is running version ${server.revision}, latest is ${config.latestRevision}" class="outdated">`)
+                        __append(`<abbr title="This server is running version ${server.revision}, latest is ${revision}" class="outdated">`)
                     }
                 %>
             <img src="/img/<%= server.game %>.jpg" />
@@ -60,7 +60,7 @@ if (server.known) {
                     `)
 
                 if (!server.uptodate) {
-                    __append(`<br>This server is out of date!<br>Server version: ${server.revision}<br>Latest version: ${config.latestRevision}`)
+                    __append(`<br>This server is out of date!<br>Server version: ${server.revision}<br>Latest version: ${revision}`)
                 }
 
                 if (server.players.length > 0) {
