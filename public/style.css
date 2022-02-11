@@ -96,6 +96,11 @@ h1 {
     border-bottom: 1px var(--foreground-highlight) dotted;
 }
 
+#banner {
+    text-align: center;
+    margin-top: 20px;
+}
+
 #footer {
     width: 100%;
     text-align: center;
@@ -113,7 +118,7 @@ h1 {
     margin: auto;
     display: block;
     width: 960px;
-    margin-top: 48px;
+    margin-top: 20px;
 }
 
 #server-details {
