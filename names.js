@@ -55,6 +55,8 @@ function gametypeDisplay(gametype, game = undefined) {
             return 'Grief'
         case 'sas':
             return 'Sticks & Stones'
+        case 'twar':
+            return 'War'
         default:
             return gametype
     }
@@ -268,6 +270,14 @@ function mapDisplay(map) {
             return 'Meme Gallery'
         case 'mp_park':
             return 'Liberation'
+        case 'mp_firingrange':
+            return 'Firing Range'
+        case 'mp_killhouse':
+            return 'Killhouse'
+        case 'mp_cbble':
+            return 'Cobblestone'
+        case 'mp_crosswalk_ss':
+            return 'Intersection'
         default:
             return map
     }
