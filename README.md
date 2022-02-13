@@ -41,7 +41,8 @@
                 known: boolean,
                 online: boolean,
                 date: string,
-                uptodate: boolean
+                uptodate: boolean,
+                country: ISO 3166-1 alpha-2
             }
         ],
         date: string,
