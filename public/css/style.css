@@ -184,6 +184,13 @@ h1 {
     text-decoration: none;
 }
 
+.server .hostname .fp {
+    width: 24px;
+    top: -2px;
+    margin-right: 8px;
+    filter: saturate(85%) brightness(0.9);
+}
+
 .server .outdated {
     color: var(--foreground-warn);
     text-decoration: none;
@@ -200,7 +207,7 @@ h1 {
     display: inline-block;
     top: 2px;
     left: 2px;
-    margin-right: 8px;
+    margin-right: 3px;
 }
 
 .server .hostname {

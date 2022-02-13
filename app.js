@@ -1,7 +1,9 @@
 const got = require('got')
 const sanitizer = require('sanitizer')
 const express = require('express')
+const geoip = require('geoip-lite')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
+
 
 const names = require('./names.js')
 const slugify = require('./slugify.js')
@@ -14,7 +16,6 @@ const scheduler = new ToadScheduler()
 const task = new Task('simple task', async () => { apiCache = await getApiData() })
 const job = new SimpleIntervalJob({ seconds: 10, }, task)
 scheduler.addSimpleIntervalJob(job)
-
 
 async function getApiData() {
     const api = await got('https://plutonium.pw/api/servers')
@@ -43,6 +44,12 @@ async function getApiData() {
             server.uptodate = true
         } else {
             server.uptodate = false
+        }
+
+        try {
+            server.country = geoip.lookup(server.ip).country.toLowerCase()
+        } catch {
+            server.country = 'lgbt'
         }
 
         servers.push(server)

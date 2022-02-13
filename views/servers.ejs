@@ -74,12 +74,16 @@ switch (api.game) {
         %>
         <a href="/server/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>">
             <%
-                        if (!server.uptodate) {
-                            __append(`<abbr title="This server is running version ${server.revision}, latest is ${revision}" class="outdated">`)
-                        }
-                    %>
-            <img src="/img/<%= server.game %>.jpg" />
-            <span class="hostname"><%= server.hostnameDisplay %></span>
+                if (!server.uptodate) {
+                    __append(`<abbr title="This server is running version ${server.revision}, latest is ${revision}" class="outdated">`)
+                }
+
+                if (api.game == "all") {
+                    __append(`<img src="/img/${server.game}.jpg" />`)
+                }
+            %>
+
+            <span class="hostname"><span class="fp fp <%= server.country %>"></span><%= server.hostnameDisplay %></span>
             <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
             <span class="gametype"><%= server.gametypeDisplay %></span>
             <span class="map"><%= server.mapDisplay %></span>
