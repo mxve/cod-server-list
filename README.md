@@ -56,3 +56,4 @@
 
 ## Credits
 - [NodeBB](https://github.com/NodeBB/NodeBB) authors for [slugify.js](slugify.js) | [Licensed under GPLv3](https://github.com/NodeBB/NodeBB/blob/master/LICENSE)
+- [Flagpack](https://github.com/jackiboy/flagpack) authors for [public/flags](public/flags), [public/css/flagpack.css](public/css/flagpack.css) | 
