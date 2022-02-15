@@ -34,7 +34,7 @@ async function getApiData() {
         }
 
         server.gametypeDisplay = names.gametype(server.gametype, server.game)
-        server.mapDisplay = names.map(server.map)
+        server.mapDisplay = names.map(server.map, server.game)
         server.hostnameDisplay = sanitizer.escape(server.hostname.replace(/\^\d/g, ''))
         server.online = true
         server.known = true

@@ -67,7 +67,7 @@ function gametypeDisplay(gametype, game = undefined) {
 // I want to apologize, the following maps aren't in
 // any specific order at all.
 
-function mapDisplay(map) {
+function mapDisplay(map, game = undefined) {
     switch (map) {
         case 'mp_mogadishu':
             return 'Bakaara'
@@ -86,6 +86,12 @@ function mapDisplay(map) {
         case 'mp_studio':
             return 'Studio'
         case 'mp_village':
+            switch (game) {
+                case 't6mp':
+                    return 'Standoff'
+                case 'iw5mp':
+                    return 'Village'
+            }
             return 'Standoff'
         case 'mp_slums':
             return 'Slums'
