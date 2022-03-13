@@ -1,5 +1,4 @@
 const got = require('got')
-const sanitizer = require('sanitizer')
 const express = require('express')
 const geoip = require('geoip-lite')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
@@ -35,7 +34,8 @@ async function getApiData() {
 
         server.gametypeDisplay = names.gametype(server.gametype, server.game)
         server.mapDisplay = names.map(server.map, server.game)
-        server.hostnameDisplay = sanitizer.escape(server.hostname.replace(/\^\d/g, ''))
+        server.hostnameDisplay = server.hostname.replace(/\^\d/g, '')
+
         server.online = true
         server.known = true
         server.date = Date.now()
