@@ -13,7 +13,7 @@ let apiCache
 const scheduler = new ToadScheduler()
 
 const task = new Task('simple task', async () => { apiCache = await getApiData() })
-const job = new SimpleIntervalJob({ seconds: 10, }, task)
+const job = new SimpleIntervalJob({ seconds: config.api_query_interval, }, task)
 scheduler.addSimpleIntervalJob(job)
 
 async function getApiData() {
