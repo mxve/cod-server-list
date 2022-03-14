@@ -2,7 +2,7 @@
 let title
 if (server.known) {
     title = `${server.hostnameDisplay} [${server.players.length}/${server.maxplayers}]`
-    description = `View current players [${server.players.length}/${server.maxplayers}] & server status of ${server.hostnameDisplay}`
+    description = `View player count, map and gamemode of ${server.hostnameDisplay}`
 } else {
     title = "Unknown server"
     description = `Unknown or offline server`
@@ -17,11 +17,21 @@ if (server.known) {
     <meta name="title" content="<%= title %>">
     <meta name="description" content="<%= description %>">
     <meta property="og:title" content="<%= title %>">
-    <meta property="og:site_name" content="<%= title %>">
+    <meta property="og:site_name" content="pluto.mxve.de">
     <meta property="og:url" content="<%= config.url %>/server/<%= server.ip %>/<%= server.port %>">
-    <meta property="og:description" content="<%= description %>">
+    <meta property="og:description" content=" ">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="<%= config.url %>/img/mxve.png">
+    <meta property="og:image" content="<%= config.url %>/server/<%= server.ip %>/<%= server.port %>/png">
+    <meta property="og:image:url" content="<%= config.url %>/server/<%= server.ip %>/<%= server.port %>/png">
+    <meta property="og:image:secure_url" content="<%= config.url %>/server/<%= server.ip %>/<%= server.port %>/png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="<%= config.url %>/server/<%= server.ip %>/<%= server.port %>">
+    <meta property="twitter:title" content="<%= title %>">
+    <meta property="twitter:description" content=" ">
+    <meta property="twitter:image" content="<%= config.url %>/server/<%= server.ip %>/<%= server.port %>/png">
+    <link rel="image_src" href="<%= config.url %>/server/<%= server.ip %>/<%= server.port %>/png" />
+    <link as="image" crossorigin="anonymous" href="<%= config.url %>/server/<%= server.ip %>/<%= server.port %>/png" rel="preload" />
     <%- include('head') %>
 </head>
 

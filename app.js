@@ -2,15 +2,24 @@ const got = require('got')
 const express = require('express')
 const geoip = require('geoip-lite')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
+const jimp = require('jimp')
+const findRemoveSync = require('find-remove')
 
 
 const names = require('./names.js')
 const slugify = require('./slugify.js')
 const config = require('./config.js')
+const images = require('./images.js')
 
 let apiCache
 
 const scheduler = new ToadScheduler()
+
+const clear_image_cache_task = new Task('simple task', () => {
+    findRemoveSync('data/img/server_previews/generated', { age: { seconds: config.image_cache_max_age }, extensions: '.png' })
+})
+const clear_image_cache_job = new SimpleIntervalJob({ seconds: 1, }, clear_image_cache_task)
+scheduler.addSimpleIntervalJob(clear_image_cache_job)
 
 const task = new Task('simple task', async () => { apiCache = await getApiData() })
 const job = new SimpleIntervalJob({ seconds: config.api_query_interval, }, task)
@@ -20,7 +29,7 @@ async function getApiData() {
     const api = await got('https://plutonium.pw/api/servers')
     let version = await got('https://cdn.plutonium.pw/updater/prod/info.json')
     version = JSON.parse(version.body).revision
-    
+
     const json = JSON.parse(api.body)
     json.sort((a, b) => {
         return b.players.length - a.players.length
@@ -169,6 +178,17 @@ app.get(['/server/:ip/:port', '/server/:ip/:port/json'], async (req, res) => {
     } else {
         res.render('server', { server, config, revision: apiCache.revision })
     }
+})
+
+app.get('/server/:ip/:port/png', async (req, res) => {
+    let image = await images.server_preview(await getServer(req.params.ip, req.params.port))
+    image.getBuffer(jimp.MIME_PNG, (err, buffer) => {
+        res.writeHead(200, {
+            'Content-Type': 'image/png',
+            'Content-Length': buffer.length
+        })
+        res.end(buffer)
+    })
 })
 
 app.listen(1998)
