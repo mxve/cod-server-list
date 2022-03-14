@@ -53,7 +53,8 @@
     ```
 - ```/server/<ip>/<port>/json```
   - returns the matching server, see servers array above for keys
-
+- ```/server/<ip>/<port>/png```
+  - Preview image with server details
 
 ## Credits
 - [NodeBB](https://github.com/NodeBB/NodeBB) authors for [slugify.js](slugify.js) | [Licensed under GPLv3](https://github.com/NodeBB/NodeBB/blob/master/LICENSE)
