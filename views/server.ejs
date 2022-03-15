@@ -108,6 +108,9 @@ page_url = `${config.url}/server/${server.ip}/${server.port}`
         <h3>Server banner</h3>
         <p>
             <img id="banner-png" src="<%= preview_image %>"><br>
+
+            <label for="url">Image link</label>
+            <input onClick="copy(getElementById('url').value)" class="text-input" id="url" size="64" type="text" value="<%= preview_image %>" readonly>
             <label for="markdown">Markdown</label>
             <input onClick="copy(getElementById('markdown').value)" class="text-input" id="markdown" size="64" type="text" value="[![<%= server.hostnameDisplay %>](<%= preview_image %>)](<%= page_url %>)" readonly>
             <label for="bbcode">BBCode</label>
