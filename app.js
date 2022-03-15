@@ -24,13 +24,13 @@ const clear_image_cache_task = new Task('clear_images', async () => {
             const preview_path = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
             const exists = fs.existsSync(preview_path)
             if (server.changed || !exists) {
-                if (exists) {
-                    const stats = fs.statSync(preview_path)
-                    if ((new Date().getTime() - stats.mtime.getTime()) > (1000 * config.image_cache_max_age)) {
-                        console.log(`skipping ${server.hostname}`)
-                        continue
-                    }
-                }
+                // if (exists) {
+                //     const stats = fs.statSync(preview_path)
+                //     if ((new Date().getTime() - stats.mtime.getTime()) > (1000 * config.image_cache_max_age)) {
+                //         console.log(`skipping ${server.hostname}`)
+                //         continue
+                //     }
+                // }
                 console.log(`updating preview for ${server.hostname}`)
                 await images.generate_server_preview(server)
             }
@@ -84,6 +84,7 @@ async function getApiData() {
 
         let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
 
+        server.changed = true
         if (prev_server.length > 0) {
             if (prev_server[0].players.length == server.players.length &&
                 prev_server[0].map == server.map &&
@@ -91,11 +92,7 @@ async function getApiData() {
                 prev_server[0].hostname == server.hostname &&
                 prev_server[0].maxplayers == server.maxplayers) {
                 server.changed = false
-            } else {
-                server.changed = true
             }
-        } else {
-            server.changed = true
         }
 
         servers.push(server)
