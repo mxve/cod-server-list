@@ -68,14 +68,13 @@ h1 {
     margin-top: 36px;
 }
 
-#search input {
+.text-input {
     background-color: var(--background-highlight);
     border: 2px var(--background-highlight2) solid;
     padding: 4px;
     border-radius: 4px;
     color: var(--foreground);
     outline: none;
-    width: 200px;
 }
 
 #nav {
@@ -174,6 +173,23 @@ h1 {
 #server-details .player .username {
     width: 200px;
     display: inline-block;
+}
+
+#banner {
+    margin-top: 70px;
+}
+
+#banner label {
+    display: block;
+    margin-top: 6px;
+}
+
+#banner p {
+    margin-top: 12px;
+}
+
+#banner img {
+    margin-bottom: 6px;
 }
 
 .server {
