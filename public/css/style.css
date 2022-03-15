@@ -6,7 +6,8 @@
     --foreground: rgb(230, 225, 220);
     --foreground-highlight: rgb(170, 165, 160);
     --foreground-dim: rgb(100, 100, 100);
-    --foreground-warn: rgb(255, 160, 160);
+    --foreground-danger: rgb(255, 160, 160);
+    --foreground-warn: rgb(227, 210, 154);
 
     --iw5mp: rgb(112, 154, 39);
     --iw5mp-bg: rgba(76, 161, 83, 0.15);
