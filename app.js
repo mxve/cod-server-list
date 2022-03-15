@@ -183,6 +183,12 @@ app.get(['/server/:ip/:port', '/server/:ip/:port/json'], async (req, res) => {
 app.get('/server/:ip/:port/png', async (req, res) => {
     let image = await images.server_preview(await getServer(req.params.ip, req.params.port))
     image.getBuffer(jimp.MIME_PNG, (err, buffer) => {
+        res.set({
+            'Pragma': 'no-cache',
+            'Expires': '0',
+            'Surrogate-Control': 'no-store',
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate'
+        })
         res.writeHead(200, {
             'Content-Type': 'image/png',
             'Content-Length': buffer.length

@@ -7,10 +7,8 @@ async function server_preview(server) {
     try {
         fs.mkdirSync("data/img/server_previews/generated/", { recursive: true })
         if (fs.existsSync(filepath)) {
-            console.log('file')
             image = jimp.read(filepath)
         } else {
-            console.log('gen')
             const title_font = await jimp.loadFont(`data/fonts/${server.game}.fnt`)
             const font = await jimp.loadFont(`data/fonts/medium.fnt`)
             image = await jimp.read('data/img/server_previews/background.png')
