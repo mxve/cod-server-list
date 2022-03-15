@@ -84,14 +84,14 @@ async function getApiData() {
 
         let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
 
-        server.changed = true
+        server.changed = false
         if (prev_server.length > 0) {
-            if (prev_server[0].players.length == server.players.length &&
-                prev_server[0].map == server.map &&
-                prev_server[0].gametype == server.gametype &&
-                prev_server[0].hostname == server.hostname &&
-                prev_server[0].maxplayers == server.maxplayers) {
-                server.changed = false
+            if (prev_server[0].players.length != server.players.length ||
+                prev_server[0].map != server.map ||
+                prev_server[0].gametype != server.gametype ||
+                prev_server[0].hostname != server.hostname ||
+                prev_server[0].maxplayers != server.maxplayers) {
+                server.changed = true
             }
         }
 
