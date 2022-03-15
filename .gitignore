@@ -1,3 +1,4 @@
 node_modules
 config.js
 .vscode
+data/img/server_previews/generated/*.png

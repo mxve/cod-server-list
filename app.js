@@ -15,15 +15,15 @@ let apiCache
 
 const scheduler = new ToadScheduler()
 
-const clear_image_cache_task = new Task('simple task', () => {
+const clear_image_cache_task = new Task('clear_images', () => {
     findRemoveSync('data/img/server_previews/generated', { age: { seconds: config.image_cache_max_age }, extensions: '.png' })
 })
 const clear_image_cache_job = new SimpleIntervalJob({ seconds: 1, }, clear_image_cache_task)
 scheduler.addSimpleIntervalJob(clear_image_cache_job)
 
-const task = new Task('simple task', async () => { apiCache = await getApiData() })
-const job = new SimpleIntervalJob({ seconds: config.api_query_interval, }, task)
-scheduler.addSimpleIntervalJob(job)
+const update_api_data_task = new Task('update_api_data', async () => { apiCache = await getApiData() })
+const update_api_data_job = new SimpleIntervalJob({ seconds: config.api_query_interval, }, update_api_data_task)
+scheduler.addSimpleIntervalJob(update_api_data_job)
 
 async function getApiData() {
     const api = await got('https://plutonium.pw/api/servers')
