@@ -3,7 +3,7 @@ const express = require('express')
 const geoip = require('geoip-lite')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 const jimp = require('jimp')
-const findRemoveSync = require('find-remove')
+const fs = require('fs')
 
 
 const names = require('./names.js')
@@ -15,8 +15,28 @@ let apiCache
 
 const scheduler = new ToadScheduler()
 
-const clear_image_cache_task = new Task('clear_images', () => {
-    findRemoveSync('data/img/server_previews/generated', { age: { seconds: config.image_cache_max_age }, extensions: '.png' })
+let previews_done = true;
+const clear_image_cache_task = new Task('clear_images', async () => {
+    if (previews_done) {
+        previews_done = false
+        let data = await getData()
+        for (server of data.servers) {
+            const preview_path = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
+            const exists = fs.existsSync(preview_path)
+            if (server.changed || !exists) {
+                if (exists) {
+                    const stats = fs.statSync(preview_path)
+                    if ((new Date().getTime() - stats.mtime.getTime()) > (1000 * config.image_cache_max_age)) {
+                        console.log(`skipping ${server.hostname}`)
+                        continue
+                    }
+                }
+                console.log(`updating preview for ${server.hostname}`)
+                await images.generate_server_preview(server)
+            }
+        }
+        previews_done = true
+    }
 })
 const clear_image_cache_job = new SimpleIntervalJob({ seconds: 1, }, clear_image_cache_task)
 scheduler.addSimpleIntervalJob(clear_image_cache_job)
@@ -25,6 +45,7 @@ const update_api_data_task = new Task('update_api_data', async () => { apiCache 
 const update_api_data_job = new SimpleIntervalJob({ seconds: config.api_query_interval, }, update_api_data_task)
 scheduler.addSimpleIntervalJob(update_api_data_job)
 
+let previous_servers = []
 async function getApiData() {
     const api = await got('https://plutonium.pw/api/servers')
     let version = await got('https://cdn.plutonium.pw/updater/prod/info.json')
@@ -61,8 +82,26 @@ async function getApiData() {
             server.country = 'lgbt'
         }
 
+        let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
+
+        if (prev_server.length > 0) {
+            if (prev_server[0].players.length == server.players.length &&
+                prev_server[0].map == server.map &&
+                prev_server[0].gametype == server.gametype &&
+                prev_server[0].hostname == server.hostname &&
+                prev_server[0].maxplayers == server.maxplayers) {
+                server.changed = false
+            } else {
+                server.changed = true
+            }
+        } else {
+            server.changed = true
+        }
+
         servers.push(server)
     }
+
+    previous_servers = servers
 
     return {
         json: servers,
@@ -101,6 +140,7 @@ async function getData(game = 'all', search = undefined) {
         if (game !== 'all' && server.game != game) {
             continue
         }
+
 
         maxPlayers += server.maxplayers
         countPlayers += server.players.length
@@ -181,7 +221,7 @@ app.get(['/server/:ip/:port', '/server/:ip/:port/json'], async (req, res) => {
 })
 
 app.get('/server/:ip/:port/png', async (req, res) => {
-    let image = await images.server_preview(await getServer(req.params.ip, req.params.port))
+    let image = await images.get_server_preview(await getServer(req.params.ip, req.params.port))
     image.getBuffer(jimp.MIME_PNG, (err, buffer) => {
         res.set({
             'Pragma': 'no-cache',
