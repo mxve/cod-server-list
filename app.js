@@ -31,8 +31,7 @@ const clear_image_cache_task = new Task('clear_images', async () => {
                 //         continue
                 //     }
                 // }
-                console.log(`updating preview for ${server.hostname}`)
-                await images.generate_server_preview(server)
+                await images.generate_server_preview(server, false)
             }
         }
         previews_done = true
@@ -218,7 +217,8 @@ app.get(['/server/:ip/:port', '/server/:ip/:port/json'], async (req, res) => {
 })
 
 app.get('/server/:ip/:port/png', async (req, res) => {
-    let image = await images.get_server_preview(await getServer(req.params.ip, req.params.port))
+    const server = await getServer(req.params.ip, req.params.port)
+    let image = await images.get_server_preview(server)
     image.getBuffer(jimp.MIME_PNG, (err, buffer) => {
         res.set({
             'Pragma': 'no-cache',

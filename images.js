@@ -1,11 +1,17 @@
 const fs = require('fs')
 const jimp = require('jimp')
 
-async function generate_server_preview(server) {
+async function generate_server_preview(server, create = false) {
     const filepath = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
+
+    const filepathexists = fs.existsSync(filepath)
+    if ((!filepathexists && !create) || (filepathexists && create)) {
+        return
+    }
+
     let image = await jimp.read('data/img/server_previews/error.png')
+
     try {
-        fs.mkdirSync("data/img/server_previews/generated/", { recursive: true })
         const title_font = await jimp.loadFont(`data/fonts/${server.game}.fnt`)
         const font = await jimp.loadFont(`data/fonts/medium.fnt`)
         image = await jimp.read('data/img/server_previews/background.png')
@@ -20,16 +26,40 @@ async function generate_server_preview(server) {
     } catch (error) {
         console.log(error)
     }
-    image.write(filepath)
+    await image.write(filepath)
 }
 
-async function get_server_preview(server) {
+async function _get_server_preview(server) {
     const filepath = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
     try {
+        if (!fs.existsSync(filepath)) {
+            await generate_server_preview(server, create = true)
+        }
         return await jimp.read(filepath)
     } catch (error) {
-        console.log(error)
+        return false
     }
+}
+
+function timer(ms) { return new Promise(res => setTimeout(res, ms)); }
+async function get_server_preview(server) {
+    let server_preview = await _get_server_preview(server)
+
+    // retry getting server preview, maybe the fs is somewhat slow
+    if (server_preview === false) {
+        for (let i = 0; i < 10; i++) {
+            await timer(10);
+            server_preview = await _get_server_preview(server)
+            if (server_preview != false) {
+                break
+            }
+        }
+    }
+
+    if (server_preview !== false) {
+        return server_preview
+    }
+
     return await jimp.read('data/img/server_previews/error.png')
 }
 
