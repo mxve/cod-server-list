@@ -29,40 +29,42 @@ switch (api.game) {
 }
 %>
 
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+    <html>
 
-<head>
-    <title><%= title %></title>
-    <meta name="title" content="<%= title %>">
-    <meta name="description" content="<%= description %>">
-    <meta property="og:title" content="<%= title %>">
-    <meta property="og:site_name" content="<%= title %>">
-    <meta property="og:url" content="<%= config.url %>/<%= api.game %>">
-    <meta property="og:description" content="<%= description %>">
-    <meta property="og:type" content="article">
-    <meta property="og:image" content="<%= config.url %>/img/mxve.png">
-    <%- include('head') %>
-</head>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+        <meta name="title" content="<%= title %>">
+        <meta name="description" content="<%= description %>">
+        <meta property="og:title" content="<%= title %>">
+        <meta property="og:site_name" content="<%= title %>">
+        <meta property="og:url" content="<%= config.url %>/<%= api.game %>">
+        <meta property="og:description" content="<%= description %>">
+        <meta property="og:type" content="article">
+        <meta property="og:image" content="<%= config.url %>/img/mxve.png">
+        <%- include('head') %>
+    </head>
 
-<body>
-    <div id="search-container">
-        <div id="search">
-            <form class="search" method="get">
-                <input class="text-input" size="24" type="text" placeholder="Search" value="" name="s">
-            </form>
+    <body>
+        <div id="search-container">
+            <div id="search">
+                <form class="search" method="get">
+                    <input class="text-input" size="24" type="text" placeholder="Search" value="" name="s">
+                </form>
+            </div>
         </div>
-    </div>
-    <%- include('header') %>
-    <div id="server-container">
-        <div class="server header">
-            <img src="/img/mxve.png" />
-            <span class="hostname">Name</span>
-            <span class="slots">Players</span>
-            <span class="gametype">Gamemode</span>
-            <span class="map">Map</span>
-        </div>
-        <%
+        <%- include('header') %>
+            <div id="server-container">
+                <div class="server header">
+                    <img src="/img/mxve.png" />
+                    <span class="hostname">Name</span>
+                    <span class="slots">Players</span>
+                    <span class="gametype">Gamemode</span>
+                    <span class="map">Map</span>
+                </div>
+                <%
             for (const server of api.servers) {
                 if (server.hostnameDisplay.length > 44) {
                     server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
@@ -72,42 +74,46 @@ switch (api.game) {
                 }
 
         %>
-        <a href="/server/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>">
-            <%
+                    <a href="/server/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>">
+                        <%
                 if (!server.uptodate) {
                     __append(`<abbr title="This server is running version ${server.revision}, latest is ${revision}" class="outdated">`)
                 }
 
-                if (api.game == "all") {
+                //if (api.game == "all") {
                     __append(`<img src="/img/${server.game}.jpg" />`)
-                }
+                //}
             %>
 
-            <span class="hostname"><span class="fp fp <%= server.country %>"></span><%= server.hostnameDisplay %></span>
-            <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
-            <span class="gametype"><%= server.gametypeDisplay %></span>
-            <span class="map"><%= server.mapDisplay %></span>
-            <%
+                            <span class="hostname"><span class="fp fp <%= server.country %>"></span>
+                            <%= server.hostnameDisplay %>
+                                </span>
+                                <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
+                                <span class="gametype"><%= server.gametypeDisplay %></span>
+                                <span class="map"><%= server.mapDisplay %></span>
+                                <%
                         if (!server.uptodate) {
                             __append(`</abbr>`)
                         }
                     %>
-        </a>
-        <%
+                    </a>
+                    <%
             }
         %>
-    </div>
-    <div id="stats">
-        Servers: <%= api.countServers %> |
-        Players: <%= api.countPlayers %>/<%= api.maxPlayers %> |
-        Data age: <%= Date.now() - api.date %>ms
-    </div>
-    <div id="footer">
-        Made by mxve#3406<br>
-        This website is in no way endorsed by or affiliated with Plutonium, Activision, Treyarch, Infinity Ward or any other copyright holder whos assets and/or trademarks may have been used.<br>
-        Server data provided by <a href="https://plutonium.pw/api/servers">Plutonium server API</a>. Takedown and unlisting requests: hi@mxve.de<br>
-        <a href="https://github.com/mxve/plutonium-server-list">Source Code</a>
-    </div>
-</body>
+            </div>
+            <div id="stats">
+                Servers:
+                <%= api.countServers %> | Players:
+                    <%= api.countPlayers %>/
+                        <%= api.maxPlayers %> | Data age:
+                            <%= Date.now() - api.date %>ms
+            </div>
+            <div id="footer">
+                Made by mxve#3406<br> This website is in no way endorsed by or affiliated with Plutonium, Activision, Treyarch, Infinity Ward or any other copyright holder whos assets and/or trademarks may have been used.<br> Server data provided by
+                <a
+                    href="https://plutonium.pw/api/servers">Plutonium server API</a>. Takedown and unlisting requests: hi@mxve.de<br>
+                    <a href="https://github.com/mxve/plutonium-server-list">Source Code</a>
+            </div>
+    </body>
 
-</html>
+    </html>
