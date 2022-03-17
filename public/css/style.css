@@ -41,6 +41,10 @@ h1 {
     margin: 24px;
 }
 
+h3 {
+    margin: 20px;
+}
+
 #stats {
     position: fixed;
     right: -8px;
@@ -157,6 +161,7 @@ h1 {
     width: 260px;
     margin: auto;
     display: block;
+    margin-top: 30px;
 }
 
 #server-details .connect {
@@ -183,7 +188,6 @@ h1 {
 .player.header {
     font-weight: 800;
     border-bottom: 1px var(--background-highlight3) dotted;
-    margin-top: 24px;
     margin-bottom: 8px;
 }
 
