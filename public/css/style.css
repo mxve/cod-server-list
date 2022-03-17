@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle&family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
 :root {
     --background: rgb(24, 24, 26);
     --background-highlight: rgb(28, 28, 30);
@@ -186,7 +188,7 @@ h3 {
 }
 
 .player.header {
-    font-weight: 800;
+    font-weight: 700;
     border-bottom: 1px var(--background-highlight3) dotted;
     margin-bottom: 8px;
 }
@@ -244,7 +246,7 @@ h3 {
 }
 
 .server.header {
-    font-weight: 800;
+    font-weight: 700;
     border-bottom: 1px var(--background-highlight3) dotted;
 }
 
@@ -261,7 +263,7 @@ h3 {
     font-size: 1.1em;
     display: inline-block;
     width: 450px;
-    font-weight: 600;
+    font-weight: 700;
     max-width: 100%;
 }
 
