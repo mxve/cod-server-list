@@ -8,7 +8,6 @@
     --foreground-dim: rgb(100, 100, 100);
     --foreground-danger: rgb(255, 160, 160);
     --foreground-warn: rgb(227, 210, 154);
-
     --iw5mp: rgb(112, 154, 39);
     --iw5mp-bg: rgba(76, 161, 83, 0.15);
     --t6mp: rgb(236, 111, 20);
@@ -24,7 +23,6 @@
 * {
     margin: 0;
     padding: 0;
-
 }
 
 html {
@@ -87,13 +85,34 @@ h1 {
 #nav a {
     color: var(--foreground);
     text-decoration: none;
-    border-bottom: 1px var(--foreground) dotted;
+    border-bottom: 2px var(--foreground) dotted;
     margin: 6px;
     white-space: nowrap;
 }
 
 #nav a:hover {
-    border-bottom: 1px var(--foreground-highlight) dotted;
+    border-width: 1px;
+    padding-bottom: 1px;
+}
+
+.nav-iw5mp {
+    border-color: var(--iw5mp) !important;
+}
+
+.nav-t6mp {
+    border-color: var(--t6mp) !important;
+}
+
+.nav-t6zm {
+    border-color: var(--t6zm) !important;
+}
+
+.nav-t4mp {
+    border-color: var(--t4mp) !important;
+}
+
+.nav-t4sp {
+    border-color: var(--t4sp) !important;
 }
 
 #banner {
@@ -333,38 +352,30 @@ h1 {
         width: 95%;
         max-width: 430px;
     }
-
     .server.header {
         display: none;
     }
-
     .server img {
         display: none;
     }
-
     .server .hostname {
         display: block;
     }
-
     .server {
         margin-bottom: 14px;
     }
-
     #search-container {
         margin: auto;
         width: 95%;
         max-width: 430px;
     }
-
     #search {
         text-align: center;
         margin-top: 1em;
     }
-
     #logo {
         margin-top: 3em;
     }
-
     #stats {
         position: fixed;
         bottom: 0;
@@ -372,12 +383,10 @@ h1 {
         padding: 8px;
         max-width: 75%;
     }
-
     #banner {
         width: 75%;
         max-width: 450px;
     }
-
     #banner #banner-png {
         max-width: 100%;
     }
