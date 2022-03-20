@@ -4,7 +4,7 @@ const geoip = require('geoip-lite')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 const jimp = require('jimp')
 const fs = require('fs')
-
+const crypto = require('crypto')
 
 const names = require('./names.js')
 const slugify = require('./slugify.js')
@@ -39,6 +39,19 @@ scheduler.addSimpleIntervalJob(generate_previews_job)
 const update_api_data_task = new Task('update_api_data', async() => { apiCache = await getApiData() })
 const update_api_data_job = new SimpleIntervalJob({ seconds: config.api_query_interval, }, update_api_data_task)
 scheduler.addSimpleIntervalJob(update_api_data_job)
+
+// based on https://roytanck.com/2021/10/17/generating-short-hashes-in-php/
+function generateIdentifier(server) {
+    // generate (hopefully) unique server identifier
+    const address = `${server.ip}:${server.port}`
+    // get base64 encoding of sha256 hash of address
+    const hash = crypto.createHash('sha256').update(address).digest('base64');
+    // make hash url safe by replacing +, / & =
+    const urlsafe = hash.replaceAll('+', '-').replaceAll('/', '_').replace('=', '')
+    // take first 10 chars
+    const shortened = urlsafe.substr(0, 10)
+    return shortened
+}
 
 let previous_servers = []
 async function getApiData() {
@@ -98,6 +111,8 @@ async function getApiData() {
                 server.changed = true
             }
         }
+
+        server.identifier = generateIdentifier(server)
 
         servers.push(server)
     }
@@ -186,6 +201,23 @@ async function getServer(ip, port) {
     return server
 }
 
+async function getServerByIdentifier(identifier) {
+    if (apiCache === undefined) {
+        apiCache = await getApiData()
+    }
+
+    const json = apiCache.json
+
+    // find server in api cache
+    for (iserver of json) {
+        if (iserver.identifier == identifier) {
+            return iserver
+        }
+    }
+
+    return { identifier, online: false, known: false }
+}
+
 const app = express()
 app.disable("x-powered-by");
 app.set('view engine', 'ejs')
@@ -216,21 +248,32 @@ app.get(['/', '/:game', '/json', '/:game/json'], async(req, res) => {
     }
 })
 
-// server api
-app.get(['/server/:ip/:port/json', '/s/:ip/:port/json'], async(req, res) => {
+// server api from ip & port
+app.get('/server/:ip/:port/json', async(req, res) => {
     let server = await getServer(req.params.ip, req.params.port)
     res.json(server)
 })
 
-// server page
-app.get(['/server/:ip/:port', '/s/:ip/:port'], async(req, res) => {
+// server api from identifier
+app.get('/s/:identifier/json', async(req, res) => {
+    let server = await getServerByIdentifier(req.params.identifier)
+    res.json(server)
+})
+
+// server page from ip & port
+app.get('/server/:ip/:port', async(req, res) => {
     let server = await getServer(req.params.ip, req.params.port)
     res.render('server', { server, config, revision: apiCache.revision })
 })
 
-// server preview image
-app.get(['/server/:ip/:port/png', '/s/:ip/:port/png'], async(req, res) => {
-    const server = await getServer(req.params.ip, req.params.port)
+// server page from identifier
+app.get('/s/:identifier', async(req, res) => {
+    let server = await getServerByIdentifier(req.params.identifier)
+    res.render('server', { server, config, revision: apiCache.revision })
+})
+
+
+async function resPreviewImage(res, server) {
     let image = await images.get_server_preview(server)
 
     // return image buffer from jimp image
@@ -247,6 +290,18 @@ app.get(['/server/:ip/:port/png', '/s/:ip/:port/png'], async(req, res) => {
         })
         res.end(buffer)
     })
+}
+
+// server preview image from ip & port
+app.get('/server/:ip/:port/png', async(req, res) => {
+    const server = await getServer(req.params.ip, req.params.port)
+    resPreviewImage(res, server)
+})
+
+// server preview image from identifier
+app.get('/s/:identifier/png', async(req, res) => {
+    const server = await getServerByIdentifier(req.params.identifier)
+    resPreviewImage(res, server)
 })
 
 app.listen(1998)

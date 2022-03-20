@@ -7,8 +7,8 @@ if (server.known) {
     title = "Unknown server"
     description = `Unknown or offline server`
 }
-preview_image = `${config.url}/s/${server.ip}/${server.port}/png`
-page_url = `${config.url}/s/${server.ip}/${server.port}`
+preview_image = `${config.url}/s/${server.identifier}/png`
+page_url = `${config.url}/s/${server.identifier}`
 %>
 
 <!DOCTYPE html>
@@ -48,10 +48,16 @@ page_url = `${config.url}/s/${server.ip}/${server.port}`
     <%- include('header') %>
     <% if (server.known === true) { %>
     <div id="server-container">
-        <a href="/s/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>">
+        <a href="/s/<%= server.identifier %>" class="server <%= server.game %>">
             <%
                 if (!server.uptodate) {
                     __append(`<abbr title="This server is running version ${server.revision}, latest is ${revision}" class="outdated">`)
+                }
+                if (server.hostnameDisplay.length > 44) {
+                    server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
+                }
+                if (server.mapDisplay.length > 24) {
+                    server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
                 }
             %>
             <img src="/img/<%= server.game %>.jpg" />

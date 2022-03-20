@@ -51,9 +51,9 @@
         countServers: integer
     }
     ```
-- ```/s/<ip>/<port>/json```, ```/server/<ip>/<port>/json```
+- ```/s/<identifier>/json```, ```/server/<ip>/<port>/json```
   - returns the matching server, see servers array above for keys
-- ```/s/<ip>/<port>/png```, ```/server/<ip>/<port>/png```
+- ```/s/<identifier>/png```, ```/server/<ip>/<port>/png```
   - Preview image with server details
 
 ## Credits
