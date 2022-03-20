@@ -43,6 +43,10 @@ async function _get_server_preview(server) {
 
 function timer(ms) { return new Promise(res => setTimeout(res, ms)); }
 async function get_server_preview(server) {
+    if (!server.known) {
+        return await jimp.read('data/img/server_previews/error.png')
+    }
+
     let server_preview = await _get_server_preview(server)
 
     // retry getting server preview, maybe the fs is somewhat slow
