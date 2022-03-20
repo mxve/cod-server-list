@@ -1,0 +1,28 @@
+<div class="dialog-bg" id="notification-cont">
+<div class="dialog" id="notification">
+    <div class="title">
+        PluTools
+    </div>
+    <div class="inner">
+        The Server List domain has changed!</br>
+        Please use <span class="highlight">list.plutools.pw</span> from now on.<br>
+        You've already been redirected there, but that won't work forever!<br><br>
+        <div class="bottom">
+            <a onClick="hideNotification();"><i class="parenthesis left"></i><span class="highlight">O</span>kay<i class="parenthesis right"></i></a>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    const notification = document.getElementById("notification-cont")
+
+    const domainChangeNotified = localStorage.getItem('domainChangeNotified') || false
+    if (!domainChangeNotified) {
+        notification.style.display = "block"
+    }
+
+    function hideNotification() {
+        notification.style.display = "none"
+        localStorage.setItem('domainChangeNotified', true)
+    }
+</script>

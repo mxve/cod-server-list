@@ -20,6 +20,16 @@
     --t4mp-bg: rgba(100, 149, 237, 0.15);
     --t4sp: var(--t4mp);
     --t4sp-bg: var(--t4mp-bg);
+
+    --dialog-background: #DAD6DA;
+    --dialog-title: #79a5fc;
+    --dialog-shadow: #000000;
+    --dialog-hightlight1: #496886;
+    --dialog-hightlight2: rgb(50, 70, 255);
+    --dialog-text-dark: black;
+    --dialog-text-light: white;
+    --dialog-hover-brightness: 1.15;
+    --dialog-main-color: rgb(50, 70, 255);
 }
 
 * {
@@ -357,7 +367,122 @@ h3 {
     }
 }
 
+.dialog {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--dialog-background);
+    padding: 8px;
+    padding-top: 2px;
+    display: block;
+    box-shadow: 27px 24px 0px 0px var(--dialog-shadow);
+    position: relative;
+    color: var(--dialog-text-dark);
+}
+
+.dialog .title {
+    margin-top: 0;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 18px 0 18px;
+    background-color: var(--dialog-background);
+    font-weight: 600;
+    color: var(--dialog-title);
+}
+
+.dialog .inner {
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    padding: 12px 14px 14px 14px;
+    margin-top: 10px;
+    display: block;
+    font-weight: 400;
+}
+
+.dialog .inner.invertborder {
+    border-left: 2px solid white;
+    border-top: 2px solid white;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.dialog .inner a {
+    padding: 0 4px 2px 4px;
+    color: var(--dialog-text-dark);
+    border-color: var(--dialog-text-dark);
+    text-decoration: none;
+    margin: 0 16px 0 16px;
+    cursor: pointer;
+}
+
+.dialog .inner a:hover {
+    background-color: var(--dialog-main-color);
+    color: var(--dialog-text-light);
+    border-color: var(--dialog-text-light);
+    filter: brightness(var(--dialog-hover-brightness));
+
+}
+
+.dialog .inner .highlight {
+    color: var(--dialog-hightlight2);
+}
+
+.dialog .inner a:hover .highlight, .highlight {
+    color: inherit;
+}
+
+.dialog .inner .bottom {
+    text-align: center;
+}
+
+.parenthesis {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 4px;
+}
+
+.parenthesis.right {
+    transform: rotate(-45deg);
+    margin-left: 12px;
+}
+
+.parenthesis.left {
+    transform: rotate(135deg);
+    margin-right: 12px;
+}
+
+.dialog-bg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    background-color: rgba(22, 22, 22, 0.6);
+}
+
+#notification {
+    width: 500px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+#notification-cont {
+    display: none;
+}
+
 @media screen and (max-width: 959px) {
+    #notification {
+        width: 95%;
+        max-width: 430px;
+    }
     #server-container {
         width: 95%;
         max-width: 430px;
