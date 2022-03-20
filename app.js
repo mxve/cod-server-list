@@ -15,8 +15,10 @@ let apiCache
 
 const scheduler = new ToadScheduler()
 
+// task to generate server preview images, runs every second,
+// uses below var to control wether new images should be generate on the run
 let previews_done = true;
-const generate_previews_task = new Task('clear_images', async () => {
+const generate_previews_task = new Task('clear_images', async() => {
     if (previews_done) {
         previews_done = false
         let data = await getData()
@@ -24,13 +26,6 @@ const generate_previews_task = new Task('clear_images', async () => {
             const preview_path = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
             const exists = fs.existsSync(preview_path)
             if (server.changed || !exists) {
-                // if (exists) {
-                //     const stats = fs.statSync(preview_path)
-                //     if ((new Date().getTime() - stats.mtime.getTime()) > (1000 * config.image_cache_max_age)) {
-                //         console.log(`skipping ${server.hostname}`)
-                //         continue
-                //     }
-                // }
                 await images.generate_server_preview(server, false)
             }
         }
@@ -40,7 +35,8 @@ const generate_previews_task = new Task('clear_images', async () => {
 const generate_previews_job = new SimpleIntervalJob({ seconds: 1, }, generate_previews_task)
 scheduler.addSimpleIntervalJob(generate_previews_job)
 
-const update_api_data_task = new Task('update_api_data', async () => { apiCache = await getApiData() })
+// api cache task
+const update_api_data_task = new Task('update_api_data', async() => { apiCache = await getApiData() })
 const update_api_data_job = new SimpleIntervalJob({ seconds: config.api_query_interval, }, update_api_data_task)
 scheduler.addSimpleIntervalJob(update_api_data_job)
 
@@ -57,32 +53,41 @@ async function getApiData() {
 
     let servers = []
     for (server of json) {
+        // Generate userslugs, used to identify users on plutonium forums
         for (player of server.players) {
             player.userslug = slugify(player.username)
         }
 
+        // generate human readable gametype, map & hostname
         server.gametypeDisplay = names.gametype(server.gametype, server.game)
         server.mapDisplay = names.map(server.map, server.game)
         server.hostnameDisplay = server.hostname.replace(/\^\d/g, '')
 
+        // in the future servers are supposed to be checked against a databse
+        // these vars a already in use
         server.online = true
         server.known = true
+    
+        // its a girl! she was born on:
         server.date = Date.now()
 
+        // check server version. bigger is better (thats what she said)
         if (server.revision >= version) {
             server.uptodate = true
         } else {
             server.uptodate = false
         }
 
+        // if we can't get the servers country we'll use the default flag
         try {
             server.country = geoip.lookup(server.ip).country.toLowerCase()
         } catch {
             server.country = 'lgbt'
         }
 
+        // check whether a relevant server variable has changed since the last run
+        // helps us reduce the amount of preview images that have to be regenerated
         let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
-
         server.changed = false
         if (prev_server.length > 0) {
             if (prev_server[0].players.length != server.players.length ||
@@ -97,6 +102,7 @@ async function getApiData() {
         servers.push(server)
     }
 
+    // save new servers as previous servers for the next run
     previous_servers = servers
 
     return {
@@ -106,6 +112,8 @@ async function getApiData() {
     }
 }
 
+// used to get servers requested by client
+// includes crude search function & game filter
 async function getData(game = 'all', search = undefined) {
     if (apiCache === undefined) {
         apiCache = await getApiData()
@@ -117,8 +125,10 @@ async function getData(game = 'all', search = undefined) {
     let countPlayers = 0
     let countServers = 0
 
+    // filter servers
     let servers = []
     for (server of api.json) {
+        // we do a little searching
         if (search !== undefined) {
             if (!server.hostname.toLowerCase().includes(search.toLowerCase()) &&
                 server.ip != search &&
@@ -133,11 +143,13 @@ async function getData(game = 'all', search = undefined) {
             }
         }
 
+        // filter by game
         if (game !== 'all' && server.game != game) {
             continue
         }
 
 
+        // stats
         maxPlayers += server.maxplayers
         countPlayers += server.players.length
         countServers += 1
@@ -157,6 +169,7 @@ async function getData(game = 'all', search = undefined) {
     }
 }
 
+// get a single server
 async function getServer(ip, port) {
     if (apiCache === undefined) {
         apiCache = await getApiData()
@@ -164,6 +177,7 @@ async function getServer(ip, port) {
 
     const json = apiCache.json
 
+    // find server in api cache
     let server = { ip, port, online: false, known: false }
     for (iserver of json) {
         if (iserver.ip == ip && iserver.port == port) {
@@ -177,15 +191,16 @@ async function getServer(ip, port) {
     return server
 }
 
-
 const app = express()
 app.disable("x-powered-by");
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
+// server list
+app.get(['/', '/:game', '/json', '/:game/json'], async(req, res) => {
     let servers
 
+    // game filter
     if (req.params.game === 'iw5mp' ||
         req.params.game === 't6mp' ||
         req.params.game === 't6zm' ||
@@ -206,19 +221,24 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
     }
 })
 
-app.get('/server/:ip/:port/json', async (req, res) => {
+// server api
+app.get('/server/:ip/:port/json', async(req, res) => {
     let server = await getServer(req.params.ip, req.params.port)
     res.json(server)
 })
 
-app.get('/server/:ip/:port', async (req, res) => {
+// server page
+app.get('/server/:ip/:port', async(req, res) => {
     let server = await getServer(req.params.ip, req.params.port)
     res.render('server', { server, config, revision: apiCache.revision })
 })
 
-app.get('/server/:ip/:port/png', async (req, res) => {
+// server preview image
+app.get('/server/:ip/:port/png', async(req, res) => {
     const server = await getServer(req.params.ip, req.params.port)
     let image = await images.get_server_preview(server)
+
+    // return image buffer from jimp image
     image.getBuffer(jimp.MIME_PNG, (err, buffer) => {
         res.set({
             'Pragma': 'no-cache',
