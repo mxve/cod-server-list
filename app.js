@@ -76,6 +76,13 @@ async function getApiData() {
         server.mapDisplay = names.map(server.map, server.game)
         server.hostnameDisplay = server.hostname.replace(/\^\d/g, '')
 
+        if (server.hostnameDisplay.length > 44) {
+            server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
+        }
+        if (server.mapDisplay.length > 24) {
+            server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
+        }
+
         // in the future servers are supposed to be checked against a databse
         // these vars a already in use
         server.online = true

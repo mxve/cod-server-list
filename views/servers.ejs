@@ -64,16 +64,7 @@ switch (api.game) {
                     <span class="gametype">Gamemode</span>
                     <span class="map">Map</span>
                 </div>
-                <%
-            for (const server of api.servers) {
-                if (server.hostnameDisplay.length > 44) {
-                    server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
-                }
-                if (server.mapDisplay.length > 24) {
-                    server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
-                }
-
-        %>
+        <% for (const server of api.servers) { %>
                     <a href="/s/<%= server.identifier %>" class="server <%= server.game %>">
                         <%
                 if (!server.uptodate) {

@@ -53,12 +53,6 @@ page_url = `${config.url}/s/${server.identifier}`
                 if (!server.uptodate) {
                     __append(`<abbr title="This server is running version ${server.revision}, latest is ${revision}" class="outdated">`)
                 }
-                if (server.hostnameDisplay.length > 44) {
-                    server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
-                }
-                if (server.mapDisplay.length > 24) {
-                    server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
-                }
             %>
             <img src="/img/<%= server.game %>.jpg" />
             <span class="hostname"><span class="fp fp <%= server.country %>"></span><%= server.hostnameDisplay %></span>
