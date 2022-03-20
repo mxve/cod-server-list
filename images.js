@@ -1,5 +1,6 @@
 const fs = require('fs')
 const jimp = require('jimp')
+const { Server } = require('net')
 
 async function generate_server_preview(server, create = false) {
     const filepath = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
@@ -41,11 +42,13 @@ async function generate_server_preview(server, create = false) {
 
 // workaround for file not found issue caused by the file creation being too slow
 // this function will be called until the file could be read or a threshold was reached
-async function _get_server_preview(server) {
+async function _get_server_preview(server, create = true) {
     const filepath = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
     try {
-        if (!fs.existsSync(filepath)) {
-            await generate_server_preview(server, create = true)
+        if (!fs.existsSync(filepath) && create) {
+            await generate_server_preview(server, true)
+        } else if (!fs.existsSync(filepath)) {
+            return false
         }
         return await jimp.read(filepath)
     } catch (error) {
@@ -67,7 +70,7 @@ async function get_server_preview(server) {
     if (server_preview === false) {
         for (let i = 0; i < 10; i++) {
             await timer(10);
-            server_preview = await _get_server_preview(server)
+            server_preview = await _get_server_preview(server, false)
             if (server_preview != false) {
                 break
             }
