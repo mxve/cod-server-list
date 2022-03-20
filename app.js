@@ -206,14 +206,14 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
     }
 })
 
-app.get(['/server/:ip/:port', '/server/:ip/:port/json'], async (req, res) => {
+app.get('/server/:ip/:port/json', async (req, res) => {
     let server = await getServer(req.params.ip, req.params.port)
+    res.json(server)
+})
 
-    if (req.url.endsWith('json')) {
-        res.json(server)
-    } else {
-        res.render('server', { server, config, revision: apiCache.revision })
-    }
+app.get('/server/:ip/:port', async (req, res) => {
+    let server = await getServer(req.params.ip, req.params.port)
+    res.render('server', { server, config, revision: apiCache.revision })
 })
 
 app.get('/server/:ip/:port/png', async (req, res) => {
