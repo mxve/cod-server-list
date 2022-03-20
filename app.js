@@ -154,9 +154,6 @@ async function getData(game = 'all', search = undefined) {
         countPlayers += server.players.length
         countServers += 1
 
-        server.online = true
-        server.known = true
-
         servers.push(server)
     }
 
@@ -182,8 +179,6 @@ async function getServer(ip, port) {
     for (iserver of json) {
         if (iserver.ip == ip && iserver.port == port) {
             server = iserver
-            server.online = true
-            server.known = true
             break
         }
     }
