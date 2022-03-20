@@ -217,19 +217,19 @@ app.get(['/', '/:game', '/json', '/:game/json'], async(req, res) => {
 })
 
 // server api
-app.get('/server/:ip/:port/json', async(req, res) => {
+app.get(['/server/:ip/:port/json', '/s/:ip/:port/json'], async(req, res) => {
     let server = await getServer(req.params.ip, req.params.port)
     res.json(server)
 })
 
 // server page
-app.get('/server/:ip/:port', async(req, res) => {
+app.get(['/server/:ip/:port', '/s/:ip/:port'], async(req, res) => {
     let server = await getServer(req.params.ip, req.params.port)
     res.render('server', { server, config, revision: apiCache.revision })
 })
 
 // server preview image
-app.get('/server/:ip/:port/png', async(req, res) => {
+app.get(['/server/:ip/:port/png', '/s/:ip/:port/png'], async(req, res) => {
     const server = await getServer(req.params.ip, req.params.port)
     let image = await images.get_server_preview(server)
 

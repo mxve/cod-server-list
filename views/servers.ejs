@@ -74,7 +74,7 @@ switch (api.game) {
                 }
 
         %>
-                    <a href="/server/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>">
+                    <a href="/s/<%= server.ip %>/<%= server.port %>" class="server <%= server.game %>">
                         <%
                 if (!server.uptodate) {
                     __append(`<abbr title="This server is running version ${server.revision}, latest is ${revision}" class="outdated">`)
