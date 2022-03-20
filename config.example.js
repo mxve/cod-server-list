@@ -1,7 +1,8 @@
 let config = {
+    // public url
     url: 'https://pluto.mxve.de',
-    api_query_interval: 5,
-    image_cache_max_age: 15
+    // delay in seconds before querying plutonium api again
+    api_query_interval: 5
 }
 
 module.exports = config
