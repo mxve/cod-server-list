@@ -311,4 +311,4 @@ app.get('/s/:identifier/png', async(req, res) => {
     resPreviewImage(res, server)
 })
 
-app.listen(1998)
+app.listen(config.port)
