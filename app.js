@@ -16,7 +16,7 @@ let apiCache
 const scheduler = new ToadScheduler()
 
 let previews_done = true;
-const clear_image_cache_task = new Task('clear_images', async () => {
+const generate_previews_task = new Task('clear_images', async () => {
     if (previews_done) {
         previews_done = false
         let data = await getData()
@@ -37,8 +37,8 @@ const clear_image_cache_task = new Task('clear_images', async () => {
         previews_done = true
     }
 })
-const clear_image_cache_job = new SimpleIntervalJob({ seconds: 1, }, clear_image_cache_task)
-scheduler.addSimpleIntervalJob(clear_image_cache_job)
+const generate_previews_job = new SimpleIntervalJob({ seconds: 1, }, generate_previews_task)
+scheduler.addSimpleIntervalJob(generate_previews_job)
 
 const update_api_data_task = new Task('update_api_data', async () => { apiCache = await getApiData() })
 const update_api_data_job = new SimpleIntervalJob({ seconds: config.api_query_interval, }, update_api_data_task)
