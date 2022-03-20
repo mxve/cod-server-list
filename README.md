@@ -1,6 +1,6 @@
 # [Plutonium](https://plutonium.pw) Server List
 
-## -> [Show server list](https://pluto.mxve.de)
+## -> [Show server list](https://list.plutools.pw)
 
 ![](https://screen.sbs/i/nub625vm.png)
 
