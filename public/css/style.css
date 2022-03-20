@@ -101,6 +101,10 @@ h3 {
     padding-bottom: 1px;
 }
 
+#nav.filters {
+    margin-top: 30px;
+}
+
 .nav-iw5mp {
     border-color: var(--iw5mp) !important;
 }
