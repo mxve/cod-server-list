@@ -117,9 +117,10 @@ async function getApiData() {
                 prev_server[0].maxplayers != server.maxplayers) {
                 server.changed = true
             }
+            server.identifier = prev_server[0].identifier
+        } else {
+            server.identifier = await generateIdentifier(server)
         }
-
-        server.identifier = generateIdentifier(server)
 
         servers.push(server)
     }
