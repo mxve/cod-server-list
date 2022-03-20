@@ -124,12 +124,7 @@ page_url = `${config.url}/s/${server.identifier}`
 
     <div id="server-error">Unknown Server</div>
     <% } %>
-    <div id="footer">
-        Made by mxve#3406<br>
-        This website is in no way endorsed by or affiliated with Plutonium, Activision, Treyarch, Infinity Ward or any other copyright holder whos assets and/or trademarks may have been used.<br>
-        Server data provided by <a href="https://plutonium.pw/api/servers">Plutonium server API</a>. Takedown and unlisting requests: hi@mxve.de<br>
-        <a href="https://github.com/mxve/plutonium-server-list">Source Code</a>
-    </div>
+        <%- include('footer') %>
 
     <script>
         function copy(text) {
