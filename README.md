@@ -2,6 +2,8 @@
 
 ## -> [Show server list](https://list.plutools.pw)
 
+[![alt text](https://plutools.pw/assets/img/plutools_64.png)](https://plutools.pw/) [![alt text](http://i.epvpimg.com/2m4qdab.png)](https://discord.gg/SnJQusteNZ) 
+
 ![](https://screen.sbs/i/nub625vm.png)
 
 ## API
