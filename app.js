@@ -84,6 +84,20 @@ async function getApiData() {
             server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
         }
 
+        if (server.game == "t6zm") {
+            const round_index = server.codInfo.indexOf('rounds')
+            if (round_index !== -1) {
+                let round = server.codInfo
+                    .substring(round_index + 7, server.codInfo.length)
+                round = round.substring(0, round.indexOf('\\'))
+                server.round = round
+            }
+        }
+
+        if (typeof server.round === 'undefined') {
+            server.round = ''
+        }
+ 
         // in the future servers are supposed to be checked against a databse
         // these vars a already in use
         server.online = true

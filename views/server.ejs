@@ -59,6 +59,11 @@ page_url = `${config.url}/s/${server.identifier}`
             <span class="hostname"><span class="fp fp <%= server.country %>"></span><%= server.hostnameDisplay %></span>
             <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
             <span class="gametype"><%= server.gametypeDisplay %></span>
+            <%
+                if (server.game == 't6zm') {
+                    __append(`<span class="round" style="display: inline-block">${server.round}</span>`)
+                }
+            %>
             <span class="map"><%= server.mapDisplay %></span>
             <%
                         if (!server.uptodate) {

@@ -30,6 +30,8 @@
     --dialog-text-light: white;
     --dialog-hover-brightness: 1.15;
     --dialog-main-color: rgb(50, 70, 255);
+
+    --gametype-short-width: 90px;
 }
 
 * {
@@ -276,19 +278,24 @@ h3 {
 .server .hostname {
     font-size: 1.1em;
     display: inline-block;
-    width: 450px;
+    width: 440px;
     font-weight: 700;
     max-width: 100%;
 }
 
 .server .slots {
     display: inline-block;
-    width: 70px;
+    width: 65px;
 }
 
 .server .gametype {
     display: inline-block;
-    width: 170px;
+    width: 140px;
+}
+
+.server .round {
+    display: none;
+    width: 55px;
 }
 
 .iw5mp {

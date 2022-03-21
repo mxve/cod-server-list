@@ -1,6 +1,10 @@
 <%
 let title
 let description
+let css
+
+const css_enable_round = ".server .round { display: inline-block; }"
+const css_short_gametypes = ".server .gametype { width: var(--gametype-short-width); }"
 switch (api.game) {
     case 'iw5mp':
         title = "IW5 Servers"
@@ -13,6 +17,7 @@ switch (api.game) {
     case 't6zm':
         title = "T6 Zombies Servers"
         description = "View Plutonium T6 Zombies Servers & Players online"
+        css = `${css_enable_round} ${css_short_gametypes}`
         break
     case 't4mp':
         title = "T4 Servers"
@@ -21,10 +26,12 @@ switch (api.game) {
     case 't4sp':
         title = "T4 Zombies Servers"
         description = "View Plutonium T4 Zombies Servers & Players online"
+        css = `${css_short_gametypes}`
         break
     default:
         title = "PluTools | Server List"
         description = "View Plutonium Servers & Players online | IW5, T6, T6 Zombies, T4 and T4 Zombies"
+        css = `${css_enable_round}`
 
 }
 %>
@@ -45,6 +52,9 @@ switch (api.game) {
         <meta property="og:type" content="article">
         <meta property="og:image" content="<%= config.url %>/img/plutools.png">
         <%- include('head') %>
+        <style>
+            <%- css %>
+        </style>
     </head>
 
     <body>
@@ -63,6 +73,7 @@ switch (api.game) {
                     <span class="hostname">Name</span>
                     <span class="slots">Players</span>
                     <span class="gametype">Gamemode</span>
+                    <span class="round">Round</span>
                     <span class="map">Map</span>
                 </div>
         <% for (const server of api.servers) { %>
@@ -82,6 +93,7 @@ switch (api.game) {
                                 </span>
                                 <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
                                 <span class="gametype"><%= server.gametypeDisplay %></span>
+                                <span class="round"><%= server.round %></span>
                                 <span class="map"><%= server.mapDisplay %></span>
                                 <%
                         if (!server.uptodate) {
