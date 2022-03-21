@@ -21,6 +21,7 @@ let previews_done = true;
 const generate_previews_task = new Task('clear_images', async() => {
     if (previews_done) {
         previews_done = false
+        got(config.preview_generator_heartbeat_url)
         let data = await getData()
         for (server of data.servers) {
             const preview_path = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
