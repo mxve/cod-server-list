@@ -1,0 +1,103 @@
+.serverlist {
+    width: 960px;
+    margin: auto;
+    border-collapse: collapse;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.serverlist tr {
+    text-align: left;
+    cursor: pointer;
+    padding-top: 30px;
+    height: 33px;
+}
+
+.serverlist tr th {
+    text-align: left;
+    cursor: pointer;
+    border-bottom: 1px var(--background-highlight3) dotted;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.serverlist tr th.no-sort {
+    pointer-events: none;
+}
+
+.serverlist tr .icon {
+    width: 30px;
+}
+
+.serverlist tr .icon img {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    display: inline-block;
+    top: 2px;
+    left: 2px;
+}
+
+.serverlist tr .flag {
+    width: 30px;
+}
+
+.serverlist tr td.hostname {
+    font-weight: 700;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 975px) {
+    .serverlist {
+        width: 90vw;
+        max-width: 430px;
+    }
+    .serverlist tr {
+        display: block;
+        margin-bottom: 20px;
+        padding: 0;
+        height: 45px;
+    }
+    .serverlist tr th {
+        display: none;
+    }
+    .serverlist tr .icon {
+        display: none;
+    }
+    .serverlist tr td.flag {
+        display: inline-block;
+    }
+    .serverlist tr td.hostname {
+        display: inline-block;
+        width: 80%;
+        max-width: 360px;
+    }
+    .serverlist tr td.slots {
+        display: inline-block;
+        width: 55px;
+    }
+    .serverlist tr td.gametype {
+        display: inline-block;
+        width: 160px;
+    }
+    .serverlist tr td.map {
+        display: inline-block;
+    }
+    .serverlist tr td.round {
+        display: inline-block;
+    }
+    .serverlist tr td.map .margin {
+        margin-right: 6px;
+    }
+    .serverlist tr td.round .x {
+        display: none;
+    }
+    /* .serverlist tr th {
+        padding: 8px;
+    }
+    .serverlist tr th.flag::after {
+        content: 'Loc'
+    } */
+}

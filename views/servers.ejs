@@ -4,7 +4,6 @@ let description
 let css
 
 const css_enable_round = ".server .round { display: inline-block; }"
-const css_short_gametypes = ".server .gametype { width: var(--gametype-short-width); }"
 switch (api.game) {
     case 'iw5mp':
         title = "IW5 Servers"
@@ -17,7 +16,7 @@ switch (api.game) {
     case 't6zm':
         title = "T6 Zombies Servers"
         description = "View Plutonium T6 Zombies Servers & Players online"
-        css = `${css_enable_round} ${css_short_gametypes}`
+        css = `${css_enable_round}`
         break
     case 't4mp':
         title = "T4 Servers"
@@ -26,13 +25,11 @@ switch (api.game) {
     case 't4sp':
         title = "T4 Zombies Servers"
         description = "View Plutonium T4 Zombies Servers & Players online"
-        css = `${css_short_gametypes}`
         break
     default:
         title = "PluTools | Server List"
         description = "View Plutonium Servers & Players online | IW5, T6, T6 Zombies, T4 and T4 Zombies"
         css = `${css_enable_round}`
-
 }
 %>
 
@@ -52,9 +49,7 @@ switch (api.game) {
         <meta property="og:type" content="article">
         <meta property="og:image" content="<%= config.url %>/img/plutools.png">
         <%- include('head') %>
-        <style>
-            <%- css %>
-        </style>
+        <link href="/css/serverlist.css" rel="stylesheet">
     </head>
 
     <body>
@@ -67,52 +62,78 @@ switch (api.game) {
             </div>
         </div>
         <%- include('header') %>
-            <div id="server-container">
-                <div class="server header">
-                    <img src="/img/plutools.png" />
-                    <span class="hostname">Name</span>
-                    <span class="slots">Players</span>
-                    <span class="gametype">Gamemode</span>
-                    <span class="round">Round</span>
-                    <span class="map">Map</span>
-                </div>
-        <% for (const server of api.servers) { %>
-                    <a href="/s/<%= server.identifier %>" class="server <%= server.game %>">
-                        <%
-                if (!server.uptodate) {
-                    __append(`<abbr title="This server is running version ${server.revision}, latest is ${revision}" class="outdated">`)
-                }
+        <table class="serverlist sortable">
+            <thead>
+                <tr>
+                    <th class="icon"></th>
+                    <th class="flag"></th>
+                    <th class="hostname">
+                        Hostname
+                    </th>
+                    <th class="slots">
+                        Players
+                    </th>
+                    <th class="gametype">
+                        Gamemode
+                    </th>
+                    <th class="map">
+                        Map
+                    </th>
+                    <th class="round">
+                        Round
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+<%
+    for (const server of api.servers) {
+%>
+                <tr class="<%= server.game %>" onClick="window.location='/s/<%= server.identifier %>';">
+                    <td class="icon" data-sort="<%= server.game %>">
+                        <img src="/img/<%= server.game %>.jpg" />
+                    </td>
+                    <td class="flag" data-sort="<%= server.country %>">
+                        <span class="fp fp <%= server.country %>"></span>
+                    </td>
+                    <td class="hostname">
+                        <%= server.hostnameDisplayFull %>
+                    </td>
+                    <td class="slots" data-sort="<%= server.players.length %>">
+                        <%= server.players.length %>/<%= server.maxplayers %>
+                    </td>
+                    <td class="gametype">
+                        <%= server.gametypeDisplay %>
+                    </td>
+                    <td class="map">
+                        <div class="margin">
+                            <%= server.mapDisplay %>
+                        </div>
+                    </td>
+                    <td class="round">
+<%
+    if (server.round === '0' && server.game !== 't6zm') {
+        __append('<span class="x">✖</span>')
+    } else {
+        __append(server.round)
+    }
+%>
+                    </td>
+                </tr>
 
-                //if (api.game == "all") {
-                    __append(`<img src="/img/${server.game}.jpg" />`)
-                //}
-            %>
-
-                            <span class="hostname"><span class="fp fp <%= server.country %>"></span>
-                            <%= server.hostnameDisplay %>
-                                </span>
-                                <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
-                                <span class="gametype"><%= server.gametypeDisplay %></span>
-                                <span class="round"><%= server.round %></span>
-                                <span class="map"><%= server.mapDisplay %></span>
-                                <%
-                        if (!server.uptodate) {
-                            __append(`</abbr>`)
-                        }
-                    %>
-                    </a>
-                    <%
-            }
-        %>
-            </div>
-            <div id="stats">
-                Servers:
-                <%= api.countServers %> | Players:
-                    <%= api.countPlayers %>/
-                        <%= api.maxPlayers %> | Data age:
-                            <%= Date.now() - api.date %>ms
-            </div>
-            <%- include('footer') %>
+<%
+    } // closes servers for
+%>
+            </tbody>
+        </table>
+        <div id="stats">
+            Servers:
+            <%= api.countServers %> | Players:
+            <%= api.countPlayers %>/
+            <%= api.maxPlayers %> | Data age:
+            <%= Date.now() - api.date %>ms
+        </div>
+        <%- include('footer') %>
+        <script src="/js/sortable.js"></script>
     </body>
 
     </html>

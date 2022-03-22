@@ -76,6 +76,7 @@ async function getApiData() {
         server.gametypeDisplay = names.gametype(server.gametype, server.game)
         server.mapDisplay = names.map(server.map, server.game)
         server.hostnameDisplay = server.hostname.replace(/\^\d/g, '')
+        server.hostnameDisplayFull = server.hostnameDisplay
 
         if (server.hostnameDisplay.length > 44) {
             server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
@@ -95,7 +96,7 @@ async function getApiData() {
         }
 
         if (typeof server.round === 'undefined') {
-            server.round = ''
+            server.round = '0'
         }
  
         // in the future servers are supposed to be checked against a databse
