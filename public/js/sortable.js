@@ -56,9 +56,12 @@ document.addEventListener('click', function (e) {
       return element.getAttribute('data-sort') || element.innerText
       // return element.innerText
     }
-  
-    if (element.nodeName === 'TH') {
+
+    if (element.nodeName === 'TH' || element.parentNode.nodeName === 'TH') {
       try {
+        if (element.nodeName !== 'TH' && element.parentNode.nodeName === 'TH') {
+          element = element.parentNode
+        }
         var tr = element.parentNode
         // var table = element.offsetParent; // Fails with positioned table elements
         // this is the only way to make really, really sure. A few more bytes though... 😡
