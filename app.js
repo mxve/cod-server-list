@@ -45,13 +45,27 @@ scheduler.addSimpleIntervalJob(update_api_data_job)
 function generateIdentifier(server) {
     // generate (hopefully) unique server identifier
     const address = `${server.ip}:${server.port}`
-    // get base64 encoding of sha256 hash of address
+        // get base64 encoding of sha256 hash of address
     const hash = crypto.createHash('sha256').update(address).digest('base64');
     // make hash url safe by replacing +, / & =
     const urlsafe = hash.replaceAll('+', '-').replaceAll('/', '_').replace('=', '')
-    // take first 10 chars
+        // take first 10 chars
     const shortened = urlsafe.substr(0, 10)
     return shortened
+}
+
+function get_codInfo_value(key, codInfo) {
+    const key_index = codInfo.indexOf(key)
+    if (key_index !== -1 && codInfo !== '' && codInfo.includes(key)) {
+        let keyval = codInfo
+            .substring(key_index + key.length + 1, codInfo.length)
+        if (keyval.includes('\\')) {
+            // keyval still contains more keys, so split them off
+            keyval = keyval.substring(0, keyval.indexOf('\\'))
+        }
+        return keyval
+    }
+    return false
 }
 
 let previous_servers = []
@@ -77,6 +91,7 @@ async function getApiData() {
         server.mapDisplay = names.map(server.map, server.game)
         server.hostnameDisplay = server.hostname.replace(/\^\d/g, '')
         server.hostnameDisplayFull = server.hostnameDisplay
+        server.round = get_codInfo_value('rounds', server.codInfo) || '0'
 
         if (server.hostnameDisplay.length > 44) {
             server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
@@ -85,25 +100,15 @@ async function getApiData() {
             server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
         }
 
-        if (server.game == "t6zm") {
-            const round_index = server.codInfo.indexOf('rounds')
-            if (round_index !== -1) {
-                let round = server.codInfo
-                    .substring(round_index + 7, server.codInfo.length)
-                round = round.substring(0, round.indexOf('\\'))
-                server.round = round
-            }
-        }
-
         if (typeof server.round === 'undefined') {
             server.round = '0'
         }
- 
+
         // in the future servers are supposed to be checked against a databse
         // these vars a already in use
         server.online = true
         server.known = true
-    
+
         // its a girl! she was born on:
         server.date = Date.now()
 
