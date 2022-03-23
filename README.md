@@ -44,7 +44,10 @@
                 online: boolean,
                 date: string,
                 uptodate: boolean,
-                country: ISO 3166-1 alpha-2
+                country: ISO 3166-1 alpha-2,
+                aimassist: '-1' = unknown/'0' = off/'1' = on,
+                identifier: string,
+                round: string
             }
         ],
         date: string,

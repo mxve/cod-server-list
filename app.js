@@ -106,6 +106,13 @@ async function getApiData() {
             server.password = get_codInfo_value('password', server.codInfo, true)
         }
 
+        // aim assist -1 = unknown, 0 = off, 1 = on
+        if (server.codInfo.includes('aimassist')) {
+            server.aimassist = get_codInfo_value('aimassist', server.codInfo)
+        } else {
+            server.aimassist = '-1'
+        }
+
         if (server.hostnameDisplay.length > 44) {
             server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
         }
