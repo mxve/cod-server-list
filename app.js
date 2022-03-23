@@ -54,7 +54,12 @@ function generateIdentifier(server) {
     return shortened
 }
 
-function get_codInfo_value(key, codInfo) {
+function string_number_to_bool(string) {
+    const num = Number(string)
+    return !!num
+}
+
+function get_codInfo_value(key, codInfo, bool = false) {
     const key_index = codInfo.indexOf(key)
     if (key_index !== -1 && codInfo !== '' && codInfo.includes(key)) {
         let keyval = codInfo
@@ -62,6 +67,9 @@ function get_codInfo_value(key, codInfo) {
         if (keyval.includes('\\')) {
             // keyval still contains more keys, so split them off
             keyval = keyval.substring(0, keyval.indexOf('\\'))
+        }
+        if (bool) {
+            return string_number_to_bool(keyval)
         }
         return keyval
     }
@@ -93,15 +101,16 @@ async function getApiData() {
         server.hostnameDisplayFull = server.hostnameDisplay
         server.round = get_codInfo_value('rounds', server.codInfo) || '0'
 
+        // server.password is only correct for iw5mp, so we have to parse codInfo for the correct value
+        if (server.codInfo.includes('password')) {
+            server.password = get_codInfo_value('password', server.codInfo, true)
+        }
+
         if (server.hostnameDisplay.length > 44) {
             server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
         }
         if (server.mapDisplay.length > 24) {
             server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
-        }
-
-        if (typeof server.round === 'undefined') {
-            server.round = '0'
         }
 
         // in the future servers are supposed to be checked against a databse
@@ -191,7 +200,6 @@ async function getData(game = 'all', search = undefined) {
         if (game !== 'all' && server.game != game) {
             continue
         }
-
 
         // stats
         maxPlayers += server.maxplayers
