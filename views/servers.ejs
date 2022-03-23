@@ -48,8 +48,12 @@ switch (api.game) {
         <meta property="og:description" content="<%= description %>">
         <meta property="og:type" content="article">
         <meta property="og:image" content="<%= config.url %>/img/plutools.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+            integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <%- include('head') %>
         <link href="/css/serverlist.css" rel="stylesheet">
+        <link href="/css/tooltip.css" rel="stylesheet">
     </head>
 
     <body>
@@ -65,8 +69,12 @@ switch (api.game) {
         <table class="serverlist sortable">
             <thead>
                 <tr>
-                    <th class="icon"></th>
-                    <th class="flag"></th>
+                    <th class="icon symbol" data-tooltip="Game">
+                        <i class="fas fa-gamepad"></i>
+                    </th>
+                    <th class="flag symbol" data-tooltip="Server location. Can be inaccurate.">
+                        <i class="fas fa-globe"></i>
+                    </th>
                     <th class="hostname">
                         Hostname
                     </th>
@@ -79,8 +87,14 @@ switch (api.game) {
                     <th class="map">
                         Map
                     </th>
-                    <th class="round">
-                        Round
+                    <th class="round symbol" data-tooltip="Current round, T6 ZM only.">
+                        <i class="fas fa-flag"></i>
+                    </th>
+                    <th class="aimassist symbol" data-tooltip="Aim-assist for controller. ? means unknown.">
+                        <i class="fas fa-crosshairs"></i>
+                    </th>
+                    <th alt="Password protected" class="password symbol" data-tooltip="Password protection">
+                        <i class="fas fa-lock"></i>
                     </th>
                 </tr>
             </thead>
@@ -111,10 +125,26 @@ switch (api.game) {
                     </td>
                     <td class="round">
 <%
-    if (server.round === '0' && server.game !== 't6zm') {
-        __append('<span class="x">✖</span>')
-    } else {
+    if (server.game === 't6zm') {
         __append(server.round)
+    }
+%>
+                    </td>
+                    <td class="aimassist" data-sort="<%= server.aimassist %>">
+<%
+    if (server.aimassist === '1') {
+        __append('<i class="fas fa-crosshairs"></i>')
+    } else if (server.aimassist == '0') {
+        __append('<i class="fas fa-times"></i>')
+    } else {
+        __append('<i class="fas fa-question"></i>')
+    }
+%>
+                    </td>
+                    <td class="password" data-sort="<%= server.password %>">
+<%
+    if (server.password) {
+        __append('<i class="fas fa-lock"></i>')
     }
 %>
                     </td>
@@ -134,6 +164,7 @@ switch (api.game) {
         </div>
         <%- include('footer') %>
         <script src="/js/sortable.js"></script>
+        <script src="/js/tooltip.js"></script>
     </body>
 
     </html>

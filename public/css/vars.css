@@ -1,0 +1,33 @@
+:root {
+    --background: rgb(24, 24, 26);
+    --background-highlight: rgb(28, 28, 30);
+    --background-highlight2: rgb(32, 32, 34);
+    --background-highlight3: rgb(50, 50, 54);
+    --foreground: rgb(230, 225, 220);
+    --foreground-highlight: rgb(170, 165, 160);
+    --foreground-dim: rgb(100, 100, 100);
+    --foreground-danger: rgb(255, 160, 160);
+    --foreground-warn: rgb(227, 210, 154);
+    --iw5mp: rgb(112, 154, 39);
+    --iw5mp-bg: rgba(76, 161, 83, 0.15);
+    --t6mp: rgb(236, 111, 20);
+    --t6mp-bg: rgba(236, 111, 20, 0.15);
+    --t6zm: rgb(224, 42, 20);
+    --t6zm-bg: rgba(224, 42, 20, 0.15);
+    --t4mp: rgb(100, 149, 237);
+    --t4mp-bg: rgba(100, 149, 237, 0.15);
+    --t4sp: var(--t4mp);
+    --t4sp-bg: var(--t4mp-bg);
+
+    --dialog-background: #DAD6DA;
+    --dialog-title: #79a5fc;
+    --dialog-shadow: #000000;
+    --dialog-hightlight1: #496886;
+    --dialog-hightlight2: rgb(50, 70, 255);
+    --dialog-text-dark: black;
+    --dialog-text-light: white;
+    --dialog-hover-brightness: 1.15;
+    --dialog-main-color: rgb(50, 70, 255);
+
+    --gametype-short-width: 90px;
+}

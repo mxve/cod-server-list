@@ -1,3 +1,5 @@
+@import url('vars.css');
+
 .serverlist {
     width: 960px;
     margin: auto;
@@ -20,12 +22,20 @@
     font-size: 18px;
 }
 
+.serverlist tr th.symbol {
+    font-weight: 500;
+    font-size: 14px;
+}
+
 .serverlist tr th.no-sort {
     pointer-events: none;
 }
 
-.serverlist tr .icon {
-    width: 30px;
+.serverlist tr .icon,
+.serverlist tr .round,
+.serverlist tr .password,
+.serverlist tr .aimassist {
+    width: 26px;
 }
 
 .serverlist tr .icon img {
@@ -39,6 +49,10 @@
 
 .serverlist tr .flag {
     width: 30px;
+}
+
+.serverlist tr .slots {
+    width: 70px;
 }
 
 .serverlist tr td.hostname {
@@ -60,44 +74,32 @@
         padding: 0;
         height: 45px;
     }
-    .serverlist tr th {
-        display: none;
-    }
-    .serverlist tr .icon {
-        display: none;
-    }
-    .serverlist tr td.flag {
-        display: inline-block;
-    }
     .serverlist tr td.hostname {
-        display: inline-block;
         width: 80%;
         max-width: 360px;
     }
     .serverlist tr td.slots {
-        display: inline-block;
         width: 55px;
     }
     .serverlist tr td.gametype {
-        display: inline-block;
         width: 160px;
-    }
-    .serverlist tr td.map {
-        display: inline-block;
-    }
-    .serverlist tr td.round {
-        display: inline-block;
     }
     .serverlist tr td.map .margin {
         margin-right: 6px;
     }
-    .serverlist tr td.round .x {
+    .serverlist tr td.map,
+    .serverlist tr td.round,
+    .serverlist tr td.gametype,
+    .serverlist tr td.slots,
+    .serverlist tr td.hostname,
+    .serverlist tr td.flag {
+        display: inline-block;
+    }
+    .serverlist tr td.password,
+    .serverlist tr td.round .x,
+    .serverlist tr td.aimassist,
+    .serverlist tr .icon,
+    .serverlist tr th {
         display: none;
     }
-    /* .serverlist tr th {
-        padding: 8px;
-    }
-    .serverlist tr th.flag::after {
-        content: 'Loc'
-    } */
 }
