@@ -101,7 +101,11 @@ switch (api.game) {
 <%
     for (const server of api.servers) {
 %>
-                <tr class="<%= server.game %>" onClick="window.location='/s/<%= server.identifier %>';">
+                <tr
+                    class="<%= server.game %>"
+                    data-href="/s/<%= server.identifier %>"
+                    onClick="window.location = this.dataset.href"
+                >
                     <td class="icon" data-sort="<%= server.game %>">
                         <img src="/img/<%= server.game %>.jpg" />
                     </td>
@@ -162,6 +166,7 @@ switch (api.game) {
             <%= Date.now() - api.date %>ms
         </div>
         <%- include('footer') %>
+        <script src="/js/serverlist-mmb.js"></script>
         <script src="/js/sortable.js"></script>
         <script src="/js/tooltip.js"></script>
     </body>
