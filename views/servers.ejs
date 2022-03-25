@@ -3,33 +3,35 @@ let title
 let description
 let css
 
-const css_enable_round = ".server .round { display: inline-block; }"
+const css_disable_round = ".serverlist tr .round { display: none; }"
 switch (api.game) {
     case 'iw5mp':
         title = "IW5 Servers"
         description = "View Plutonium IW5 Servers & Players online"
+        css = `${css_disable_round}`
         break
     case 't6mp':
         title = "T6 Servers"
         description = "View Plutonium T6 Servers & Players online"
+        css = `${css_disable_round}`
         break
     case 't6zm':
         title = "T6 Zombies Servers"
         description = "View Plutonium T6 Zombies Servers & Players online"
-        css = `${css_enable_round}`
         break
     case 't4mp':
         title = "T4 Servers"
         description = "View Plutonium T4 Servers & Players online"
+        css = `${css_disable_round}`
         break
     case 't4sp':
         title = "T4 Zombies Servers"
         description = "View Plutonium T4 Zombies Servers & Players online"
+        css = `${css_disable_round}`
         break
     default:
         title = "PluTools | Server List"
         description = "View Plutonium Servers & Players online | IW5, T6, T6 Zombies, T4 and T4 Zombies"
-        css = `${css_enable_round}`
 }
 %>
 
@@ -54,6 +56,9 @@ switch (api.game) {
         <%- include('head') %>
         <link href="/css/serverlist.css" rel="stylesheet">
         <link href="/css/tooltip.css" rel="stylesheet">
+        <style>
+            <%- css %>
+        </style>
     </head>
 
     <body>
