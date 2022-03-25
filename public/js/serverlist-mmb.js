@@ -15,9 +15,6 @@ function get_tr(element) {
             return undefined
         }
     }
-    if (element.nodeName !== 'TR') {
-        return undefined
-    }
     return element
 }
 
