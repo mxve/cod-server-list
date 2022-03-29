@@ -8,15 +8,18 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.serverlist tbody tr {
+.serverlist tr {
     text-align: left;
     cursor: pointer;
     padding-top: 30px;
     height: 33px;
+}
+
+.serverlist tbody tr {
     border-bottom: 1px solid;
 }
 
-.serverlist thead tr th {
+.serverlist tr th {
     text-align: left;
     cursor: pointer;
     border-bottom: 1px var(--background-highlight3) dotted;

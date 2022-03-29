@@ -1,0 +1,53 @@
+@import url('vars.css');
+@import url('colors.css');
+
+#server-info {
+    max-width: 960px;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+#server-info .hostname {
+    margin: auto;
+    max-width: 580px;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 22px;
+    border-bottom: 1px solid;
+}
+
+#server-info table {
+    padding: 32px 0px 18px 0px;
+    margin: auto;
+}
+
+#server-info table th {
+    text-align: left;
+}
+
+#server-info table td {
+    text-align: left;
+}
+
+#server-info table.server-info-table td {
+    padding: 0px 12px 12px 0px;
+}
+
+#server-info table.player-list-table td {
+    padding: 0px 12px 0px 0px;
+}
+
+#server-info table.player-list-table td a {
+    color: var(--foreground);
+    text-decoration: none;
+    border-bottom: 1px var(--foreground) dotted;
+}
+
+#server-info .connect {
+    background-color: var(--background-highlight3);
+    border-radius: 3px;
+    padding: 3px;
+    display: inline-block;
+    cursor: pointer;
+}

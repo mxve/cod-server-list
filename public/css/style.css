@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap');
 @import url('vars.css');
+@import url('colors.css');
 
 * {
     margin: 0;
@@ -20,10 +21,6 @@ h1 {
     margin-bottom: 12px;
     text-align: center;
     margin: 24px;
-}
-
-h3 {
-    margin: 20px;
 }
 
 #stats {
@@ -82,26 +79,6 @@ h3 {
 
 #nav.filters {
     margin-top: 30px;
-}
-
-.nav-iw5mp {
-    border-color: var(--iw5mp) !important;
-}
-
-.nav-t6mp {
-    border-color: var(--t6mp) !important;
-}
-
-.nav-t6zm {
-    border-color: var(--t6zm) !important;
-}
-
-.nav-t4mp {
-    border-color: var(--t4mp) !important;
-}
-
-.nav-t4sp {
-    border-color: var(--t4sp) !important;
 }
 
 #banner {
@@ -263,46 +240,6 @@ h3 {
 .server .round {
     display: none;
     width: 55px;
-}
-
-.iw5mp {
-    border-bottom: 1px var(--iw5mp) solid;
-}
-
-.iw5mp:hover {
-    background-color: var(--iw5mp-bg);
-}
-
-.t6mp {
-    border-bottom: 1px var(--t6mp) solid;
-}
-
-.t6mp:hover {
-    background-color: var(--t6mp-bg);
-}
-
-.t6zm {
-    border-bottom: 1px var(--t6zm) solid;
-}
-
-.t6zm:hover {
-    background-color: var(--t6zm-bg);
-}
-
-.t4mp {
-    border-bottom: 1px var(--t4mp) solid;
-}
-
-.t4mp:hover {
-    background-color: var(--t4mp-bg);
-}
-
-.t4sp {
-    border-bottom: 1px var(--t4sp) solid;
-}
-
-.t4sp:hover {
-    background-color: var(--t4sp-bg);
 }
 
 #logo {

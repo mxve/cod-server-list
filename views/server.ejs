@@ -35,6 +35,7 @@ page_url = `${config.url}/s/${server.identifier}`
     <link rel="image_src" href="<%= preview_image %>" />
     <link as="image" crossorigin="anonymous" href="<%= preview_image %>" rel="preload" />
     <%- include('head') %>
+    <link href="/css/server.css" rel="stylesheet">
 </head>
 
 <body>
@@ -47,77 +48,101 @@ page_url = `${config.url}/s/${server.identifier}`
     </div>
     <%- include('header') %>
     <% if (server.known === true) { %>
-    <div id="server-container">
-        <a href="/s/<%= server.identifier %>" class="server <%= server.game %>">
-            <%
-                if (!server.uptodate) {
-                    __append(`<abbr title="This server is running version ${server.revision}, latest is ${revision}" class="outdated">`)
-                }
-            %>
-            <img src="/img/<%= server.game %>.jpg" />
-            <span class="hostname"><span class="fp fp <%= server.country %>"></span><%= server.hostnameDisplay %></span>
-            <span class="slots"><%= server.players.length %>/<%= server.maxplayers %></span>
-            <span class="gametype"><%= server.gametypeDisplay %></span>
-            <%
-                if (server.game == 't6zm') {
-                    __append(`<span class="round" style="display: inline-block">${server.round}</span>`)
-                }
-            %>
-            <span class="map"><%= server.mapDisplay %></span>
-            <%
-                        if (!server.uptodate) {
-                            __append(`</abbr>`)
-                        }
-                    %>
-        </a>
-    </div>
-    <div id="server-details">
-        <%
-                __append(`<span onClick="copyServer()" class="connect">connect ${server.ip}:${server.port}</span>
-                    `)
-
-                if (!server.uptodate) {
-                    __append(`<br>This server is out of date!<br>Server version: ${server.revision}<br>Latest version: ${revision}`)
-                }
-
-                if (server.players.length > 0) {
-            %>
-
-        <div id="players">
-            <h3>Current players</h3>
-            <div class="player header">
-                <span class="username">
-                    Username
-                </span>
-                <span class="ping">
-                    Ping
-                </span>
-            </div>
-            <%
-                    for (player of server.players) {
-                        __append(`
-                                    <div class="player">
-                                        <span class="username">
-                                            <a href="https://forum.plutonium.pw/user/${player.userslug}">${player.username}</a>
-                                        </span>
-                                        <span class="ping">
-                                            ${player.ping}
-                                        </span>
-                                    </div>
-                                        `)
-                    }
+    <div id="server-info">
+        <div class="hostname <%- server.game %> border"><%- server.hostnameDisplayFull %></div>
+        <table class="server-info-table">
+            <tr>
+                <th>
+                    Players
+                </th>
+                <%
+                    if (server.game == 't6zm') {
+                        __append(`<th>Round</th>`)
                     }
                 %>
-        </div>
+            </tr>
+            <tr>
+                <td data-tooltip="Current players / Max. players">
+                    <%= server.players.length %>/<%= server.maxplayers %>
+                </td>
+                <%
+                    if (server.game == 't6zm') {
+                        __append(`<td>${server.round}</td>`)
+                    }
+                %>
+            </tr>
+            <tr>
+                <th>
+                    Map
+                </th>
+                <th>
+                    Gamemode
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <%- server.mapDisplay %>
+                </td>
+                <td>
+                    <%- server.gametypeDisplay %>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Game
+                </th>
+                <th>
+                    Location
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <%- server.gameDisplay %>
+                </td>
+                <td>
+                    <span class="fp fp <%= server.country %>"></span>
+                </td>
+            </tr>
+        </table>
+        <span onClick="copyServer()" class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span>
+        <%
+            if (server.players.length > 0) {
+        %>
+        <table class="player-list-table">
+            <tr>
+                <th>
+                    Player Name
+                </th>
+                <th>
+                    Ping
+                </th>   
+            </tr>
+            <%
+                for (player of server.players) {
+            %>
+                    <tr>
+                        <td>
+                            <a href="https://forum.plutonium.pw/user/<%= player.userslug %>" title="Forum Profile"><%= player.username %></a>
+                        </td>
+                        <td>
+                            <%- player.ping %>
+                        </td>
+                    </tr>
+            <%
+                }
+            %>
+        </table>
+        <%
+            }
+        %>
     </div>
     <div id="banner">
-        <h3>Server banner</h3>
         <p>
             <img id="banner-png" src="<%= preview_image %>"><br>
 
             <label for="url">Image link</label>
             <input onClick="copy(getElementById('url').value)" class="text-input" id="url" size="64" type="text" value="<%= preview_image %>" readonly>
-            <label for="markdown">Markdown</label>
+            <label data-tooltip="Use this for the forum" for="markdown">Markdown</label>
             <input onClick="copy(getElementById('markdown').value)" class="text-input" id="markdown" size="64" type="text" value="[![<%= server.hostnameDisplay %>](<%= preview_image %>)](<%= page_url %>)" readonly>
             <label for="bbcode">BBCode</label>
             <input onClick="copy(getElementById('bbcode').value)" class="text-input" id="bbcode" size="64" type="text" value="[URL=<%= page_url %>][IMG]<%= preview_image %>[/IMG][/URL]" readonly>
@@ -132,6 +157,7 @@ page_url = `${config.url}/s/${server.identifier}`
         <%- include('footer') %>
 
     <script src="/js/server.js"></script>
+    <script src="/js/tooltip.js"></script>
 </body>
 
 </html>
