@@ -289,7 +289,27 @@ function mapDisplay(map, game = undefined) {
     }
 }
 
+function gameDisplay(game) {
+    switch (game) {
+        case 'iw5mp':
+            return 'Modern Warfare 3'
+        case 't4mp':
+            return 'World at War'
+        case 't4sp':
+            return 'World at War: Zombies'
+        case 't5mp':
+            return 'Black Ops'
+        case 't5sp':
+            return 'Black Ops: Zombies'
+        case 't6mp':
+            return 'Black Ops II'
+        case 't6zm':
+            return 'Black Ops II: Zombies'
+    }
+}
+
 module.exports = {
     map: mapDisplay,
-    gametype: gametypeDisplay
+    gametype: gametypeDisplay,
+    game: gameDisplay
 }

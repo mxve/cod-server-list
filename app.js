@@ -100,6 +100,7 @@ async function getApiData() {
         server.hostnameDisplay = server.hostname.replace(/\^\d/g, '')
         server.hostnameDisplayFull = server.hostnameDisplay
         server.round = get_codInfo_value('rounds', server.codInfo) || '0'
+        server.gameDisplay = names.game(server.game)
 
         // server.password is only correct for iw5mp, so we have to parse codInfo for the correct value
         if (server.codInfo.includes('password')) {
