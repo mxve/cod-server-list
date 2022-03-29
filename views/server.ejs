@@ -103,6 +103,36 @@ page_url = `${config.url}/s/${server.identifier}`
                     <span class="fp fp <%= server.country %>"></span>
                 </td>
             </tr>
+            <tr>
+                <th>
+                    Aim-assist
+                </th>
+                <th>
+                    Password
+                </th>
+            </tr>
+            <tr>
+                <td>
+                <%
+                    if (server.aimassist === '1') {
+                        __append('Enabled')
+                    } else if (server.aimassist == '0') {
+                        __append('Disabled')
+                    } else {
+                        __append('Unknown')
+                    }
+                %>
+                </td>
+                <td>
+                    <%
+                    if (server.password) {
+                        __append('Yes')
+                    } else {
+                        __append('No')
+                    }
+                %>
+                </td>
+            </tr>
         </table>
         <span onClick="copyServer()" class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span>
         <%
