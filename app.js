@@ -288,7 +288,7 @@ app.get(['/', '/:game', '/json', '/:game/json'], async(req, res) => {
     if (req.url.endsWith('json')) {
         res.json(servers)
     } else {
-        res.render('servers', { api: servers, config, revision: apiCache.revision })
+        res.render('serverlist', { api: servers, config, revision: apiCache.revision })
     }
 })
 
