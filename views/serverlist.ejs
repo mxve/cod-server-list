@@ -107,7 +107,7 @@ switch (api.game) {
     for (const server of api.servers) {
 %>
                 <tr
-                    class="<%= server.game %>"
+                    class="<%= server.game %> border backgroundhover"
                     data-href="/s/<%= server.identifier %>"
                     onClick="window.location = this.dataset.href"
                 >

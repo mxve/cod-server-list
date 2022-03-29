@@ -1,4 +1,5 @@
 @import url('vars.css');
+@import url('colors.css');
 
 .serverlist {
     width: 960px;
@@ -7,14 +8,15 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.serverlist tr {
+.serverlist tbody tr {
     text-align: left;
     cursor: pointer;
     padding-top: 30px;
     height: 33px;
+    border-bottom: 1px solid;
 }
 
-.serverlist tr th {
+.serverlist thead tr th {
     text-align: left;
     cursor: pointer;
     border-bottom: 1px var(--background-highlight3) dotted;
