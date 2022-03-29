@@ -50,9 +50,6 @@ switch (api.game) {
         <meta property="og:description" content="<%= description %>">
         <meta property="og:type" content="article">
         <meta property="og:image" content="<%= config.url %>/img/plutools.png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-            integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <%- include('head') %>
         <link href="/css/serverlist.css" rel="stylesheet">
         <style>
@@ -73,10 +70,10 @@ switch (api.game) {
             <thead>
                 <tr>
                     <th class="icon symbol" data-tooltip="Game">
-                        <i class="fas fa-gamepad"></i>
+                        <span class="iconify" data-icon="mdi:controller-classic" data-width="20" data-height="20"></span>
                     </th>
                     <th class="flag symbol" data-tooltip="Server location. Can be inaccurate.">
-                        <i class="fas fa-globe"></i>
+                        <span class="iconify" data-icon="mdi:earth" data-width="20" data-height="20"></span>
                     </th>
                     <th class="hostname">
                         Hostname
@@ -91,13 +88,13 @@ switch (api.game) {
                         Map
                     </th>
                     <th class="round symbol" data-tooltip="Current round, T6 ZM only.">
-                        <i class="fas fa-flag"></i>
+                        <span class="iconify" data-icon="mdi:tally-mark-5" data-width="22" data-height="22"></span>
                     </th>
                     <th class="aimassist symbol" data-tooltip="Aim-assist for controller. ? means unknown.">
-                        <i class="fas fa-crosshairs"></i>
+                        <span class="iconify" data-icon="mdi:crosshairs" data-width="20" data-height="20"></span>
                     </th>
                     <th alt="Password protected" class="password symbol" data-tooltip="Password protection">
-                        <i class="fas fa-lock"></i>
+                        <span class="iconify" data-icon="mdi:lock" data-width="20" data-height="20"></span>
                     </th>
                 </tr>
             </thead>
@@ -140,18 +137,18 @@ switch (api.game) {
                     <td class="aimassist" data-sort="<%= server.aimassist %>">
 <%
     if (server.aimassist === '1') {
-        __append('<i class="fas fa-crosshairs"></i>')
+        __append('<span class="iconify" data-icon="mdi:crosshairs-gps" data-width="20" data-height="20"></span>')
     } else if (server.aimassist == '0') {
-        __append('<i class="fas fa-times"></i>')
+        __append('<span class="iconify" data-icon="mdi:crosshairs-off" data-width="20" data-height="20"></span>')
     } else {
-        __append('<i class="fas fa-question"></i>')
+        __append('<span class="iconify" data-icon="mdi:crosshairs-question" data-width="20" data-height="20"></span>')
     }
 %>
                     </td>
                     <td class="password" data-sort="<%= server.password %>">
 <%
     if (server.password) {
-        __append('<i class="fas fa-lock"></i>')
+        __append('<span class="iconify" data-icon="mdi:lock" data-width="20" data-height="20"></span>')
     }
 %>
                     </td>
@@ -173,6 +170,7 @@ switch (api.game) {
         <script src="/js/serverlist.js"></script>
         <script src="/js/sortable.js"></script>
         <script src="/js/tooltip.js"></script>
+        <script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
     </body>
 
     </html>
