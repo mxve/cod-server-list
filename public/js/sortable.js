@@ -57,11 +57,15 @@ document.addEventListener('click', function(e) {
             // return element.innerText
     }
 
-    if (element.nodeName === 'TH' || element.parentNode.nodeName === 'TH') {
+    while (element.nodeName !== 'TH') {
+        element = element.parentNode
+        if (element.nodeName === 'HTML') {
+            break
+        }
+    }
+
+    if (element.nodeName === 'TH') {
         try {
-            if (element.nodeName !== 'TH' && element.parentNode.nodeName === 'TH') {
-                element = element.parentNode
-            }
             var tr = element.parentNode
                 // var table = element.offsetParent; // Fails with positioned table elements
                 // this is the only way to make really, really sure. A few more bytes though... 😡
