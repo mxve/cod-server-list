@@ -131,15 +131,7 @@ page_url = `${config.url}/s/${server.identifier}`
     <% } %>
         <%- include('footer') %>
 
-    <script>
-        function copy(text) {
-            navigator.clipboard.writeText(text);
-            alert("Copied!");
-        }
-        function copyServer() {
-            copy("connect <%= server.ip %>:<%= server.port %>")
-        }
-    </script>
+    <script src="/js/server.js"></script>
 </body>
 
 </html>
