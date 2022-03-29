@@ -87,6 +87,7 @@ async function getApiData() {
         return b.players.length - a.players.length
     })
 
+    let country_name = new Intl.DisplayNames(['en'], {type: 'region'})
     let servers = []
     for (server of json) {
         // Generate userslugs, used to identify users on plutonium forums
@@ -139,8 +140,10 @@ async function getApiData() {
         // if we can't get the servers country we'll use the default flag
         try {
             server.country = geoip.lookup(server.ip).country.toLowerCase()
+            server.countryDisplay = country_name.of(server.country.toUpperCase())
         } catch {
             server.country = 'lgbt'
+            server.countryDisplay = 'Unknown'
         }
 
         // check whether a relevant server variable has changed since the last run
