@@ -92,6 +92,13 @@
     .serverlist tr td.map .margin {
         margin-right: 6px;
     }
+    .serverlist tr td.icon {
+        width: 22px;
+    }
+    .serverlist tr td.flag {
+        width: 24px;
+    }
+    .serverlist tr td.icon,
     .serverlist tr td.map,
     .serverlist tr td.round,
     .serverlist tr td.gametype,
@@ -103,7 +110,6 @@
     .serverlist tr td.password,
     .serverlist tr td.round .x,
     .serverlist tr td.aimassist,
-    .serverlist tr .icon,
     .serverlist tr th {
         display: none;
     }
