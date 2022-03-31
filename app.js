@@ -11,6 +11,8 @@ const slugify = require('./slugify.js')
 const config = require('./config.js')
 const images = require('./images.js')
 
+const games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm']
+
 let apiCache
 
 const scheduler = new ToadScheduler()
@@ -276,11 +278,7 @@ app.get(['/', '/:game', '/json', '/:game/json'], async(req, res) => {
     let servers
 
     // game filter
-    if (req.params.game === 'iw5mp' ||
-        req.params.game === 't6mp' ||
-        req.params.game === 't6zm' ||
-        req.params.game === 't4mp' ||
-        req.params.game === 't4sp') {
+    if (games.includes(req.params.game)) {
 
         servers = await getData(req.params.game, req.query.s)
         servers.game = req.params.game
