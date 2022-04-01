@@ -45,6 +45,7 @@ function gametypeDisplay(gametype, game = undefined) {
             return 'Global Thermonuclear War'
         case 'shrp':
             return 'Sharpshooter'
+        case 'zom':
         case 'cmp':
             return 'Zombies'
         case 'zclassic':
@@ -284,6 +285,31 @@ function mapDisplay(map, game = undefined) {
             return 'Cobblestone'
         case 'mp_crosswalk_ss':
             return 'Intersection'
+        case 'zombie_theater':
+            return 'Kino der Toten'
+        case 'zombie_pentagon':
+            return '"Five"'
+        case 'zombie_cod5_prototype':
+        case 'nazi_zombie_prototype':
+            return 'Nacht der Untoten'
+        case 'zombie_coast':
+            return 'Call of the Dead'
+        case 'zombie_cod5_factory':
+        case 'nazi_zombie_factory':
+            return 'Der Riese'
+        case 'zombie_cod5_asylum':
+        case 'nazi_zombie_asylum':
+            return 'Verrückt'
+        case 'zombie_cosmodrome':
+            return 'Ascension'
+        case 'zombie_cod5_sumpf':
+        case 'nazi_zombie_sumpf':
+            return 'Shi No Numa'
+        case 'zombie_paris':
+            return 'Moon'
+        case '':
+            return ''
+
         default:
             return map
     }
