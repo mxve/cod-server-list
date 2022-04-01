@@ -306,10 +306,10 @@ function mapDisplay(map, game = undefined) {
         case 'nazi_zombie_sumpf':
             return 'Shi No Numa'
         case 'zombie_paris':
+        case 'zombie_moon':
             return 'Moon'
-        case '':
-            return ''
-
+        case 'zombie_temple':
+            return 'Shangri-La'
         default:
             return map
     }
