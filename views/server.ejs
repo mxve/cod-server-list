@@ -187,6 +187,11 @@ page_url = `${config.url}/s/${server.identifier}`
         <%- include('footer') %>
 
     <script src="/js/server.js"></script>
+    <script>
+        function copyServer() {
+            copy("connect <%= server.ip %>:<%= server.port %>")
+        }
+    </script>
     <script src="/js/tooltip.js"></script>
 </body>
 
