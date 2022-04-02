@@ -178,6 +178,22 @@ async function getApiData() {
     }
 }
 
+function searchInArray(search, searchables, searchablesFull = []) {
+    for (searchable of searchablesFull) {
+        if (searchable && searchable.toString().toLowerCase() === search.toString().toLowerCase()) {
+            return true
+        }
+    }
+
+    for (searchable of searchables) {
+        if (searchable && searchable.toString().toLowerCase().includes(search)) {
+            return true
+        }
+    }
+
+    return false
+}
+
 // used to get servers requested by client
 // includes crude search function & game filter
 async function getData(game = 'all', search = undefined) {
@@ -196,15 +212,43 @@ async function getData(game = 'all', search = undefined) {
     for (server of api.json) {
         // we do a little searching
         if (search !== undefined) {
-            if (!server.hostname.toLowerCase().includes(search.toLowerCase()) &&
-                server.ip != search &&
-                server.port != search &&
-                server.maxplayers != search &&
-                server.players.length != search &&
-                !server.map.toLowerCase().includes(search.toLowerCase()) &&
-                !server.mapDisplay.toLowerCase().includes(search.toLowerCase()) &&
-                !server.gametype.toLowerCase().includes(search.toLowerCase()) &&
-                !server.gametypeDisplay.toLowerCase().includes(search.toLowerCase())) {
+            // if any of these values contains search its a match
+            let searchables = [
+                server.hostname,
+                server.map,
+                server.mapDisplay,
+                server.gametype,
+                server.gametypeDisplay,
+                server.country,
+                server.countryDisplay,
+                server.gameDisplay,
+                server.game
+            ]
+
+            // these values have to match completely (aside from case)
+            let searchablesFull = [
+                server.ip,
+                server.port,
+                server.maxplayers,
+                server.players.length,
+                server.round,
+                server.identifier
+            ]
+
+            // add player names to searchable values
+            if (server.players.length > 0) {
+                let players
+                for (player of server.players) {
+                    if (!players) {
+                        players = `${player.username}`
+                        continue
+                    }
+                    players = `${players};${player.username};${player.userslug}`
+                }
+                searchables.push(players)
+            }
+
+            if (!searchInArray(search, searchables, searchablesFull)) {
                 continue
             }
         }
