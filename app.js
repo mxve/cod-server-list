@@ -78,6 +78,19 @@ function get_codInfo_value(key, codInfo, bool = false) {
     return false
 }
 
+function is_ignored_server(server) {
+    for (ignored of config.ignored_servers) {
+        if (ignored.hostname == server.hostname) {
+            return true
+        }
+        if (ignored.ip == server.ip &&
+            (ignored.port === 'any' || ignored.port == server.port)) {
+            return true
+        }
+    }
+    return false
+}
+
 let previous_servers = []
 async function getApiData() {
     const api = await got('https://plutonium.pw/api/servers')
@@ -89,9 +102,13 @@ async function getApiData() {
         return b.players.length - a.players.length
     })
 
-    let country_name = new Intl.DisplayNames(['en'], {type: 'region'})
+    let country_name = new Intl.DisplayNames(['en'], { type: 'region' })
     let servers = []
     for (server of json) {
+        if (is_ignored_server(server)) {
+            continue
+        }
+
         // Generate userslugs, used to identify users on plutonium forums
         for (player of server.players) {
             player.userslug = slugify(player.username)
