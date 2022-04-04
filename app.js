@@ -203,7 +203,7 @@ function searchInArray(search, searchables, searchablesFull = []) {
     }
 
     for (searchable of searchables) {
-        if (searchable && searchable.toString().toLowerCase().includes(search)) {
+        if (searchable && searchable.toString().toLowerCase().includes(search.toString().toLowerCase())) {
             return true
         }
     }
