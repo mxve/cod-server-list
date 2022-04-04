@@ -54,6 +54,8 @@ function gametypeDisplay(gametype, game = undefined) {
             return 'Standard'
         case 'zgrief':
             return 'Grief'
+        case 'zcleansed':
+            return 'Turned'
         case 'sas':
             return 'Sticks & Stones'
         case 'twar':
@@ -107,6 +109,7 @@ function mapDisplay(map, game = undefined) {
         case 'zm_prison':
             return 'Mob of the Dead'
         case 'zm_transit':
+        case 'zm_transit_dr':
             return 'TranZit'
         case 'zm_nuked':
             return 'Nuketown Zombies'
