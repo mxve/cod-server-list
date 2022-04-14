@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "ejs": "^3.1.6",
+    "ejs": "^3.0.2",
     "express": "^4.17.2",
     "find-remove": "^4.0.4",
-    "geoip-lite": "^1.4.3",
+    "geoip-lite": "^1.0.10",
     "got": "11.8.3",
     "jimp": "^0.16.1",
     "toad-scheduler": "^1.6.0",
