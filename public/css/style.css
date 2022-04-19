@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dongle&family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap');
 @import url('vars.css');
 @import url('colors.css');
 
@@ -243,39 +243,16 @@ h1 {
 }
 
 #logo {
-    width: 200px;
+    width: 240px;
     margin: auto;
     display: block;
-    font-family: 'Dongle', sans-serif;
-    font-weight: 400;
     z-index: 5;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
-.logo-1 {
-    transform-origin: 60px 60px;
-    transform: rotateZ(60deg);
-}
-
-.logo-2 {
-    transform-origin: 60px 60px;
-    transform: rotateZ(-60deg);
-}
-
-.logo-grp-1 {
-    transform-origin: 60px 60px;
-    transform: scaleX(.32);
-}
-
-.logo-grp-2 {
-    animation: turnIt 3s linear infinite;
-    transform-origin: 60px 60px;
-    transform-box: content-box;
-}
-
-@keyframes turnIt {
-    100% {
-        transform: rotate(1turn);
-    }
+#logo img {
+    width: 240px;
 }
 
 .dialog {
@@ -420,7 +397,7 @@ h1 {
         margin-top: 1em;
     }
     #logo {
-        margin-top: 3em;
+        margin-top: 60px;
     }
     #stats {
         position: fixed;

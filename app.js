@@ -411,4 +411,15 @@ app.get('/s/:identifier/png', async(req, res) => {
     resPreviewImage(res, server)
 })
 
+app.get('/img/banner', async(req, res) => {
+    const rand = Math.random()
+    const dir = 'public/img/banner/'
+    let img = 'default.png'
+    if (rand < 0.02) {
+        const files = fs.readdirSync(dir).filter(fn => fn.startsWith('special'))
+        img = files[Math.floor(Math.random() * files.length)]
+    }
+    res.sendFile(dir + img, {root: __dirname})
+})
+
 app.listen(config.port)
