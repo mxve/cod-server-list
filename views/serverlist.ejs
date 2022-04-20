@@ -71,7 +71,8 @@ switch (api.game) {
         <div id="search-container">
             <div id="search">
                 <form class="search" method="get">
-                    <input class="text-input" size="24" type="text" placeholder="Search" value="" name="s">
+                    <input class="text-input" id="searchbar" size="24" type="text" placeholder="Search" value="" name="s"><br>
+                    <label class="search-players"><input class="check-input" type="checkbox" name="players"> Include players</label>
                 </form>
             </div>
         </div>
@@ -180,6 +181,7 @@ switch (api.game) {
         <script src="/js/serverlist.js"></script>
         <script src="/js/sortable.js"></script>
         <script src="/js/tooltip.js"></script>
+        <script src="/js/search.js"></script>
         <script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
     </body>
 

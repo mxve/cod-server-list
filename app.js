@@ -213,7 +213,7 @@ function searchInArray(search, searchables, searchablesFull = []) {
 
 // used to get servers requested by client
 // includes crude search function & game filter
-async function getData(game = 'all', search = undefined) {
+async function getData(game = 'all', search = undefined, includePlayers = false) {
     if (apiCache === undefined) {
         apiCache = await getApiData()
     }
@@ -253,7 +253,7 @@ async function getData(game = 'all', search = undefined) {
             ]
 
             // add player names to searchable values
-            if (server.players.length > 0) {
+            if (includePlayers && server.players.length > 0) {
                 let players
                 for (player of server.players) {
                     if (!players) {
@@ -338,13 +338,13 @@ app.use(express.static('public'))
 app.get(['/', '/:game', '/json', '/:game/json'], async(req, res) => {
     let servers
 
+    const includePlayers = req.query.players == 'on' ? true : false
     // game filter
     if (games.includes(req.params.game)) {
-
-        servers = await getData(req.params.game, req.query.s)
+        servers = await getData(req.params.game, req.query.s, includePlayers)
         servers.game = req.params.game
     } else {
-        servers = await getData('all', req.query.s)
+        servers = await getData('all', req.query.s, includePlayers)
         servers.game = 'all'
     }
 

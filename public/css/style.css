@@ -58,6 +58,19 @@ h1 {
     outline: none;
 }
 
+.search-players {
+    display: none;
+    background-color: var(--background);
+}
+
+#searchbar {
+    margin-bottom: 6px;
+}
+
+label {
+    color: var(--foreground-highlight);
+}
+
 #nav {
     margin: auto;
     text-align: center;
