@@ -1,6 +1,9 @@
 module.exports = {
     apps: [{
         name: "pluto-server-list",
-        script: "./app.js"
+        script: "./app.js",
+        env: {
+            "NODE_ENV": "production",
+        }
     }]
 }

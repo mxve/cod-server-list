@@ -5,6 +5,7 @@ const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 const jimp = require('jimp')
 const fs = require('fs')
 const crypto = require('crypto')
+const compression = require('compression')
 
 const names = require('./names.js')
 const slugify = require('./slugify.js')
@@ -19,7 +20,7 @@ const scheduler = new ToadScheduler()
 
 // task to generate server preview images, runs every second,
 // uses below var to control wether new images should be generate on the run
-let previews_done = true;
+let previews_done = true
 const generate_previews_task = new Task('clear_images', async() => {
     if (previews_done) {
         previews_done = false
@@ -48,8 +49,8 @@ function generateIdentifier(server) {
     // generate (hopefully) unique server identifier
     const address = `${server.ip}:${server.port}`
         // get base64 encoding of sha256 hash of address
-    const hash = crypto.createHash('sha256').update(address).digest('base64');
-    // make hash url safe by replacing +, / & =
+    const hash = crypto.createHash('sha256').update(address).digest('base64')
+        // make hash url safe by replacing +, / & =
     const urlsafe = hash.replaceAll('+', '-').replaceAll('/', '_').replace('=', '')
         // take first 10 chars
     const shortened = urlsafe.substr(0, 10)
@@ -330,9 +331,10 @@ async function getServerByIdentifier(identifier) {
 }
 
 const app = express()
-app.disable("x-powered-by");
+app.disable("x-powered-by")
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
+app.use(compression())
 
 // server list
 app.get(['/', '/:game', '/json', '/:game/json'], async(req, res) => {
@@ -419,7 +421,7 @@ app.get('/img/banner', async(req, res) => {
         const files = fs.readdirSync(dir).filter(fn => fn.startsWith('special'))
         img = files[Math.floor(Math.random() * files.length)]
     }
-    res.sendFile(dir + img, {root: __dirname})
+    res.sendFile(dir + img, { root: __dirname })
 })
 
 app.listen(config.port)
