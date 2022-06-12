@@ -313,6 +313,52 @@ function mapDisplay(map, game = undefined) {
             return 'Moon'
         case 'zombie_temple':
             return 'Shangri-La'
+        case 'mp_silo':
+            return 'Silo'
+        case 'mp_zoo':
+            return 'Zoo'
+        case 'mp_havoc':
+            return 'Jungle'
+        case 'mp_gridlock':
+            return 'Convoy'
+        case 'mp_array':
+            return 'Array'
+        case 'mp_crisis':
+            return 'Crisis'
+        case 'mp_mountain':
+            return 'Summit'
+        case 'mp_cracked':
+            return 'Cracked'
+        case 'mp_radiation':
+            return 'Radiation'
+        case 'mp_berlinwall2':
+            return 'Berlin Wall'
+        case 'mp_cosmodrome':
+            return 'Launch'
+        case 'mp_russianbase':
+            return 'WMD'
+        case 'mp_golfcourse':
+            return 'Hazard'
+        case 'mp_kowloon':
+            return 'Kowloon'
+        case 'mp_stadium':
+            return 'Stadium'
+        case 'mp_area51':
+            return 'Hangar 18'
+        case 'mp_discovery':
+            return 'Discovery'
+        case 'mp_hanoi':
+            return 'Hanoi'
+        case 'mp_drivein':
+            return 'Drive-In'
+        case 'mp_cairo':
+            return 'Havana'
+        case 'mp_villa':
+            return 'Villa'
+        case 'mp_duga':
+            return 'Grid'
+        case 'mp_hotel':
+            return 'Hotel'
         default:
             return map
     }
