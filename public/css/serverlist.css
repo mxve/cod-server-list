@@ -57,7 +57,7 @@
 }
 
 .serverlist tr .slots {
-    width: 70px;
+    width: 75px;
 }
 
 .serverlist tr td.hostname {
@@ -84,7 +84,7 @@
         max-width: 360px;
     }
     .serverlist tr td.slots {
-        width: 55px;
+        width: 65px;
     }
     .serverlist tr td.gametype {
         width: 160px;

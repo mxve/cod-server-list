@@ -99,9 +99,6 @@ async function getApiData() {
     version = JSON.parse(version.body).revision
 
     const json = JSON.parse(api.body)
-    json.sort((a, b) => {
-        return b.players.length - a.players.length
-    })
 
     let country_name = new Intl.DisplayNames(['en'], { type: 'region' })
     let servers = []
@@ -140,6 +137,10 @@ async function getApiData() {
         }
         if (server.mapDisplay.length > 24) {
             server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
+        }
+
+        if (server.game === 't5mp') {
+            server.bots = server.players.filter(x => x.ping == 0).length
         }
 
         // in the future servers are supposed to be checked against a databse
@@ -186,6 +187,10 @@ async function getApiData() {
         servers.push(server)
     }
 
+    servers.sort((a, b) => {
+        return (b.players.length - b.bots) - (a.players.length - a.bots)
+    })
+
     // save new servers as previous servers for the next run
     previous_servers = servers
 
@@ -224,6 +229,7 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
     let maxPlayers = 0
     let countPlayers = 0
     let countServers = 0
+    let countBots = 0
 
     // filter servers
     let servers = []
@@ -280,6 +286,7 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
         maxPlayers += server.maxplayers
         countPlayers += server.players.length
         countServers += 1
+        countBots += server.bots
 
         servers.push(server)
     }
@@ -289,6 +296,7 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
         date: apiCache.date,
         maxPlayers,
         countPlayers,
+        countBots,
         countServers
     }
 }

@@ -61,7 +61,7 @@ switch (api.game) {
         <meta property="og:type" content="article">
         <meta property="og:image" content="<%= config.url %>/img/plutools.png">
         <%- include('head') %>
-        <link href="/css/serverlist.css" rel="stylesheet">
+        <link href="/css/serverlist.css?v=0002" rel="stylesheet">
         <style>
             <%- css %>
         </style>
@@ -127,8 +127,13 @@ switch (api.game) {
                     <td class="hostname">
                         <%= server.hostnameDisplayFull %>
                     </td>
-                    <td class="slots" data-sort="<%= server.players.length %>">
-                        <%= server.players.length %>/<%= server.maxplayers %>
+                    <td class="slots" data-sort="<%= server.players.length - server.bots %>">
+                        <%= server.players.length - server.bots %>/<%= server.maxplayers %>
+                        <%
+                            if (server.bots > 0) {
+                                __append(` (${server.bots})`)
+                            }
+                        %>
                     </td>
                     <td class="gametype">
                         <%= server.gametypeDisplay %>
@@ -173,7 +178,7 @@ switch (api.game) {
         <div id="stats">
             Servers:
             <%= api.countServers %> | Players:
-            <%= api.countPlayers %>/<%= api.maxPlayers %>
+            <%= api.countPlayers - api.countBots %>/<%= api.maxPlayers %>
             | Data age:
             <%= Date.now() - api.date %>ms
         </div>
