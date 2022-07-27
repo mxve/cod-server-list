@@ -110,6 +110,7 @@
     .serverlist tr td.password,
     .serverlist tr td.round .x,
     .serverlist tr td.aimassist,
+    .serverlist tr td.favourite,
     .serverlist tr th {
         display: none;
     }

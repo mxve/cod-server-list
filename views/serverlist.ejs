@@ -77,7 +77,7 @@ switch (api.game) {
             </div>
         </div>
         <%- include('header') %>
-        <table class="serverlist sortable">
+        <table class="serverlist sortable" id="serverlist">
             <thead>
                 <tr>
                     <th class="icon symbol" data-tooltip="Game">
@@ -107,6 +107,9 @@ switch (api.game) {
                     <th alt="Password protected" class="password symbol" data-tooltip="Password protection">
                         <span class="iconify" data-icon="mdi:lock" data-width="20" data-height="20"></span>
                     </th>
+                    <th alt="Favourite" data-tooltip="Favourite">
+                        <span class="iconify" data-icon="mdi:star-outline" data-width="20" data-height="20"></span>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -115,6 +118,7 @@ switch (api.game) {
 %>
                 <tr
                     class="<%= server.game %> border backgroundhover"
+                    data-identifier="<%= server.identifier %>"
                     data-href="/s/<%= server.identifier %>"
                     onClick="window.location = this.dataset.href"
                 >
@@ -167,6 +171,8 @@ switch (api.game) {
         __append('<span class="iconify" data-icon="mdi:lock" data-width="20" data-height="20"></span>')
     }
 %>
+                    </td>
+                    <td class="favourite" onclick="event.cancelBubble=true;if (event.stopPropagation) event.stopPropagation();favourite(this.parentElement.dataset.identifier)">
                     </td>
                 </tr>
 

@@ -1,6 +1,5 @@
 const fs = require('fs')
 const jimp = require('jimp')
-const { Server } = require('net')
 
 async function generate_server_preview(server, create = false) {
     const filepath = `data/img/server_previews/generated/${server.ip}_${server.port}.png`

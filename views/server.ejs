@@ -192,6 +192,16 @@ page_url = `${config.url}/s/${server.identifier}`
         function copyServer() {
             copy("connect <%= server.ip %>:<%= server.port %>")
         }
+
+        let favourites = JSON.parse(localStorage.getItem('favourites'))
+        console.log(favourites)
+        if (favourites === null) {
+            favourites = []
+        } else {
+            if (favourites.includes('<%= server.identifier %>')) {
+                document.title ='⭐ ' + document.title
+            }
+        }
     </script>
     <script src="/js/tooltip.js"></script>
     <script src="/js/search.js"></script>
