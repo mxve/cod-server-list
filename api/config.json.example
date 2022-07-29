@@ -1,0 +1,25 @@
+{
+    "xlabs": {
+        "master": {
+            "host": "master.xlabs.dev",
+            "port": 20810
+        },
+        "games": [
+            {
+                "name": "iw4x",
+                "game_id": "IW4",
+                "protocol": 150
+            },
+            {
+                "name": "iw6x",
+                "game_id": "IW6",
+                "protocol": 1
+            },
+            {
+                "name": "s1x",
+                "game_id": "S1",
+                "protocol": 1
+            }
+        ]
+    }
+}
