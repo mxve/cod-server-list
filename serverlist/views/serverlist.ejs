@@ -1,0 +1,199 @@
+<%
+let title
+let description
+let css
+
+const css_disable_round = ".serverlist tr .round { display: none; }"
+switch (api.game) {
+    case 'iw5mp':
+        title = "IW5 Servers"
+        description = "View Plutonium IW5 Servers & Players online"
+        css = `${css_disable_round}`
+        break
+    case 't5mp':
+        title = "T5 Servers"
+        description = "View Plutonium T5 Servers & Players online"
+        css = `${css_disable_round}`
+        break
+    case 't5sp':
+        title = "T5 Zombies Servers"
+        description = "View Plutonium T5 Zombies Servers & Players online"
+        css = `${css_disable_round}`
+        break
+    case 't6mp':
+        title = "T6 Servers"
+        description = "View Plutonium T6 Servers & Players online"
+        css = `${css_disable_round}`
+        break
+    case 't6zm':
+        title = "T6 Zombies Servers"
+        description = "View Plutonium T6 Zombies Servers & Players online"
+        break
+    case 't4mp':
+        title = "T4 Servers"
+        description = "View Plutonium T4 Servers & Players online"
+        css = `${css_disable_round}`
+        break
+    case 't4sp':
+        title = "T4 Zombies Servers"
+        description = "View Plutonium T4 Zombies Servers & Players online"
+        css = `${css_disable_round}`
+        break
+    default:
+        title = "PluTools | Server List"
+        description = "View Plutonium Servers & Players online | IW5/MW3, T4/WaW, T5/BO1 & T6/BO2"
+}
+%>
+
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <title>
+            <%= title %>
+        </title>
+        <meta name="title" content="<%= title %>">
+        <meta name="description" content="<%= description %>">
+        <meta property="og:title" content="<%= title %>">
+        <meta property="og:site_name" content="<%= title %>">
+        <meta property="og:url" content="<%= config.url %>/<%= api.game %>">
+        <meta property="og:description" content="<%= description %>">
+        <meta property="og:type" content="article">
+        <meta property="og:image" content="<%= config.url %>/img/plutools.png">
+        <%- include('head') %>
+        <link href="/css/serverlist.css?v=0002" rel="stylesheet">
+        <style>
+            <%- css %>
+        </style>
+    </head>
+
+    <body>
+        <div id="search-container">
+            <div id="search">
+                <form class="search" method="get">
+                    <input class="text-input" id="searchbar" size="24" type="text" placeholder="Search" value="" name="s"><br>
+                    <label class="search-players"><input class="check-input" type="checkbox" name="players"> Include players</label>
+                </form>
+            </div>
+        </div>
+        <%- include('header') %>
+        <table class="serverlist sortable" id="serverlist">
+            <thead>
+                <tr>
+                    <th class="icon symbol" data-tooltip="Game">
+                        <span class="iconify" data-icon="mdi:controller-classic" data-width="20" data-height="20"></span>
+                    </th>
+                    <th class="flag symbol" data-tooltip="Server location. Can be inaccurate.">
+                        <span class="iconify" data-icon="mdi:earth" data-width="20" data-height="20"></span>
+                    </th>
+                    <th class="hostname">
+                        Hostname
+                    </th>
+                    <th class="slots">
+                        Players
+                    </th>
+                    <th class="gametype">
+                        Gamemode
+                    </th>
+                    <th class="map">
+                        Map
+                    </th>
+                    <th class="round symbol" data-tooltip="Current round, T6 ZM only.">
+                        <span class="iconify" data-icon="mdi:tally-mark-5" data-width="22" data-height="22"></span>
+                    </th>
+                    <th class="aimassist symbol" data-tooltip="Aim-assist for controller. ? means unknown.">
+                        <span class="iconify" data-icon="mdi:crosshairs" data-width="20" data-height="20"></span>
+                    </th>
+                    <th alt="Password protected" class="password symbol" data-tooltip="Password protection">
+                        <span class="iconify" data-icon="mdi:lock" data-width="20" data-height="20"></span>
+                    </th>
+                    <th alt="Favourite" data-tooltip="Favourite">
+                        <span class="iconify" data-icon="mdi:star-outline" data-width="20" data-height="20"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+<%
+    for (const server of api.servers) {
+%>
+                <tr
+                    class="<%= server.game %> border backgroundhover"
+                    data-identifier="<%= server.identifier %>"
+                    data-href="/s/<%= server.identifier %>"
+                    onClick="window.location = this.dataset.href"
+                >
+                    <td class="icon" data-sort="<%= server.game %>">
+                        <img src="/img/<%= server.game %>.jpg" />
+                    </td>
+                    <td class="flag" data-sort="<%= server.country %>">
+                        <span class="fp fp <%= server.country %>"></span>
+                    </td>
+                    <td class="hostname">
+                        <%= server.hostnameDisplayFull %>
+                    </td>
+                    <td class="slots" data-sort="<%= server.players.length - server.bots %>">
+                        <%= server.players.length - server.bots %>/<%= server.maxplayers %>
+                        <%
+                            if (server.bots > 0) {
+                                __append(` (${server.bots})`)
+                            }
+                        %>
+                    </td>
+                    <td class="gametype">
+                        <%= server.gametypeDisplay %>
+                    </td>
+                    <td class="map">
+                        <div class="margin">
+                            <%= server.mapDisplay %>
+                        </div>
+                    </td>
+                    <td class="round">
+<%
+    if (server.game === 't6zm') {
+        __append(server.round)
+    }
+%>
+                    </td>
+                    <td class="aimassist" data-sort="<%= server.aimassist %>">
+<%
+    if (server.aimassist === '1') {
+        __append('<span class="iconify" data-icon="mdi:crosshairs-gps" data-width="20" data-height="20"></span>')
+    } else if (server.aimassist == '0') {
+        __append('<span class="iconify" data-icon="mdi:crosshairs-off" data-width="20" data-height="20"></span>')
+    } else {
+        __append('<span class="iconify" data-icon="mdi:crosshairs-question" data-width="20" data-height="20"></span>')
+    }
+%>
+                    </td>
+                    <td class="password" data-sort="<%= server.password %>">
+<%
+    if (server.password) {
+        __append('<span class="iconify" data-icon="mdi:lock" data-width="20" data-height="20"></span>')
+    }
+%>
+                    </td>
+                    <td class="favourite" onclick="event.cancelBubble=true;if (event.stopPropagation) event.stopPropagation();favourite(this.parentElement.dataset.identifier)">
+                    </td>
+                </tr>
+
+<%
+    } // closes servers for
+%>
+            </tbody>
+        </table>
+        <div id="stats">
+            Servers:
+            <%= api.countServers %> | Players:
+            <%= api.countPlayers - api.countBots %>/<%= api.maxPlayers %>
+            | Data age:
+            <%= Date.now() - api.date %>ms
+        </div>
+        <%- include('footer') %>
+        <script src="/js/serverlist.js"></script>
+        <script src="/js/sortable.js"></script>
+        <script src="/js/tooltip.js"></script>
+        <script src="/js/search.js"></script>
+        <script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
+    </body>
+
+    </html>

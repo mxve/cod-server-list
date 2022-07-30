@@ -5,6 +5,6 @@
     },
     "serverbanner": {
         "port": 63002,
-        "url": "http://localhost:63001/"
+        "url": "http://localhost:63002/"
     }
 }

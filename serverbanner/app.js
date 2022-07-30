@@ -40,7 +40,7 @@ const generate_previews_task = new Task('clear_images', async() => {
         //got(config.preview_generator_heartbeat_url)
         let data = await getData()
         for (server of data.servers) {
-            const preview_path = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
+            const preview_path = `serverbanner/data/img/server_previews/generated/${server.ip}_${server.port}.png`
             const exists = fs.existsSync(preview_path)
             if (server.changed || !exists) {
                 await images.generate_server_preview(server, false)

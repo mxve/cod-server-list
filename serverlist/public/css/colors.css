@@ -1,0 +1,89 @@
+@import url('vars.css');
+
+.iw5mp.color {
+    color: var(--iw5mp) !important;
+}
+.t4mp.color {
+    color: var(--t4mp) !important;
+}
+.t4sp.color {
+    color: var(--t4sp) !important;
+}
+.t5mp.color {
+    color: var(--t5mp) !important;
+}
+.t5sp.color {
+    color: var(--t5sp) !important;
+}
+.t6mp.color {
+    color: var(--t6mp) !important;
+}
+.t6zm.color {
+    color: var(--t6zm) !important;
+}
+
+.iw5mp.border {
+    border-color: var(--iw5mp) !important;
+}
+.t4mp.border {
+    border-color: var(--t4mp) !important;
+}
+.t4sp.border {
+    border-color: var(--t4sp) !important;
+}
+.t5mp.border {
+    border-color: var(--t5mp) !important;
+}
+.t5sp.border {
+    border-color: var(--t5sp) !important;
+}
+.t6mp.border {
+    border-color: var(--t6mp) !important;
+}
+.t6zm.border {
+    border-color: var(--t6zm) !important;
+}
+
+.iw5mp.background {
+    background-color: var(--iw5mp-bg) !important;
+}
+.t4mp.background {
+    background-color: var(--t4mp-bg) !important;
+}
+.t4sp.background {
+    background-color: var(--t4sp-bg) !important;
+}
+.t5mp.background {
+    background-color: var(--t5mp-bg) !important;
+}
+.t5sp.background {
+    background-color: var(--t5sp-bg) !important;
+}
+.t6mp.background {
+    background-color: var(--t6mp-bg) !important;
+}
+.t6zm.background {
+    background-color: var(--t6zm-bg) !important;
+}
+
+.iw5mp.backgroundhover:hover {
+    background-color: var(--iw5mp-bg) !important;
+}
+.t4mp.backgroundhover:hover {
+    background-color: var(--t4mp-bg) !important;
+}
+.t4sp.backgroundhover:hover {
+    background-color: var(--t4sp-bg) !important;
+}
+.t5mp.backgroundhover:hover {
+    background-color: var(--t5mp-bg) !important;
+}
+.t5sp.backgroundhover:hover {
+    background-color: var(--t5sp-bg) !important;
+}
+.t6mp.backgroundhover:hover {
+    background-color: var(--t6mp-bg) !important;
+}
+.t6zm.backgroundhover:hover {
+    background-color: var(--t6zm-bg) !important;
+}

@@ -1,0 +1,210 @@
+<%
+let title
+if (server.known) {
+    title = `${server.hostnameDisplay} [${server.players.length}/${server.maxplayers}]`
+    description = `View player count, map and gamemode of ${server.hostnameDisplay}`
+} else {
+    title = "Unknown server"
+    description = `Unknown or offline server`
+}
+preview_image = `${config.url}/s/${server.identifier}/png`
+page_url = `${config.url}/s/${server.identifier}`
+%>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <meta name="title" content="<%= title %>">
+    <meta name="description" content="<%= description %>">
+    <meta property="og:title" content="<%= title %>">
+    <meta property="og:site_name" content="PluTools.pw">
+    <meta property="og:url" content="<%= page_url %>">
+    <meta property="og:description" content=" ">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="<%= preview_image %>">
+    <meta property="og:image:url" content="<%= preview_image %>">
+    <meta property="og:image:secure_url" content="<%= preview_image %>">
+    <meta property="og:image:type" content="image/png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="<%= page_url %>">
+    <meta property="twitter:title" content="<%= title %>">
+    <meta property="twitter:description" content=" ">
+    <meta property="twitter:image" content="<%= preview_image %>">
+    <link rel="image_src" href="<%= preview_image %>" />
+    <link as="image" crossorigin="anonymous" href="<%= preview_image %>" rel="preload" />
+    <%- include('head') %>
+    <link href="/css/server.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="search-container">
+        <div id="search">
+            <form class="search" method="get" action="/">
+                <input class="text-input" id="searchbar" size="24" type="text" placeholder="Search" value="" name="s"><br>
+                <label class="search-players"><input class="check-input" type="checkbox" name="players"> Include players</label>
+            </form>
+        </div>
+    </div>
+    <%- include('header') %>
+    <% if (server.known === true) { %>
+    <div id="server-info">
+        <div class="hostname <%- server.game %> border"><%- server.hostnameDisplayFull %></div>
+        <table class="server-info-table">
+            <tr>
+                <th>
+                    Players
+                </th>
+                <%
+                    if (server.game == 't6zm') {
+                        __append(`<th>Round</th>`)
+                    }
+                %>
+            </tr>
+            <tr>
+                <td data-tooltip="Current players / Max. players">
+                    <%= server.players.length %>/<%= server.maxplayers %>
+                </td>
+                <%
+                    if (server.game == 't6zm') {
+                        __append(`<td>${server.round}</td>`)
+                    }
+                %>
+            </tr>
+            <tr>
+                <th>
+                    Map
+                </th>
+                <th>
+                    Gamemode
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <%- server.mapDisplay %>
+                </td>
+                <td>
+                    <%- server.gametypeDisplay %>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Game
+                </th>
+                <th>
+                    Location
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <%- server.gameDisplay %>
+                </td>
+                <td>
+                    <span class="fp fp <%= server.country %>"></span> <%= server.countryDisplay %>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Aim-assist
+                </th>
+                <th>
+                    Password
+                </th>
+            </tr>
+            <tr>
+                <td>
+                <%
+                    if (server.aimassist === '1') {
+                        __append('Enabled')
+                    } else if (server.aimassist == '0') {
+                        __append('Disabled')
+                    } else {
+                        __append('Unknown')
+                    }
+                %>
+                </td>
+                <td>
+                    <%
+                    if (server.password) {
+                        __append('Yes')
+                    } else {
+                        __append('No')
+                    }
+                %>
+                </td>
+            </tr>
+        </table>
+        <span onClick="copyServer()" class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span>
+        <%
+            if (server.players.length > 0) {
+        %>
+        <table class="player-list-table">
+            <tr>
+                <th>
+                    Player Name
+                </th>
+                <th>
+                    Ping
+                </th>   
+            </tr>
+            <%
+                for (player of server.players) {
+            %>
+                    <tr>
+                        <td>
+                            <a href="https://forum.plutonium.pw/user/<%= player.userslug %>" title="Forum Profile"><%= player.username %></a>
+                        </td>
+                        <td>
+                            <%- player.ping %>
+                        </td>
+                    </tr>
+            <%
+                }
+            %>
+        </table>
+        <%
+            }
+        %>
+    </div>
+    <div id="banner">
+        <p>
+            <img id="banner-png" src="<%= preview_image %>"><br>
+
+            <label for="url">Image link</label>
+            <input onClick="copy(getElementById('url').value)" class="text-input" id="url" size="64" type="text" value="<%= preview_image %>" readonly>
+            <label data-tooltip="Use this for the forum" for="markdown">Markdown</label>
+            <input onClick="copy(getElementById('markdown').value)" class="text-input" id="markdown" size="64" type="text" value="[![<%= server.hostnameDisplay %>](<%= preview_image %>)](<%= page_url %>)" readonly>
+            <label for="bbcode">BBCode</label>
+            <input onClick="copy(getElementById('bbcode').value)" class="text-input" id="bbcode" size="64" type="text" value="[URL=<%= page_url %>][IMG]<%= preview_image %>[/IMG][/URL]" readonly>
+            <label for="html">HTML</label>
+            <input onClick="copy(getElementById('html').value)" class="text-input" id="html" size="64" type="text" value="<a href=&quot;<%= page_url %>&quot; title=&quot;<%= server.hostnameDisplay %>&quot;><img src=&quot;<%= preview_image %>&quot; alt=&quot;<%= server.hostnameDisplay %>&quot;></a>" readonly>
+        </p>
+    </div>
+    <% } else { %>
+
+    <div id="server-error">Unknown Server</div>
+    <% } %>
+        <%- include('footer') %>
+
+    <script src="/js/server.js"></script>
+    <script>
+        function copyServer() {
+            copy("connect <%= server.ip %>:<%= server.port %>")
+        }
+
+        let favourites = JSON.parse(localStorage.getItem('favourites'))
+        console.log(favourites)
+        if (favourites === null) {
+            favourites = []
+        } else {
+            if (favourites.includes('<%= server.identifier %>')) {
+                document.title ='⭐ ' + document.title
+            }
+        }
+    </script>
+    <script src="/js/tooltip.js"></script>
+    <script src="/js/search.js"></script>
+</body>
+
+</html>
