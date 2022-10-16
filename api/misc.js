@@ -27,7 +27,7 @@ function get_codInfo_value(key, codInfo, bool = false, int = false) {
         // plutonium codInfo is not prepended with \\, so we need to make sure we aren't at index 0
         // if the char before our key isn't \ then we've hit a substring, so we try again with a slice
         if (key_index !== 0 && codInfo.charAt(key_index - 1) != '\\') {
-            return get_codInfo_value(key, codInfo.slice(key_index + 1), bool, int, platform)
+            return get_codInfo_value(key, codInfo.slice(key_index + 1), bool, int)
         }
 
         let keyval = codInfo
