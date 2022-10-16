@@ -13,6 +13,13 @@ module.exports = {
             env: {
                 "NODE_ENV": "production",
             }
-        }
+        },
+        {
+            name: "plutools-serverlist",
+            script: "./serverlist/app.js",
+            env: {
+                "NODE_ENV": "production",
+            }
+        },
     ]
 }
