@@ -95,7 +95,7 @@ async function parse_getserversResponse(buffer) {
     const client = dgram.createSocket('udp4')
 
     let country_name = new Intl.DisplayNames(['en'], { type: 'region' })
-    client.on('message', function (msg, rinfo) {
+    client.on('message', function(msg, rinfo) {
         // parse the response
         const codInfo = msg.toString().split("infoResponse\n")[1]
         const codInfo_parsed = parse_codInfo(codInfo)
@@ -123,19 +123,8 @@ async function parse_getserversResponse(buffer) {
         }
 
         let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
-        server.changed = false
-        if (prev_server.length > 0) {
-            if (prev_server[0].players.length != server.players.length ||
-                prev_server[0].map != server.map ||
-                prev_server[0].gametype != server.gametype ||
-                prev_server[0].hostname != server.hostname ||
-                prev_server[0].maxplayers != server.maxplayers) {
-                server.changed = true
-            }
-            server.identifier = prev_server[0].identifier
-        } else {
-            server.identifier = misc.generateIdentifier(server)
-        }
+        server.identifier = misc.generateIdentifier(server)
+        server.changed = true
 
         servers.push(server)
     })
@@ -154,7 +143,7 @@ async function parse_getserversResponse(buffer) {
 
         // query the server for info
         const buffer = misc.strToCmdBuf(`getinfo ${misc.randomString(8)}`)
-        client.send(buffer, 0, buffer.length, server_data.port, server_data.ip, function (err, bytes) {
+        client.send(buffer, 0, buffer.length, server_data.port, server_data.ip, function(err, bytes) {
             if (err) throw err
         })
     }
@@ -190,13 +179,13 @@ async function getServers() {
     for (game of config.xlabs.games) {
         const buffer = misc.strToCmdBuf(`getservers\n${game.game_id} ${game.protocol} full empty`)
 
-        client.send(buffer, 0, buffer.length, config.xlabs.master.port, config.xlabs.master.host, function (err, bytes) {
+        client.send(buffer, 0, buffer.length, config.xlabs.master.port, config.xlabs.master.host, function(err, bytes) {
             if (err) throw err
-            // console.log(`Sent ${bytes} bytes to ${config.xlabs.master.host}:${config.xlabs.master.port}\n----\n${buffer.toString()}\n----\n`)
+                // console.log(`Sent ${bytes} bytes to ${config.xlabs.master.host}:${config.xlabs.master.port}\n----\n${buffer.toString()}\n----\n`)
         })
 
         let response = await new Promise((resolve, reject) => {
-            client.on('message', function (buffer, remote) {
+            client.on('message', function(buffer, remote) {
                 // console.log(`Received ${buffer.length} bytes from ${remote.address}:${remote.port}`)
                 resolve(buffer)
             })
