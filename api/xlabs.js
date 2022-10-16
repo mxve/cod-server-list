@@ -121,7 +121,22 @@ async function parse_getserversResponse(buffer) {
             server.country = 'lgbt'
             server.countryDisplay = 'Unknown'
         }
-        server.identifier = misc.generateIdentifier(server)
+
+        let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
+        server.changed = false
+        if (prev_server.length > 0) {
+            if (prev_server[0].players.length != server.players.length ||
+                prev_server[0].map != server.map ||
+                prev_server[0].gametype != server.gametype ||
+                prev_server[0].hostname != server.hostname ||
+                prev_server[0].maxplayers != server.maxplayers) {
+                server.changed = true
+            }
+            server.identifier = prev_server[0].identifier
+        } else {
+            server.identifier = misc.generateIdentifier(server)
+        }
+
         servers.push(server)
     })
 
@@ -155,6 +170,8 @@ async function parse_getserversResponse(buffer) {
     parsed_data.servers = servers
     return parsed_data
 }
+
+let previous_servers = []
 
 async function getServers() {
     let xlabs_servers = {
@@ -203,6 +220,7 @@ async function getServers() {
         }
     }
     client.close()
+    previous_servers = xlabs_servers.all
     return {
         servers: xlabs_servers,
         date: Date.now(),

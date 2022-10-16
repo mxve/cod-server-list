@@ -16,7 +16,7 @@ scheduler.addSimpleIntervalJob(update_api_data_job)
 update_api_data_task.execute()
 
 async function getApiData() {
-    const res = await got(`${global_config.api.public_url}/v1/servers/`)
+    const res = await got(`${global_config.api.url}/v1/servers/`)
     return JSON.parse(res.body)
 }
 
