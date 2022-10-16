@@ -82,6 +82,8 @@ label {
     text-decoration: none;
     border-bottom: 2px var(--foreground) dotted;
     margin: 4px;
+    margin-top: 8px;
+    display: inline-block;
     white-space: nowrap;
 }
 
@@ -386,7 +388,7 @@ label {
         width: 95%;
         max-width: 430px;
     }
-    #server-container {
+    #server-container, #nav {
         width: 95%;
         max-width: 430px;
     }
