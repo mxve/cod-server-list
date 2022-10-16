@@ -13,6 +13,7 @@ const scheduler = new ToadScheduler()
 const update_api_data_task = new Task('update_api_data', async () => { apiCache = await getApiData() })
 const update_api_data_job = new SimpleIntervalJob({ seconds: 10, }, update_api_data_task)
 scheduler.addSimpleIntervalJob(update_api_data_job)
+update_api_data_task.execute()
 
 async function getApiData() {
     const res = await got(`${global_config.api.public_url}/v1/servers/`)

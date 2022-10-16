@@ -2,6 +2,7 @@ const dgram = require('dgram')
 const geoip = require('geoip-lite')
 const config = require('./config.json')
 const misc = require('./misc.js')
+const names = require('./names.js')
 
 function parse_codInfo(codInfo) {
     const codInfo_parsed = {
@@ -14,7 +15,7 @@ function parse_codInfo(codInfo) {
         gametype: misc.get_codInfo_value('gametype', codInfo),
         sv_motd: misc.get_codInfo_value('sv_motd', codInfo),
         xuid: misc.get_codInfo_value('xuid', codInfo),
-        mapname: misc.get_codInfo_value('mapname', codInfo),
+        map: misc.get_codInfo_value('mapname', codInfo),
         clients: parseInt(misc.get_codInfo_value('clients', codInfo, false, true)),
         bots: parseInt(misc.get_codInfo_value('bots', codInfo, false, true)),
         protocol: misc.get_codInfo_value('protocol', codInfo),
@@ -31,6 +32,19 @@ function parse_codInfo(codInfo) {
     codInfo_parsed.players = Array(codInfo_parsed.clients).fill('')
 
     return codInfo_parsed
+}
+
+function gamenameToGame(gamename) {
+    switch (gamename) {
+        case 'IW4':
+            return 'iw4x'
+        case 'S1':
+            return 's1x'
+        case 'IW6':
+            return 'iw6x'
+        case 'T7':
+            return 't7'
+    }
 }
 
 async function parse_getserversResponse(buffer) {
@@ -90,6 +104,14 @@ async function parse_getserversResponse(buffer) {
             port: rinfo.port,
             ...codInfo_parsed,
             codInfo,
+            gametypeDisplay: names.gametype(codInfo_parsed.gametype, codInfo_parsed.game),
+            mapDisplay: names.map(codInfo_parsed.map, codInfo_parsed.game),
+            hostnameDisplay: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
+            hostnameDisplayFull: codInfo_parsed.hostnameDisplay,
+            round: misc.get_codInfo_value('rounds', codInfo) || '0',
+            gameDisplay: names.game(codInfo_parsed.game),
+            game: gamenameToGame(codInfo_parsed.gamename),
+            known: true,
             platform: 'xlabs',
         }
         try {

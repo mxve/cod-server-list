@@ -380,6 +380,12 @@ function gameDisplay(game) {
             return 'Black Ops II'
         case 't6zm':
             return 'Black Ops II: Zombies'
+        case 'iw4x':
+            return 'Modern Warfare 2'
+        case 'iw6x':
+            return 'Ghosts'
+        case 's1x':
+            return 'Advanced Warfare'
     }
 }
 
