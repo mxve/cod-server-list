@@ -10,7 +10,8 @@ const compression = require('compression')
 const config = require('./config.js')
 const global_config = require('../config.json')
 
-const games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm', 'iw4x', 'iw6x', 's1x']
+const pluto_games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm']
+const xlabs_games = ['iw4x', 'iw6x', 's1x']
 
 let apiCache
 
@@ -111,8 +112,12 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
         }
 
         // filter by game
-        if (game !== 'all' && server.game != game) {
-            continue
+        if (((game == 'plutonium' || game == 'xlabs') )) {
+            if (game != server.platform) { continue }
+        } else {
+            if ((game !== 'all' && server.game != game)) {
+                continue
+            }
         }
 
         // stats
@@ -184,7 +189,7 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
 
     const includePlayers = req.query.players == 'on' ? true : false
     // game filter
-    if (games.includes(req.params.game)) {
+    if (pluto_games.includes(req.params.game) || xlabs_games.includes(req.params.game) || req.params.game == 'xlabs' || req.params.game == 'plutonium') {
         servers = await getData(req.params.game, req.query.s, includePlayers)
         servers.game = req.params.game
     } else {
