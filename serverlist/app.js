@@ -223,7 +223,6 @@ app.get('/s/:identifier', async (req, res) => {
     res.render('server', { server, config, revision: apiCache.revision })
 })
 
-
 async function resPreviewImage(res, server) {
     // move this to client side
     let image = await got(`${global_config.serverbanner.url}/v1/${server.ip}/${server.port}`)
@@ -257,7 +256,8 @@ app.get('/img/banner', async (req, res) => {
     const dir = 'public/img/banner/'
     let img = 'default.png'
     if (rand < 0.02) {
-        const files = fs.readdirSync(dir).filter(fn => fn.startsWith('special'))
+        // prepend dir with "serverlist" which has been omitted so dir can be used with sendFile root
+        const files = fs.readdirSync('serverlist/' + dir).filter(fn => fn.startsWith('special'))
         img = files[Math.floor(Math.random() * files.length)]
     }
     res.sendFile(dir + img, { root: __dirname })
