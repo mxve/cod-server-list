@@ -214,15 +214,17 @@ app.get('/s/:identifier/json', async (req, res) => {
 // server page from ip & port
 app.get('/server/:ip/:port', async (req, res) => {
     let server = await getServer(req.params.ip, req.params.port)
-    res.render('server', { server, config, revision: apiCache.revision })
+    res.render('server', { server, config, revision: apiCache.revision, global_config })
 })
 
 // server page from identifier
 app.get('/s/:identifier', async (req, res) => {
     let server = await getServerByIdentifier(req.params.identifier)
-    res.render('server', { server, config, revision: apiCache.revision })
+    res.render('server', { server, config, revision: apiCache.revision, global_config })
 })
 
+
+// legacy serverbanner "proxy"
 async function resPreviewImage(res, server) {
     // move this to client side
     let image = await got(`${global_config.serverbanner.url}/v1/${server.ip}/${server.port}`)
@@ -251,6 +253,7 @@ app.get('/s/:identifier/png', async (req, res) => {
     resPreviewImage(res, server)
 })
 
+// site banner
 app.get('/img/banner', async (req, res) => {
     const rand = Math.random()
     const dir = 'public/img/banner/'
