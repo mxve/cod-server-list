@@ -1,7 +1,7 @@
 <%
 let title
 if (server.known) {
-    title = `${server.hostnameDisplay} [${server.players.length}/${server.maxplayers}]`
+    title = `${server.hostnameDisplay} [${server.realClients}/${server.maxplayers}]`
     description = `View player count, map and gamemode of ${server.hostnameDisplay}`
 } else {
     title = "Unknown server"
@@ -64,7 +64,8 @@ page_url = `${config.url}/s/${server.identifier}`
             </tr>
             <tr>
                 <td data-tooltip="Current players / Max. players">
-                    <%= server.players.length %>/<%= server.maxplayers %>
+                    <%= server.realClients %>/<%= server.maxplayers %>
+                    <% if (server.bots > 0) { __append(` (${server.bots})`) } %>
                 </td>
                 <%
                     if (server.game == 't6zm') {
@@ -147,7 +148,7 @@ page_url = `${config.url}/s/${server.identifier}`
         </table>
         <span onClick="copyServer()" class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span>
         <%
-            if (server.players.length > 0) {
+            if (server.platform !== 'xlabs' && server.realClients > 0) {
         %>
         <table class="player-list-table">
             <tr>
