@@ -28,7 +28,7 @@ const get_xlabs_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_xlabs_s
 scheduler.addSimpleIntervalJob(get_xlabs_servers_job)
 get_xlabs_servers.execute()
 
-function getServerStats(servers) {
+function appendServerStats(servers) {
     let countPlayers = 0
     let countBots = 0
     let maxPlayers = 0
@@ -51,10 +51,24 @@ function getServerStats(servers) {
 const app = express()
 app.disable("x-powered-by")
 
+app.get(['/v1/servers', '/v1/servers/all'], (req, res) => {
+    try {
+        let ans = appendServerStats([...servers.xlabs.servers.all, ...servers.plutonium.servers.all])
+
+        // average date because why not
+        ans.date = (servers.xlabs.date + servers.plutonium.date) / 2
+        ans.platform = 'all'
+        res.send(ans)
+    } catch {
+        res.send([])
+    }
+})
+
 app.get('/v1/servers/:platform', (req, res) => {
     try {
-        let ans = getServerStats(servers[req.params.platform].servers.all)
+        let ans = appendServerStats(servers[req.params.platform].servers.all)
         ans.date = servers[req.params.platform].date
+        ans.platform = req.params.platform
         res.send(ans)
     } catch {
         res.send([])
@@ -63,8 +77,9 @@ app.get('/v1/servers/:platform', (req, res) => {
 
 app.get('/v1/servers/:platform/:game', (req, res) => {
     try {
-        let ans = getServerStats(servers[req.params.platform].servers[req.params.game])
+        let ans = appendServerStats(servers[req.params.platform].servers[req.params.game])
         ans.date = servers[req.params.platform].date
+        ans.platform = req.params.platform
         res.send(ans)
     } catch {
         res.send([])
