@@ -22,6 +22,12 @@
     --t4mp-bg: rgba(100, 149, 237, 0.15);
     --t4sp: var(--t4mp);
     --t4sp-bg: var(--t4mp-bg);
+    --iw4x: rgb(237, 247, 92);
+    --iw4x-bg: rgba(237, 247, 92, 0.15);
+    --iw6x: rgb(66, 66, 66);
+    --iw6x-bg: rgba(66, 66, 66, 0.15);
+    --s1x: rgb(134, 87, 235);
+    --s1x-bg: rgba(134, 87, 235, 0.15)
 
     --dialog-background: #DAD6DA;
     --dialog-title: #79a5fc;

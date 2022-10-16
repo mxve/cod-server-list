@@ -21,6 +21,15 @@
 .t6zm.color {
     color: var(--t6zm) !important;
 }
+.iw4x.color {
+    color: var(--iw4x) !important;
+}
+.iw6x.color {
+    color: var(--iw6x) !important;
+}
+.s1x.color {
+    color: var(--s1x) !important;
+}
 
 .iw5mp.border {
     border-color: var(--iw5mp) !important;
@@ -42,6 +51,15 @@
 }
 .t6zm.border {
     border-color: var(--t6zm) !important;
+}
+.iw4x.border {
+    border-color: var(--iw4x) !important;
+}
+.iw6x.border {
+    border-color: var(--iw6x) !important;
+}
+.s1x.border {
+    border-color: var(--s1x) !important;
 }
 
 .iw5mp.background {
@@ -65,6 +83,15 @@
 .t6zm.background {
     background-color: var(--t6zm-bg) !important;
 }
+.iw4x.background {
+    background-color: var(--iw4x-bg) !important;
+}
+.iw6x.background {
+    background-color: var(--iw6x-bg) !important;
+}
+.s1x.background {
+    background-color: var(--s1x-bg) !important;
+}
 
 .iw5mp.backgroundhover:hover {
     background-color: var(--iw5mp-bg) !important;
@@ -86,4 +113,13 @@
 }
 .t6zm.backgroundhover:hover {
     background-color: var(--t6zm-bg) !important;
+}
+.iw4x.backgroundhover:hover {
+    background-color: var(--iw4x-bg) !important;
+}
+.iw6x.backgroundhover:hover {
+    background-color: var(--iw6x-bg) !important;
+}
+.s1x.backgroundhover:hover {
+    background-color: var(--s1x-bg) !important;
 }
