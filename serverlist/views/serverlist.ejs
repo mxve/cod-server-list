@@ -184,7 +184,7 @@ switch (api.game) {
         <div id="stats">
             Servers:
             <%= api.countServers %> | Players:
-            <%= api.countPlayers - api.countBots %>/<%= api.maxPlayers %>
+            <%= api.countPlayers %>/<%= api.maxPlayers %> <%= (api.countBots) %>
             | Data age:
             <%= Date.now() - api.date %>ms
         </div>
