@@ -137,7 +137,7 @@ async function getServers() {
                 servers.t6mp.push(server)
                 break
         }
-        
+
         //servers.push(server)
     }
 

@@ -10,7 +10,7 @@ const compression = require('compression')
 const config = require('./config.js')
 const global_config = require('../config.json')
 
-const games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm']
+const games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm', 'iw4x', 'iw6x', 's1x']
 
 let apiCache
 
@@ -22,7 +22,7 @@ const update_api_data_job = new SimpleIntervalJob({ seconds: config.api_query_in
 scheduler.addSimpleIntervalJob(update_api_data_job)
 
 async function getApiData() {
-    let api = await got(`${global_config.api.url}/v1/servers/plutonium`)
+    let api = await got(`${global_config.api.url}/v1/servers/`)
     api = JSON.parse(api.body).servers
     let version = await got('https://cdn.plutonium.pw/updater/prod/info.json')
     version = JSON.parse(version.body).revision

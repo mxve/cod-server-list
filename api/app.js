@@ -20,6 +20,7 @@ const get_xlabs_servers = new Task('get_xlabs_servers', async () => {
     servers.xlabs = await xlabs.getServers()
 })
 
+
 const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plutonium_servers)
 scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
 get_plutonium_servers.execute()
@@ -34,6 +35,7 @@ function appendServerStats(servers) {
     let maxPlayers = 0
 
     for (server of servers) {
+        server.realClients = ((server.platform == 'plutonium' || server.game !== 'iw4x') ? server.players.length - server.bots : server.players.length)
         countPlayers += server.players.length
         maxPlayers += server.maxplayers
         countBots += server.bots
@@ -54,6 +56,9 @@ app.disable("x-powered-by")
 app.get(['/v1/servers', '/v1/servers/all'], (req, res) => {
     try {
         let ans = appendServerStats([...servers.xlabs.servers.all, ...servers.plutonium.servers.all])
+        ans.servers = ans.servers.sort((a, b) => {
+            return (b.realClients) - (a.realClients)
+        })
 
         // average date because why not
         ans.date = (servers.xlabs.date + servers.plutonium.date) / 2

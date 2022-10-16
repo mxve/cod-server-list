@@ -52,7 +52,7 @@ async function getServerFromId(identifier) {
 // task to generate server preview images, runs every second,
 // uses below var to control wether new images should be generate on the run
 let previews_done = true
-const generate_previews_task = new Task('clear_images', async() => {
+const generate_previews_task = new Task('clear_images', async () => {
     if (previews_done) {
         previews_done = false
         //got(config.preview_generator_heartbeat_url)

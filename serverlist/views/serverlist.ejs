@@ -131,8 +131,8 @@ switch (api.game) {
                     <td class="hostname">
                         <%= server.hostnameDisplayFull %>
                     </td>
-                    <td class="slots" data-sort="<%= server.players.length - server.bots %>">
-                        <%= server.players.length - server.bots %>/<%= server.maxplayers %>
+                    <td class="slots" data-sort="<%= server.realClients %>">
+                        <%= server.realClients %>/<%= server.maxplayers %>
                         <%
                             if (server.bots > 0) {
                                 __append(` (${server.bots})`)
