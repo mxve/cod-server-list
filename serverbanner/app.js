@@ -12,7 +12,7 @@ const scheduler = new ToadScheduler()
 
 // todo: add caching
 async function getData() {
-    const res = await got('https://list.plutools.pw/json')
+    const res = await got(`${global_config.api.public_url}/v1/servers/`)
     return JSON.parse(res.body)
 }
 
@@ -23,6 +23,20 @@ async function getServer(ip, port) {
     let server = { ip, port, online: false, known: false }
     for (iserver of json.servers) {
         if (iserver.ip == ip && iserver.port == port) {
+            server = iserver
+            break
+        }
+    }
+
+    return server
+}
+
+async function getServerFromId(identifier) {
+    const json = await getData()
+    let server = { identifier, online: false, known: false }
+
+    for (iserver of json.servers) {
+        if (iserver.identifier == identifier) {
             server = iserver
             break
         }
@@ -55,6 +69,27 @@ scheduler.addSimpleIntervalJob(generate_previews_job)
 
 
 const app = express()
+
+app.get('/v1/:identifier', async (req, res) => {
+    const server = await getServerFromId(req.params.identifier)
+
+    let image = await images.get_server_preview(server)
+
+    // return image buffer from jimp image
+    image.getBuffer(jimp.MIME_PNG, (err, buffer) => {
+        res.set({
+            'Pragma': 'no-cache',
+            'Expires': '0',
+            'Surrogate-Control': 'no-store',
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate'
+        })
+        res.writeHead(200, {
+            'Content-Type': 'image/png',
+            'Content-Length': buffer.length
+        })
+        res.end(buffer)
+    })
+})
 
 app.get('/v1/:ip/:port', async (req, res) => {
     const server = await getServer(req.params.ip, req.params.port)
