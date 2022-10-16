@@ -8,16 +8,19 @@ const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
 const images = require('./images')
 
+let apiCache = { servers: [] }
 const scheduler = new ToadScheduler()
+const update_api_data_task = new Task('update_api_data', async () => { apiCache = await getApiData() })
+const update_api_data_job = new SimpleIntervalJob({ seconds: 10, }, update_api_data_task)
+scheduler.addSimpleIntervalJob(update_api_data_job)
 
-// todo: add caching
-async function getData() {
+async function getApiData() {
     const res = await got(`${global_config.api.public_url}/v1/servers/`)
     return JSON.parse(res.body)
 }
 
 async function getServer(ip, port) {
-    const json = await getData()
+    const json = apiCache
 
     // find server in api cache
     let server = { ip, port, online: false, known: false }
@@ -32,7 +35,7 @@ async function getServer(ip, port) {
 }
 
 async function getServerFromId(identifier) {
-    const json = await getData()
+    const json = apiCache
     let server = { identifier, online: false, known: false }
 
     for (iserver of json.servers) {
@@ -52,7 +55,7 @@ const generate_previews_task = new Task('clear_images', async() => {
     if (previews_done) {
         previews_done = false
         //got(config.preview_generator_heartbeat_url)
-        let data = await getData()
+        let data = apiCache
         for (server of data.servers) {
             const preview_path = `serverbanner/data/img/server_previews/generated/${server.ip}_${server.port}.png`
             const exists = fs.existsSync(preview_path)
