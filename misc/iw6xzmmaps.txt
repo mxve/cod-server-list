@@ -1,5 +1,0 @@
-PointofContact:mp_alien_town
-Nightfall:mp_alien_armory
-Mayday:mp_alien_beacon
-Awakening:mp_alien_dlc3
-Exodus:mp_alien_last

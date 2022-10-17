@@ -1,4 +1,0 @@
-Outbreak:mp_zombie_ark
-Infection:mp_zombie_brg
-Carrier:mp_zombie_h2o
-Descent:mp_zombie_lab
