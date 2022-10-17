@@ -1,0 +1,16 @@
+{
+    "dm": "Free-for-all",
+    "tdm": "Team Deathmatch",
+    "dom": "Domination",
+    "dem": "Demolition",
+    "sd": "Search & Destroy",
+    "conf": "Kill Confirmed",
+    "hq": "Headquarters",
+    "ctf": "Capture the Flag",
+    "koth": "Hardpoint",
+    "onflag": "One-flagCTF",
+    "oic": "One in the chamber",
+    "gun": "Gun Game",
+    "shrp": "Sharpshooter",
+    "sas": "Stick and Stones"
+}

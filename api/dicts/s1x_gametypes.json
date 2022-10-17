@@ -1,0 +1,15 @@
+{
+    "dm": "Free-for-all",
+    "war": "Team Deathmatch",
+    "twar": "Momentum",
+    "ball": "Uplink",
+    "sd": "Search and Destroy",
+    "sr": "Search and Rescue",
+    "dom": "Domination",
+    "conf": "Kill Confirmed",
+    "ctf": "Capture the Flag",
+    "hp": "Hardpoint",
+    "infect": "Infected",
+    "horde": "Exo Survival",
+    "zombies": "Exo Zombies"
+}

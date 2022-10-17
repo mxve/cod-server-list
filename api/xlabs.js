@@ -108,7 +108,7 @@ async function parse_getserversResponse(buffer) {
             port: rinfo.port,
             ...codInfo_parsed,
             codInfo,
-            gametypeDisplay: names.gametype(codInfo_parsed.gametype, codInfo_parsed.game),
+            gametypeDisplay: names2.gametype(codInfo_parsed.gametype, codInfo_parsed.game),
             mapDisplay: names2.map(codInfo_parsed.map, codInfo_parsed.game),
             hostnameDisplay: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
             hostnameDisplayFull: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),

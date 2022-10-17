@@ -1,0 +1,10 @@
+{
+    "dm": "Free for all",
+    "tdm": "Team Deathmatch",
+    "dom": "Domination",
+    "sab": "Sabotage",
+    "sd": "Search and Destroy",
+    "ctf": "Capture the Flag",
+    "koth": "Headquarters",
+    "twar": "War"
+}

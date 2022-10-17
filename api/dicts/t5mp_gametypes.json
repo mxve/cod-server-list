@@ -1,0 +1,14 @@
+{
+    "dm": "Free-for-all",
+    "tdm": "Team Deathmatch",
+    "dom": "Domination",
+    "dem": "Demolition",
+    "sd": "Search & Destory",
+    "sab": "Sabotage",
+    "koth": "Headquarters",
+    "ctf": "Capture the Flag",
+    "oic": "One in the chamber",
+    "gun": "Gun Game",
+    "shrp": "Sharpshooter",
+    "hlnd": "Stick and Stones"
+}

@@ -1,0 +1,13 @@
+{
+    "war": "Team Deathmatch",
+    "dm": "Free-for-all",
+    "dom": "Domination",
+    "koth": "Headquarters",
+    "sab": "Sabotage",
+    "sd": "Search and Destroy",
+    "arena": "Arena",
+    "dd": "Demolition",
+    "ctf": "Capture the Flag",
+    "oneflag": "One-Flag CTF",
+    "gtnw": "Global Thermo-Nuclear War"
+}

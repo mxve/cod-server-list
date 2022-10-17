@@ -16,6 +16,20 @@ function mapDisplay(map, game = undefined, custom = false) {
     return map
 }
 
+function gametypeDisplay(gametype, game = undefined) {
+    try {
+        let gametype_dict = require(`./dicts/${game}_gametypes.json`)
+        let gametype_name = gametype_dict[gametype]
+        if (gametype_name != undefined) {
+            return gametype_name
+        }
+    } catch (error) {
+        console.log(error)
+    }
+    return gametype
+}
+
 module.exports = {
-    map: mapDisplay
+    map: mapDisplay,
+    gametype: gametypeDisplay,
 }

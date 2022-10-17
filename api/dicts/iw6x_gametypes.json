@@ -1,0 +1,19 @@
+{
+    "blitz": "Blitz",
+    "conf": "Kill Confirmed",
+    "cranked": "Cranked",
+    "dm": "Free-for-all",
+    "dom": "Domination",
+    "grind": "Grind",
+    "grnd": "Drop Zone",
+    "gun": "Gun Game",
+    "horde": "Safeguard",
+    "infect": "Infected",
+    "sd": "Search and Destroy",
+    "siege": "Reinforce",
+    "sotf": "Hunted",
+    "sotf_ffa": "Hunted FFA",
+    "sr": "Search and Rescue",
+    "war": "Team Deathmatch",
+    "aliens": "Extinction"
+}

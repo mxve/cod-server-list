@@ -42,7 +42,7 @@ async function getServers() {
         }
 
         // generate human readable gametype, map & hostname
-        server.gametypeDisplay = names.gametype(server.gametype, server.game)
+        server.gametypeDisplay = names2.gametype(server.gametype, server.game)
         server.mapDisplay = names2.map(server.map, server.game)
         server.hostnameDisplay = server.hostname.replace(/\^\d/g, '')
         server.hostnameDisplayFull = server.hostnameDisplay

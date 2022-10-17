@@ -1,0 +1,18 @@
+{
+    "war": "Team-Deathmatch",
+    "dm": "Free-For-All",
+    "sd": "Search & Destroy",
+    "sab": "Sabotage",
+    "dom": "Domination",
+    "koth": "Headquarters",
+    "ctf": "Capture The Flag",
+    "dd": "Demolition",
+    "tdef": "Team Defender",
+    "conf": "Kill Confirmed",
+    "grnd": "Drop Zone",
+    "tjugg": "Team Juggernaut",
+    "jugg": "Juggernaut",
+    "gun": "Gun Game",
+    "infect": "Infected",
+    "oic": "One In The Chamber"
+}
