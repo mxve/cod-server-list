@@ -134,11 +134,10 @@ description = `View ${gamename} Servers`
                                 <%= server.hostnameDisplayFull %>
                             </td>
                             <td class="slots" data-sort="<%= server.realClients %>">
-                                <%= server.realClients %>/
-                                    <%= server.maxplayers %>
-                                        <%
+                                <%= server.realClients %>/<%= server.maxplayers %>
+                          <%
                             if (server.bots > 0) {
-                                __append(` (${server.bots})`)
+                                __append(`(${server.bots})`)
                             }
                         %>
                             </td>
@@ -185,12 +184,7 @@ description = `View ${gamename} Servers`
                 </tbody>
             </table>
             <div id="stats">
-                Servers:
-                <%= api.countServers %> | Players:
-                    <%= api.countPlayers %>/
-                        <%= api.maxPlayers %> (
-                            <%= api.countBots %>) | Data age:
-                                <%= Date.now() - api.date %>ms
+                Servers: <%= api.countServers %> | Players: <%= api.countPlayers %>/<%= api.maxPlayers %> (<%= api.countBots %>) | Data age: <%= Date.now() - api.date %>ms
             </div>
             <%- include('footer') %>
                 <script src="/js/serverlist.js"></script>
