@@ -11,6 +11,7 @@ function parse_codInfo(codInfo) {
         password: misc.get_codInfo_value('isPrivate', codInfo, true),
         hostname: misc.get_codInfo_value('hostname', codInfo),
         gamename: misc.get_codInfo_value('gamename', codInfo),
+        game: gamenameToGame(misc.get_codInfo_value('gamename', codInfo)),
         maxplayers: parseInt(misc.get_codInfo_value('sv_maxclients', codInfo, false, true)),
         gametype: misc.get_codInfo_value('gametype', codInfo),
         sv_motd: misc.get_codInfo_value('sv_motd', codInfo),
@@ -29,7 +30,7 @@ function parse_codInfo(codInfo) {
     }
 
     // in the past i used players.length for player count on plutonium, this is for compatibility
-    codInfo_parsed.players = Array(codInfo_parsed.clients).fill('')
+    codInfo_parsed.players = Array(codInfo_parsed.clients).fill('Unknown')
 
     return codInfo_parsed
 }
@@ -104,13 +105,12 @@ async function parse_getserversResponse(buffer) {
             port: rinfo.port,
             ...codInfo_parsed,
             codInfo,
-            gametypeDisplay: names.gametype(codInfo_parsed.gametype, gamenameToGame(codInfo_parsed.gamename)),
+            gametypeDisplay: names.gametype(codInfo_parsed.gametype, codInfo_parsed.game),
             mapDisplay: names.map(codInfo_parsed.map, codInfo_parsed.game),
             hostnameDisplay: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
             hostnameDisplayFull: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
             round: misc.get_codInfo_value('rounds', codInfo) || '0',
-            gameDisplay: names.game(gamenameToGame(codInfo_parsed.gamename)),
-            game: gamenameToGame(codInfo_parsed.gamename),
+            gameDisplay: names.game(codInfo_parsed.game),
             known: true,
             platform: 'xlabs',
         }
@@ -122,7 +122,7 @@ async function parse_getserversResponse(buffer) {
             server.countryDisplay = 'Unknown'
         }
 
-        let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
+        //let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
         server.identifier = misc.generateIdentifier(server)
         server.changed = true
 
@@ -160,7 +160,7 @@ async function parse_getserversResponse(buffer) {
     return parsed_data
 }
 
-let previous_servers = []
+//let previous_servers = []
 
 async function getServers() {
     let xlabs_servers = {
