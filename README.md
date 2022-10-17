@@ -1,4 +1,4 @@
-# [Plutonium](https://plutonium.pw) & [xLabs](https://xlabs.dev) Server List
+# [Plutonium](https://plutonium.pw) & [X Labs](https://xlabs.dev) Server List
 ### -> [Show server list](https://list.plutools.pw)
 
 ---
@@ -13,7 +13,7 @@
 ---
 
 ## Links
-[![PluTools](gh_assets/plutools_64.png)](https://plutools.pw/) [![Discord Server](gh_assets/discord.png)](https://discord.gg/SnJQusteNZ) [![Plutonium](gh_assets/plutonium.jpg)](https://plutonium.pw/) [![xlabs](gh_assets/xlabs.png)](https://xlabs.dev) 
+[![PluTools](gh_assets/plutools_64.png)](https://plutools.pw/) [![Discord Server](gh_assets/discord.png)](https://discord.gg/SnJQusteNZ) [![Plutonium](gh_assets/plutonium.jpg)](https://plutonium.pw/) [![X Labs](gh_assets/xlabs.png)](https://xlabs.dev) 
 
 ---
 
