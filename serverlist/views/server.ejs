@@ -148,7 +148,7 @@ page_url = `${config.url}/s/${server.identifier}`
         </table>
         <span onClick="copyServer()" class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span>
         <%
-            if (server.platform !== 'xlabs' && server.realClients > 0) {
+            if ((server.platform == 'plutonium' || server.game == 'iw4x') && server.realClients > 0) {
         %>
         <table class="player-list-table">
             <tr>
@@ -164,7 +164,18 @@ page_url = `${config.url}/s/${server.identifier}`
             %>
                     <tr>
                         <td>
+                            <%
+                                if (player.id == -1) {
+
+                            %>
+                            <%= player.username %>
+                            <%
+                                } else {
+                            %>
                             <a href="https://forum.plutonium.pw/user/<%= player.userslug %>" title="Forum Profile"><%= player.username %></a>
+                            <%
+                                }
+                            %>
                         </td>
                         <td>
                             <%- player.ping %>
