@@ -122,7 +122,7 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
 
         // stats
         maxPlayers += server.maxplayers
-        countPlayers += server.players.length
+        countPlayers += server.realClients
         countServers += 1
         countBots += server.bots
 
