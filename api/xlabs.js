@@ -28,6 +28,7 @@ function parse_codInfo(codInfo) {
         sv_running: misc.get_codInfo_value('sv_running', codInfo, true),
         wwwDownload: misc.get_codInfo_value('wwwDownload', codInfo),
         wwwUrl: misc.get_codInfo_value('wwwUrl', codInfo),
+        aimassist: misc.get_codInfo_value('aimAssist', codInfo, false, true),
     }
 
     // in the past i used players.length for player count on plutonium, this is for compatibility
