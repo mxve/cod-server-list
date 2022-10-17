@@ -1,4 +1,5 @@
 const dgram = require('dgram')
+const got = require('got')
 const geoip = require('geoip-lite')
 const config = require('./config.json')
 const misc = require('./misc.js')
@@ -96,7 +97,7 @@ async function parse_getserversResponse(buffer) {
     const client = dgram.createSocket('udp4')
 
     let country_name = new Intl.DisplayNames(['en'], { type: 'region' })
-    client.on('message', function(msg, rinfo) {
+    client.on('message', async function(msg, rinfo) {
         // parse the response
         const codInfo = msg.toString().split("infoResponse\n")[1]
         const codInfo_parsed = parse_codInfo(codInfo)
@@ -114,6 +115,27 @@ async function parse_getserversResponse(buffer) {
             known: true,
             platform: 'xlabs',
         }
+
+        if (server.game == 'iw4x') {
+            try {
+                let serverInfo = await got(`http://${server.ip}:${server.port}/info`)
+                serverInfo = JSON.parse(serverInfo.body)
+
+                let players = []
+                for (player of serverInfo.players) {
+                    let newPlayer = {}
+                    newPlayer.username = player.name
+                    newPlayer.id = '-1'
+                    newPlayer.ping = player.ping
+                    newPlayer.score = player.score
+                    players.push(newPlayer)
+                }
+                server.players = players
+            } catch (error) {
+                //console.log(error)
+            }
+        }
+
         try {
             server.country = geoip.lookup(server.ip).country.toLowerCase()
             server.countryDisplay = country_name.of(server.country.toUpperCase())
