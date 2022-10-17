@@ -46,6 +46,7 @@ function gametypeDisplay(gametype, game = undefined) {
         case 'shrp':
             return 'Sharpshooter'
         case 'zom':
+        case 'zombies':
         case 'cmp':
             return 'Zombies'
         case 'zclassic':
@@ -59,7 +60,32 @@ function gametypeDisplay(gametype, game = undefined) {
         case 'sas':
             return 'Sticks & Stones'
         case 'twar':
+            if (game == 's1x') { return 'Momentum' }
             return 'War'
+        case 'blitz':
+            return 'Blitz'
+        case 'crank':
+            return 'Cranked'
+        case 'grind':
+            return 'Grind'
+        case 'grnd':
+            return 'Drop Zone'
+        case 'horde':
+            if (game == 'iw6x') { return 'Safeguard' }
+            return 'EXO Survival' // s1x
+        case 'sotf':
+            return 'Hunted'
+        case 'sotf_ffa':
+            return 'Hunted FFA'
+        case 'sr':
+            return 'Search & Rescue'
+        case 'aliens':
+            return 'Extinction'
+        case 'hp':
+            return 'Hardpoint'
+        case 'ball':
+            return 'Uplink'
+
         default:
             return gametype
     }
@@ -359,6 +385,283 @@ function mapDisplay(map, game = undefined) {
             return 'Grid'
         case 'mp_hotel':
             return 'Hotel'
+
+        // iw4x
+        case 'mp_afghan':
+            return 'Afghan'
+        case 'mp_derail':
+            return 'Derail'
+        case 'mp_estate':
+            return 'Estate'
+        case 'mp_favela':
+            return 'Favela'
+        case 'mp_highrise':
+            return 'Highrise'
+        case 'mp_invasion':
+            return 'Invasion'
+        case 'mp_checkpoint':
+            return 'Karachi'
+        case 'mp_quarry':
+            return 'Quarry'
+        case 'mp_rundown':
+            return 'Rundown'
+        case 'mp_rust':
+            return 'Rust'
+        case 'mp_boneyard':
+            return 'Scrapyard'
+        case 'mp_nightshift':
+            return 'Skidrow'
+        case 'mp_subbase':
+            return 'SubBase'
+        case 'mp_terminal':
+            return 'Terminal'
+        case 'mp_underpass':
+            return 'Underpass'
+        case 'mp_brecourt':
+            return 'Wasteland'
+        case 'mp_complex':
+            return 'Bailout'
+        case 'mp_crash':
+            return 'Crash'
+        case 'mp_overgrown':
+            return 'Overgrown'
+        case 'mp_compact':
+            return 'Salvage'
+        case 'mp_storm':
+            return 'Storm'
+        case 'mp_abandon':
+            return 'Carnival'
+        case 'mp_fuel2':
+            return 'Fuel'
+        case 'mp_strike':
+            return 'Strike'
+        case 'mp_trailerpark':
+            return 'Trailer Park'
+        case 'mp_vacant':
+            return 'Vacant'
+        case 'mp_nuked':
+            return 'Nuketown'
+        case 'mp_cross_fire':
+            return 'Crossfire'
+        case 'mp_bloc':
+            return 'Bloc'
+        case 'mp_cargoship':
+            return 'Cargoship'
+        case 'mp_killhouse':
+            return 'Killhouse'
+        case 'mp_bog_sh':
+            return 'Bog'
+        case 'mp_cargoship_sh':
+            return 'Freighter'
+        case 'mp_shipment':
+            return 'Shipment'
+        case 'mp_shipment_long':
+            return 'Long Shipment'
+        case 'mp_rust_long':
+            return 'Long Rust'
+        case 'mp_firingrange':
+            return 'Firing Range'
+        case 'mp_storm_spring':
+            return 'Chemical Plant'
+        case 'mp_fav_tropical':
+            return 'Tropical Favela'
+        case 'mp_estate_tropical':
+            return 'Tropical Estate'
+        case 'mp_crash_tropical':
+            return 'Tropical Crash'
+        case 'mp_bloc_sh':
+            return 'Forgotten City'
+        case 'oilrig':
+            return 'Oilrig'
+        case 'iw4_credits':
+            return 'Testmap'
+        case 'co_hunted':
+            return 'Village'
+
+        // iw6x
+        case 'mp_prisonbreak':
+            return 'Prision Break'
+        case 'mp_dart':
+            return 'Octane'
+        case 'mp_lonestar':
+            return 'Tremor'
+        case 'mp_frag':
+            return 'Freight'
+        case 'mp_snow':
+            return 'Whiteout'
+        case 'mp_fahrenheit':
+            return 'Stormfront'
+        case 'mp_hashima':
+            return 'Siege'
+        case 'mp_warhawk':
+            return 'Warhawk'
+        case 'mp_sovereign':
+            return 'Sovereign'
+        case 'mp_zebra':
+            return 'Overload'
+        case 'mp_skeleton':
+            return 'Stonehaven'
+        case 'mp_chasm':
+            return 'Chasm'
+        case 'mp_flooded':
+            return 'Flooded'
+        case 'mp_strikezone':
+            return 'Strikezone'
+        case 'mp_descent_new':
+            return 'Free Fall'
+        case 'mp_dome_ns':
+            return 'Unearthed'
+        case 'mp_ca_impact':
+            return 'Collision'
+        case 'mp_ca_behemoth':
+            return 'Behemoth'
+        case 'mp_battery3':
+            return 'Ruins'
+        case 'mp_dig':
+            return 'Pharaoh'
+        case 'mp_favela_iw6':
+            return 'Favela'
+        case 'mp_pirate':
+            return 'Mutiny'
+        case 'mp_zulu':
+            return 'Departed'
+        case 'mp_conflict':
+            return 'Dynasty'
+        case 'mp_mine':
+            return 'Goldrush'
+        case 'mp_shipment_ns':
+            return 'Showtime'
+        case 'mp_zerosub':
+            return 'Subzero'
+        case 'mp_boneyard_ns':
+            return 'Ignition'
+        case 'mp_ca_red_river':
+            return 'Containment'
+        case 'mp_ca_rumble':
+            return 'Bayview'
+        case 'mp_swamp':
+            return 'Fog'
+
+        // iw6x zm
+        case 'mp_alien_town':
+            return 'Point of Contact'
+        case 'mp_alien_armory':
+            return 'Nightfall'
+        case 'mp_alien_beacon':
+            return 'Mayday'
+        case 'mp_alien_dlc3':
+            return 'Awakening'
+        case 'mp_alien_last':
+            return 'Exodus'
+
+        // s1x
+        case 'mp_refraction':
+            return 'Ascend'
+        case 'mp_lab2':
+            return 'BioLab'
+        case 'mp_comeback':
+            return 'Comeback'
+        case 'mp_laser2':
+            return 'Defender'
+        case 'mp_detroit':
+            return 'Detroit'
+        case 'mp_greenband':
+            return 'Greenband'
+        case 'mp_levity':
+            return 'Horizon'
+        case 'mp_instinct':
+            return 'Instinct'
+        case 'mp_recovery':
+            return 'Recovery'
+        case 'mp_venus':
+            return 'Retreat'
+        case 'mp_prison':
+            return 'Riot'
+        case 'mp_solar':
+            return 'Solar'
+        case 'mp_terrace':
+            return 'Terrace'
+        case 'mp_dam':
+            return 'Atlas Gorge'
+        case 'mp_spark':
+            return 'ChopShop'
+        case 'mp_climate_3':
+            return 'Climate'
+        case 'mp_sector17':
+            return 'Compound'
+        case 'mp_lost':
+            return 'Core'
+        case 'mp_torqued':
+            return 'Drift'
+        case 'mp_fracture':
+            return 'Fracture'
+        case 'mp_kremlin':
+            return 'Kremlin'
+        case 'mp_lair':
+            return 'Overload'
+        case 'mp_bigben2':
+            return 'Parliament'
+        case 'mp_perplex_1':
+            return 'Perplex'
+        case 'mp_liberty':
+            return 'Quarantine'
+        case 'mp_clowntown3':
+            return 'Sideshow'
+        case 'mp_blackbox':
+            return 'Site244'
+        case 'mp_highrise2':
+            return 'Skyrise'
+        case 'mp_seoul2':
+            return 'Swarm'
+        case 'mp_urban':
+            return 'Urban'
+
+        // s1x zm
+        case 'mp_zombie_ark':
+            return 'Outbreak'
+        case 'mp_zombie_brg':
+            return 'Infection'
+        case 'mp_zombie_h2o':
+            return 'Carrier'
+        case 'mp_zombie_lab':
+            return 'Descent'
+
+        // s1x horde
+        case 'mp_lab2':
+            return 'Bio Lab'
+        case 'mp_venus':
+            return 'Retreat'
+        case 'mp_detroit':
+            return 'Detroit'
+        case 'mp_refraction':
+            return 'Ascend'
+        case 'mp_levity':
+            return 'Horizon'
+        case 'mp_comeback':
+            return 'Comeback'
+        case 'mp_terrace':
+            return 'Terrace'
+        case 'mp_instinct':
+            return 'Instinct'
+        case 'mp_greenband':
+            return 'Greenband'
+        case 'mp_solar':
+            return 'Solar'
+        case 'mp_recovery':
+            return 'Recovery'
+        case 'mp_laser2':
+            return 'Defender'
+        case 'mp_prison':
+            return 'Riot'
+        case 'mp_clowntown3':
+            return 'Sideshow'
+        case 'mp_lost':
+            return 'Core'
+        case 'mp_torqued':
+            return 'Drift'
+        case 'mp_urban':
+            return 'Urban'
+
         default:
             return map
     }
