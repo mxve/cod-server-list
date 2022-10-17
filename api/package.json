@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "dgram": "^1.0.1",
+    "express": "^4.18.2",
+    "geoip-lite": "^1.4.6",
+    "got": "^11.8.3",
+    "toad-scheduler": "^2.0.0",
+    "xregexp": "^5.1.1"
+  }
+}

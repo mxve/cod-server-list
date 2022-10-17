@@ -178,9 +178,9 @@ async function getServerByIdentifier(identifier) {
 
 const app = express()
 app.disable("x-powered-by")
-app.set('views', 'serverlist/views')
+app.set('views', 'views')
 app.set('view engine', 'ejs')
-app.use(express.static('serverlist/public'))
+app.use(express.static('public'))
 app.use(compression())
 
 // server list
@@ -265,7 +265,7 @@ app.get('/img/banner', async (req, res) => {
     let img = 'default.png'
     if (rand < 0.02) {
         // prepend dir with "serverlist" which has been omitted so dir can be used with sendFile root
-        const files = fs.readdirSync('serverlist/' + dir).filter(fn => fn.startsWith('special'))
+        const files = fs.readdirSync(dir).filter(fn => fn.startsWith('special'))
         img = files[Math.floor(Math.random() * files.length)]
     }
     res.sendFile(dir + img, { root: __dirname })
