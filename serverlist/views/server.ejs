@@ -143,8 +143,7 @@ page_url = `${config.url}/s/${server.identifier}`
             <tr>
                 <td>
                     <% 
-                        const platform = ((server.platform == 'xlabs') ? 'X Labs' : 'Plutonium')
-                        __append(platform)
+                        __append(((server.platform == 'xlabs') ? 'X Labs' : 'Plutonium'))
                     %>
                 </td>
             </tr>
