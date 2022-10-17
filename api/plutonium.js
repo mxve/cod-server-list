@@ -1,7 +1,6 @@
 const got = require('got')
 const geoip = require('geoip-lite')
 const slugify = require('./slugify.js')
-const names = require('./names.js')
 const names2 = require('./names2.js')
 const misc = require('./misc.js')
 
@@ -47,7 +46,7 @@ async function getServers() {
         server.hostnameDisplay = server.hostname.replace(/\^\d/g, '')
         server.hostnameDisplayFull = server.hostnameDisplay
         server.round = misc.get_codInfo_value('rounds', server.codInfo) || '0'
-        server.gameDisplay = names.game(server.game)
+        server.gameDisplay = names2.game(server.game)
 
         // server.password is only correct for iw5mp, so we have to parse codInfo for the correct value
         if (server.codInfo.includes('password')) {

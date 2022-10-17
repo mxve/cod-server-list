@@ -3,7 +3,6 @@ const got = require('got')
 const geoip = require('geoip-lite')
 const config = require('./config.json')
 const misc = require('./misc.js')
-const names = require('./names.js')
 const names2 = require('./names2.js')
 
 function parse_codInfo(codInfo) {
@@ -113,7 +112,7 @@ async function parse_getserversResponse(buffer) {
             hostnameDisplay: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
             hostnameDisplayFull: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
             round: misc.get_codInfo_value('rounds', codInfo) || '0',
-            gameDisplay: names.game(codInfo_parsed.game),
+            gameDisplay: names2.game(codInfo_parsed.game),
             known: true,
             platform: 'xlabs',
         }

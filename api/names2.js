@@ -24,12 +24,26 @@ function gametypeDisplay(gametype, game = undefined) {
             return gametype_name
         }
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
     return gametype
+}
+
+function gameDisplay(game) {
+    try {
+        let game_dict = require('./dicts/games.json')
+        let game_name = game_dict[game]
+        if (game_name != undefined) {
+            return game_name
+        }
+    } catch (error) {
+        // console.log(error)
+    }
+    return game
 }
 
 module.exports = {
     map: mapDisplay,
     gametype: gametypeDisplay,
+    game: gameDisplay,
 }
