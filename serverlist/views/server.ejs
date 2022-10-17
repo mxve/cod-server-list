@@ -142,7 +142,10 @@ page_url = `${config.url}/s/${server.identifier}`
             </tr>
             <tr>
                 <td>
-                    <% __append(`${server.platform.charAt(0).toUpperCase()}${server.platform.slice(1)}`) %>
+                    <% 
+                        const platform = ((server.platform == 'xlabs') ? 'X Labs' : 'Plutonium')
+                        __append(platform)
+                    %>
                 </td>
             </tr>
         </table>
