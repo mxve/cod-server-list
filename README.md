@@ -5,10 +5,10 @@
 
 ## Sections
 
-#### [Links](#Links)
-#### [Screenshots](#Screenshots)
-#### [FAQ](#FAQ)
-#### [API](#API)
+#### [Links](#Links-1)
+#### [Screenshots](#Screenshots-1)
+#### [FAQ](#FAQ-1)
+#### [API](#API-1)
 
 ---
 
