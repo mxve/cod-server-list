@@ -23,7 +23,7 @@ async function generate_server_preview(server, create = false) {
         // server hostname, centered
         image.print(title_font, 0, 5, { text: server.hostnameDisplay, alignmentX: jimp.HORIZONTAL_ALIGN_CENTER }, image.bitmap.width, image.bitmap.height)
         // player count, aligned left
-        image.print(font, 12, 30, `${server.players.length}/${server.maxplayers}`)
+        image.print(font, 12, 30, `${server.realClients}/${server.maxplayers}`)
         // map name, centered
         image.print(font, 0, 30, { text: server.mapDisplay, alignmentX: jimp.HORIZONTAL_ALIGN_CENTER }, image.bitmap.width, image.bitmap.height)
         // gametype, aligned right
