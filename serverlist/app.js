@@ -70,13 +70,14 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
             // if any of these values contains search its a match
             let searchables = [
                 server.hostname,
+                server.hostname_display,
                 server.map,
-                server.mapDisplay,
+                server.map_display,
                 server.gametype,
-                server.gametypeDisplay,
+                server.gametype_display,
                 server.country,
-                server.countryDisplay,
-                server.gameDisplay,
+                server.country_code,
+                server.game_display,
                 server.game
             ]
 
@@ -84,8 +85,8 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
             let searchablesFull = [
                 server.ip,
                 server.port,
-                server.maxplayers,
-                server.players.length,
+                server.clients_max,
+                server.clients,
                 server.round,
                 server.identifier
             ]
@@ -118,8 +119,8 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
         }
 
         // stats
-        maxPlayers += server.maxplayers
-        countPlayers += server.realClients
+        maxPlayers += server.clients_max
+        countPlayers += server.clients
         countServers += 1
         countBots += server.bots
 
@@ -145,7 +146,7 @@ async function getServer(ip, port) {
     const json = apiCache.json
 
     // find server in api cache
-    let server = { ip, port, online: false, known: false }
+    let server = { ip, port }
     for (iserver of json) {
         if (iserver.ip == ip && iserver.port == port) {
             server = iserver
@@ -170,7 +171,7 @@ async function getServerByIdentifier(identifier) {
         }
     }
 
-    return { identifier, online: false, known: false }
+    return { identifier }
 }
 
 const app = express()

@@ -127,14 +127,14 @@ description = `View ${gamename} Servers`
                             <td class="icon" data-sort="<%= server.game %>">
                                 <img src="/img/<%= server.game %>.jpg" />
                             </td>
-                            <td class="flag" data-sort="<%= server.country %>">
-                                <span class="fp fp <%= server.country %>"></span>
+                            <td class="flag" data-sort="<%= server.country_code %>">
+                                <span class="fp fp <%= server.country_code %>"></span>
                             </td>
                             <td class="hostname">
-                                <%= server.hostnameDisplayFull %>
+                                <%= server.hostname_display %>
                             </td>
-                            <td class="slots" data-sort="<%= server.realClients %>">
-                                <%= server.realClients %>/<%= server.maxplayers %>
+                            <td class="slots" data-sort="<%= server.clients %>">
+                                <%= server.clients %>/<%= server.clients_max %>
                           <%
                             if (server.bots > 0) {
                                 __append(`(${server.bots})`)
@@ -142,11 +142,11 @@ description = `View ${gamename} Servers`
                         %>
                             </td>
                             <td class="gametype">
-                                <%= server.gametypeDisplay %>
+                                <%= server.gametype_display %>
                             </td>
                             <td class="map">
                                 <div class="margin">
-                                    <%= server.mapDisplay %>
+                                    <%= server.gametype_display %>
                                 </div>
                             </td>
                             <td class="round">
@@ -184,7 +184,7 @@ description = `View ${gamename} Servers`
                 </tbody>
             </table>
             <div id="stats">
-                Servers: <%= api.countServers %> | Players: <%= api.countPlayers %>/<%= api.maxPlayers %> (<%= api.countBots %>) | Data age: <%= Date.now() - api.date %>ms
+                Servers: <%= api.servers_total %> | Players: <%= api.clients_total %>/<%= api.clients_max %> (<%= api.bots_total %>) | Data age: <%= //Date.now() - api.date %>ms
             </div>
             <%- include('footer') %>
                 <script src="/js/serverlist.js"></script>

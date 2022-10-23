@@ -1,8 +1,8 @@
 <%
 let title
-if (server.known) {
-    title = `${server.hostnameDisplay} [${server.realClients}/${server.maxplayers}]`
-    description = `View player count, map and gamemode of ${server.hostnameDisplay}`
+if (server.game) {
+    title = `${server.hostname_display} [${server.clients}/${server.clients_max}]`
+    description = `View player count, map and gamemode of ${server.hostname_display}`
 } else {
     title = "Unknown server"
     description = `Unknown or offline server`
@@ -48,9 +48,9 @@ page_url = `${config.url}/s/${server.identifier}`
         </div>
     </div>
     <%- include('header') %>
-    <% if (server.known === true) { %>
+    <% if (server.game) { %>
     <div id="server-info">
-        <div class="hostname <%- server.game %> border"><%- server.hostnameDisplayFull %></div>
+        <div class="hostname <%- server.game %> border"><%- server.hostname_display %></div>
         <table class="server-info-table">
             <tr>
                 <th>
@@ -64,7 +64,7 @@ page_url = `${config.url}/s/${server.identifier}`
             </tr>
             <tr>
                 <td data-tooltip="Current players / Max. players">
-                    <%= server.realClients %>/<%= server.maxplayers %>
+                    <%= server.clients %>/<%= server.clients_max %>
                     <% if (server.bots > 0) { __append(` (${server.bots})`) } %>
                 </td>
                 <%
@@ -83,10 +83,10 @@ page_url = `${config.url}/s/${server.identifier}`
             </tr>
             <tr>
                 <td>
-                    <%- server.mapDisplay %>
+                    <%- server.map_display %>
                 </td>
                 <td>
-                    <%- server.gametypeDisplay %>
+                    <%- server.gametype_display %>
                 </td>
             </tr>
             <tr>
@@ -99,10 +99,10 @@ page_url = `${config.url}/s/${server.identifier}`
             </tr>
             <tr>
                 <td>
-                    <%- server.gameDisplay %>
+                    <%- server.game_display %>
                 </td>
                 <td>
-                    <span class="fp fp <%= server.country %>"></span> <%= server.countryDisplay %>
+                    <span class="fp fp <%= server.country_code %>"></span> <%= server.country %>
                 </td>
             </tr>
             <tr>
@@ -150,7 +150,7 @@ page_url = `${config.url}/s/${server.identifier}`
         </table>
         <span onClick="copyServer()" class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span>
         <%
-            if ((server.platform == 'plutonium' || server.game == 'iw4x') && server.realClients > 0) {
+            if ((server.platform == 'plutonium' || server.game == 'iw4x') && server.clients > 0) {
         %>
         <table class="player-list-table">
             <tr>
@@ -198,11 +198,11 @@ page_url = `${config.url}/s/${server.identifier}`
             <label for="url">Image link</label>
             <input onClick="copy(getElementById('url').value)" class="text-input" id="url" size="64" type="text" value="<%= preview_image %>" readonly>
             <label data-tooltip="Use this for the forum" for="markdown">Markdown</label>
-            <input onClick="copy(getElementById('markdown').value)" class="text-input" id="markdown" size="64" type="text" value="[![<%= server.hostnameDisplay %>](<%= preview_image %>)](<%= page_url %>)" readonly>
+            <input onClick="copy(getElementById('markdown').value)" class="text-input" id="markdown" size="64" type="text" value="[![<%= server.hostname_display %>](<%= preview_image %>)](<%= page_url %>)" readonly>
             <label for="bbcode">BBCode</label>
             <input onClick="copy(getElementById('bbcode').value)" class="text-input" id="bbcode" size="64" type="text" value="[URL=<%= page_url %>][IMG]<%= preview_image %>[/IMG][/URL]" readonly>
             <label for="html">HTML</label>
-            <input onClick="copy(getElementById('html').value)" class="text-input" id="html" size="64" type="text" value="<a href=&quot;<%= page_url %>&quot; title=&quot;<%= server.hostnameDisplay %>&quot;><img src=&quot;<%= preview_image %>&quot; alt=&quot;<%= server.hostnameDisplay %>&quot;></a>" readonly>
+            <input onClick="copy(getElementById('html').value)" class="text-input" id="html" size="64" type="text" value="<a href=&quot;<%= page_url %>&quot; title=&quot;<%= server.hostname_display %>&quot;><img src=&quot;<%= preview_image %>&quot; alt=&quot;<%= server.hostname_display %>&quot;></a>" readonly>
         </p>
     </div>
     <% } else { %>
