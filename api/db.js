@@ -32,27 +32,27 @@ const serverSchema = new mongoose.Schema({
 const Server = mongoose.model('Server', serverSchema)
 
 const getServer = async (identifier) => {
-    const server = await Server.findOne({ identifier })
+    const server = await Server.findOne({ identifier }, '-_id')
     return server
 }
 
 const getServerByIp = async (ip, port) => {
-    const server = await Server.findOne({ ip, port })
+    const server = await Server.findOne({ ip, port }, '-_id')
     return server
 }
 
 const getServers = async () => {
-    const servers = await Server.find({})
+    const servers = await Server.find({}, '-_id')
     return servers
 }
 
 const getServersByGame = async (game) => {
-    const servers = await Server.find({ game })
+    const servers = await Server.find({ game }, '-_id')
     return servers
 }
 
 const getServersByPlatform = async (platform) => {
-    const servers = await Server.find({ platform })
+    const servers = await Server.find({ platform }, '-_id')
     return servers
 }
 
