@@ -49,8 +49,56 @@ Because I don't care, as long as it works.
   - ```<game>``` can be ```iw4x```, ```iw6x```, ```s1x```, ```iw5mp```, ```t4sp```, ```t4mp```, ```t5sp```, ```t5mp```, ```t6zm``` or ```t6mp```
 - ```/servers/search/<query>```
   - Searches ```identifier```, ```ip```, ```port```, ```platform```, ```game```, ```game_display```, ```hostname```, ```hostname_display```, ```map```, ```map_display```, ```gametype```, ```gametype_display```, ```description```, ```country_code```, ```country```
+- ```/server/identifier/<id>```
+- ```/server/address/<ip>/<port>```
 
-#### Response
+#### JSON
+
+##### Server
+```
+{
+  identifier: '10 char long unique id: ip:port -> sha256 -> base64 -> "+" = "-", "/" = "_", "=" = "" -> substring(0, 10)'
+  ip: '0.0.0.0',
+  port: 28960,
+  platform: 'xlabs',
+  game: 'iw4x',
+  game_display: 'Modern Warfare 2',
+  hostname: '^2IW4x^7 Default Server',
+  hostname_display: 'IW4x Default Server',
+  gametype: 'war',
+  gametype_display: 'Team Deathmatch',
+  map: 'mp_nightshift',
+  map_display: 'Skidrow',
+  clients: 0,
+  clients_max: 18,
+  bots: 2,
+  players: [
+	  --- only correctly set for plutonium & iw4x (id -1) ---
+	  {
+		  username: 'mxve',
+		  id: '-1',
+		  ping: '999',
+		  --- optional: ---
+		  userslug: 'mxve',
+		  score: 1337
+	  },
+	  ...
+  ],
+  hardcore: false,
+  password: false,
+  round: 0, --- only correctly set for t6zm ---
+  voice: false,
+  aimassist: '-1/0/1',
+  description: '',
+  version: '1337/1.3.7',
+  country_code: 'de',
+  country: 'Germany',
+  cod_info: 'getinfo response: challenge\\xVfR97uB\\hostname\\^2IW4x^7 Default Server\\gamename\\IW4\\..',
+  last_seen: 'date server was last seen, < 2 minutes'
+}
+```
+
+##### /servers/```<endpoint>```
 ```
 date: '2022-10-23T15:26:53.465Z',
 clients_max: 1000,
@@ -58,46 +106,8 @@ clients_total: 200,
 bots_total: 300,
 servers_total: 1337,
 servers: [
-  {
-    identifier: '10 char long unique id: ip:port -> sha256 -> base64 -> "+" = "-", "/" = "_", "=" = "" -> substring(0, 10)'
-    ip: '0.0.0.0',
-    port: 28960,
-    platform: 'xlabs',
-    game: 'iw4x',
-    game_display: 'Modern Warfare 2',
-    hostname: '^2IW4x^7 Default Server',
-    hostname_display: 'IW4x Default Server',
-    gametype: 'war',
-    gametype_display: 'Team Deathmatch',
-    map: 'mp_nightshift',
-    map_display: 'Skidrow',
-    clients: 0,
-    clients_max: 18,
-    bots: 2,
-    players: [
-	    --- only correctly set for plutonium & iw4x (id -1) ---
-	    {
-		    username: 'mxve',
-		    id: '-1',
-		    ping: '999',
-		    --- optional: ---
-		    userslug: 'mxve',
-		    score: 1337
-	    },
-	    ...
-    ],
-    hardcore: false,
-    password: false,
-    round: 0, --- only correctly set for t6zm ---
-    voice: false,
-    aimassist: '-1/0/1',
-    description: '',
-    version: '1337/1.3.7',
-    country_code: 'de',
-    country: 'Germany',
-    cod_info: 'getinfo response: challenge\\xVfR97uB\\hostname\\^2IW4x^7 Default Server\\gamename\\IW4\\..',
-    last_seen: 'date server was last seen, < 2 minutes'
-  },
+  server,
+  server,
   ...
 ]    
 ```

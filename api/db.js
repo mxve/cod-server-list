@@ -64,7 +64,7 @@ const getServer = async (identifier) => {
     return server
 }
 
-const getServerByIp = async (ip, port) => {
+const getServerByAddress = async (ip, port) => {
     const server = await Server.findOne({ ip, port, last_seen: { $gte: two_minutes_ago() } }, ignored_fields)
     return server
 }
@@ -112,7 +112,7 @@ const deleteServer = async (identifier) => {
     await Server.deleteOne({ identifier })
 }
 
-const deleteServerByIp = async (ip, port) => {
+const deleteServerByAddress = async (ip, port) => {
     await Server.deleteOne({ ip, port })
 }
 
@@ -128,7 +128,7 @@ module.exports = {
     serverSchema,
     Server,
     getServer,
-    getServerByIp,
+    getServerByAddress,
     getServers,
     getServersByGame,
     getServersByPlatform,
@@ -137,5 +137,5 @@ module.exports = {
     updateServer,
     updateOrInsertServer,
     deleteServer,
-    deleteServerByIp
+    deleteServerByAddress
 }

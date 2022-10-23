@@ -100,4 +100,23 @@ app.get('/v1/servers/search/:query', async (req, res) => {
     }
 })
 
+// server/identifier/:id
+app.get('/v1/server/identifier/:id', async (req, res) => {
+    try {
+        res.json(await db.getServer(req.params.id))
+    } catch {
+        res.json({})
+    }
+})
+
+// server/address/:ip/:port
+app.get('/v1/server/address/:ip/:port', async (req, res) => {
+    try {
+        res.json(await db.getServerByAddress(req.params.ip, req.params.port))
+    } catch {
+        res.json({})
+    }
+})
+
+
 app.listen(global_config.api.port)
