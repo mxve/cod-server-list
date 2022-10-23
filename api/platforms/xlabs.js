@@ -100,7 +100,7 @@ async function parse_getserversResponse(buffer) {
     let country_name = new Intl.DisplayNames(['en'], { type: 'region' })
     client.on('message', async function(msg, rinfo) {
         // parse the response
-        const codInfo = msg.toString().split("infoResponse\n")[1]
+        const codInfo = msg.toString().split("infoResponse\n")[1].substring(1)
         const codInfo_parsed = parse_codInfo(codInfo)
         const server = {
             ip: rinfo.address,
