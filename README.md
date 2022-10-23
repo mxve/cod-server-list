@@ -39,15 +39,68 @@ Because I don't care, as long as it works.
 
 ## API
 ### API
+
+#### Endpoints
 ```https://api.plutools.pw/v1/[endpoint]```
-- ```/servers```
-  - Return all servers
-- ```/servers/<platform>```
+- ```/servers```, ```/servers/all```
+- ```/servers/platform/<platform>```
   - ```<platform>``` can be ```xlabs``` or ```plutonium```
-  - Return all servers on specified platform
-- ```/servers/<platform>/<game>```
+- ```/servers/game/<game>```
   - ```<game>``` can be ```iw4x```, ```iw6x```, ```s1x```, ```iw5mp```, ```t4sp```, ```t4mp```, ```t5sp```, ```t5mp```, ```t6zm``` or ```t6mp```
-  - Return all servers for specified game
+- ```/servers/search/<query>```
+  - Searches ```identifier```, ```ip```, ```port```, ```platform```, ```game```, ```game_display```, ```hostname```, ```hostname_display```, ```map```, ```map_display```, ```gametype```, ```gametype_display```, ```description```, ```country_code```, ```country```
+
+#### Response
+```
+date: '2022-10-23T15:26:53.465Z',
+clients_max: 1000,
+clients_total: 200,
+bots_total: 300,
+servers_total: 1337,
+servers: [
+  {
+    identifier: '10 char long unique id: ip:port -> sha256 -> base64 -> "+" = "-", "/" = "_", "=" = "" -> substring(0, 10)'
+    ip: '0.0.0.0',
+    port: 28960,
+    platform: 'xlabs',
+    game: 'iw4x',
+    game_display: 'Modern Warfare 2',
+    hostname: '^2IW4x^7 Default Server',
+    hostname_display: 'IW4x Default Server',
+    gametype: 'war',
+    gametype_display: 'Team Deathmatch',
+    map: 'mp_nightshift',
+    map_display: 'Skidrow',
+    clients: 0,
+    clients_max: 18,
+    bots: 2,
+    players: [
+	    --- only correctly set for plutonium & iw4x (id -1) ---
+	    {
+		    username: 'mxve',
+		    id: '-1',
+		    ping: '999',
+		    --- optional: ---
+		    userslug: 'mxve',
+		    score: 1337
+	    },
+	    ...
+    ],
+    hardcore: false,
+    password: false,
+    round: 0, --- only correctly set for t6zm ---
+    voice: false,
+    aimassist: '-1/0/1',
+    description: '',
+    version: '1337/1.3.7',
+    country_code: 'de',
+    country: 'Germany',
+    cod_info: 'getinfo response: challenge\\xVfR97uB\\hostname\\^2IW4x^7 Default Server\\gamename\\IW4\\..',
+    last_seen: 'date server was last seen, < 2 minutes'
+  },
+  ...
+]    
+```
 
 ### Server banner
 ```https://b.plutools.pw/v1/[endpoint]```
