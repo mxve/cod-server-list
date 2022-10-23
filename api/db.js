@@ -6,6 +6,7 @@ const serverSchema = new mongoose.Schema({
     port: Number,
     platform: String,
     game: String,
+    game_display: String,
     hostname: String,
     hostname_display: String,
     map: String,

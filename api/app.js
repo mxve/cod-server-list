@@ -27,6 +27,7 @@ const get_plutonium_servers = new Task('get_plutonium_servers', async () => {
         _server.port = server.port
         _server.platform = 'plutonium'
         _server.game = server.game
+        _server.game_display = server.gameDisplay
         _server.hostname = server.hostname
         _server.hostname_display = server.hostnameDisplay
         _server.map = server.map
@@ -66,6 +67,7 @@ const get_xlabs_servers = new Task('get_xlabs_servers', async () => {
         _server.port = server.port
         _server.platform = 'xlabs'
         _server.game = server.game
+        _server.game_display = server.gameDisplay
         _server.hostname = server.hostname
         _server.hostname_display = server.hostnameDisplay
         _server.map = server.map
