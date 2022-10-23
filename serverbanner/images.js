@@ -21,13 +21,13 @@ async function generate_server_preview(server, create = false) {
         const font = await jimp.loadFont(`data/fonts/medium.fnt`)
         image = await jimp.read('data/img/server_previews/background.png')
         // server hostname, centered
-        image.print(title_font, 0, 5, { text: server.hostnameDisplay, alignmentX: jimp.HORIZONTAL_ALIGN_CENTER }, image.bitmap.width, image.bitmap.height)
+        image.print(title_font, 0, 5, { text: server.hostname_display, alignmentX: jimp.HORIZONTAL_ALIGN_CENTER }, image.bitmap.width, image.bitmap.height)
         // player count, aligned left
-        image.print(font, 12, 30, `${server.realClients}/${server.maxplayers}`)
+        image.print(font, 12, 30, `${server.clients}/${server.clients_max}`)
         // map name, centered
-        image.print(font, 0, 30, { text: server.mapDisplay, alignmentX: jimp.HORIZONTAL_ALIGN_CENTER }, image.bitmap.width, image.bitmap.height)
+        image.print(font, 0, 30, { text: server.map_display, alignmentX: jimp.HORIZONTAL_ALIGN_CENTER }, image.bitmap.width, image.bitmap.height)
         // gametype, aligned right
-        image.print(font, -12, 30, { text: server.gametypeDisplay, alignmentX: jimp.HORIZONTAL_ALIGN_RIGHT }, image.bitmap.width, image.bitmap.height)
+        image.print(font, -12, 30, { text: server.gametype_display, alignmentX: jimp.HORIZONTAL_ALIGN_RIGHT }, image.bitmap.width, image.bitmap.height)
 
         // add game icon
         let game_icon = await jimp.read(`data/img/server_previews/${server.game}.jpg`)
@@ -59,7 +59,7 @@ function timer(ms) { return new Promise(res => setTimeout(res, ms)); }
 async function get_server_preview(server) {
     // if we don't know the server we don't want to create a preview image
     // bug found by Mr. Android
-    if (!server.known) {
+    if (!server.game) {
         return await jimp.read('data/img/server_previews/error.png')
     }
 

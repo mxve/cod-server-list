@@ -24,9 +24,10 @@ async function getServer(ip, port) {
     const json = apiCache
 
     // find server in api cache
-    let server = { ip, port, online: false, known: false }
+    let server = { ip, port }
     for (iserver of json.servers) {
         if (iserver.ip == ip && iserver.port == port) {
+            console.log(iserver)
             server = iserver
             break
         }
@@ -37,7 +38,7 @@ async function getServer(ip, port) {
 
 async function getServerFromId(identifier) {
     const json = apiCache
-    let server = { identifier, online: false, known: false }
+    let server = { identifier }
 
     for (iserver of json.servers) {
         if (iserver.identifier == identifier) {
@@ -76,7 +77,6 @@ const app = express()
 
 app.get('/v1/:identifier', async (req, res) => {
     const server = await getServerFromId(req.params.identifier)
-
     let image = await images.get_server_preview(server)
 
     // return image buffer from jimp image
@@ -97,7 +97,6 @@ app.get('/v1/:identifier', async (req, res) => {
 
 app.get('/v1/:ip/:port', async (req, res) => {
     const server = await getServer(req.params.ip, req.params.port)
-
     let image = await images.get_server_preview(server)
 
     // return image buffer from jimp image
