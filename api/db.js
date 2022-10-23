@@ -32,30 +32,37 @@ const serverSchema = new mongoose.Schema({
     country: String
 })
 
+function two_minutes_ago() {
+    const two_minutes_ago = new Date()
+    two_minutes_ago.setMinutes(two_minutes_ago.getMinutes() - 2)
+    return two_minutes_ago
+}
+
 const Server = mongoose.model('Server', serverSchema)
 
 const getServer = async (identifier) => {
-    const server = await Server.findOne({ identifier }, ignored_fields)
+    const server = await Server.findOne({ identifier, last_seen: { $gte: two_minutes_ago() } }, ignored_fields)
     return server
 }
 
 const getServerByIp = async (ip, port) => {
-    const server = await Server.findOne({ ip, port }, ignored_fields)
+    const server = await Server.findOne({ ip, port, last_seen: { $gte: two_minutes_ago() } }, ignored_fields)
     return server
 }
 
 const getServers = async () => {
-    const servers = await Server.find({}, ignored_fields)
+    // don't get servers where last_seen is older than 5 minutes
+    const servers = await Server.find({ last_seen: { $gte: two_minutes_ago() } }, ignored_fields)
     return servers
 }
 
 const getServersByGame = async (game) => {
-    const servers = await Server.find({ game }, ignored_fields)
+    const servers = await Server.find({ game, last_seen: { $gte: two_minutes_ago() } }, ignored_fields)
     return servers
 }
 
 const getServersByPlatform = async (platform) => {
-    const servers = await Server.find({ platform }, ignored_fields)
+    const servers = await Server.find({ platform, last_seen: { $gte: two_minutes_ago() } }, ignored_fields)
     return servers
 }
 
@@ -65,7 +72,7 @@ const insertServer = async (server) => {
 }
 
 const updateServer = async (server) => {
-    await Server.updateOne({ identifier: server.identifier }, server)
+    await Server.updateOne({ identifier: server.identifier, last_seen: { $gte: two_minutes_ago() } }, server)
 }
 
 const updateOrInsertServer = async (server) => {
