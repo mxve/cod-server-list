@@ -2,7 +2,7 @@ const dgram = require('dgram')
 const geoip = require('geoip-lite')
 const config = require('../config.json')
 const misc = require('../misc.js')
-const names2 = require('../names2.js')
+const names = require('../names.js')
 const http = require('../../shared/http.js')
 
 function parse_codInfo(codInfo) {
@@ -107,12 +107,12 @@ async function parse_getserversResponse(buffer) {
             port: rinfo.port,
             ...codInfo_parsed,
             codInfo,
-            gametypeDisplay: names2.gametype(codInfo_parsed.gametype, codInfo_parsed.game),
-            mapDisplay: names2.map(codInfo_parsed.map, codInfo_parsed.game),
+            gametypeDisplay: names.gametype(codInfo_parsed.gametype, codInfo_parsed.game),
+            mapDisplay: names.map(codInfo_parsed.map, codInfo_parsed.game),
             hostnameDisplay: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
             hostnameDisplayFull: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
             round: misc.get_codInfo_value('rounds', codInfo) || '0',
-            gameDisplay: names2.game(codInfo_parsed.game),
+            gameDisplay: names.game(codInfo_parsed.game),
             known: true,
             platform: 'xlabs',
         }
