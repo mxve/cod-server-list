@@ -1,5 +1,7 @@
 const mongoose = require("mongoose")
 
+const ignored_fields = '-_id -__v'
+
 const serverSchema = new mongoose.Schema({
     identifier: String,
     ip: String,
@@ -32,27 +34,27 @@ const serverSchema = new mongoose.Schema({
 const Server = mongoose.model('Server', serverSchema)
 
 const getServer = async (identifier) => {
-    const server = await Server.findOne({ identifier }, '-_id')
+    const server = await Server.findOne({ identifier }, ignored_fields)
     return server
 }
 
 const getServerByIp = async (ip, port) => {
-    const server = await Server.findOne({ ip, port }, '-_id')
+    const server = await Server.findOne({ ip, port }, ignored_fields)
     return server
 }
 
 const getServers = async () => {
-    const servers = await Server.find({}, '-_id')
+    const servers = await Server.find({}, ignored_fields)
     return servers
 }
 
 const getServersByGame = async (game) => {
-    const servers = await Server.find({ game }, '-_id')
+    const servers = await Server.find({ game }, ignored_fields)
     return servers
 }
 
 const getServersByPlatform = async (platform) => {
-    const servers = await Server.find({ platform }, '-_id')
+    const servers = await Server.find({ platform }, ignored_fields)
     return servers
 }
 
