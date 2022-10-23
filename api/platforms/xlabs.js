@@ -146,10 +146,41 @@ async function parse_getserversResponse(buffer) {
         }
 
         //let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
-        server.identifier = misc.generateIdentifier(server)
         server.changed = true
 
-        servers.push(server)
+        server.date = new Date()
+
+                // add server to array
+        // values are assigned to keys again to have a consistent order
+        servers.push({
+            identifier: await misc.generateIdentifier(server),
+            ip: server.ip,
+            port: server.port,
+            platform: 'xlabs',
+            game: server.game,
+            game_display: server.gameDisplay,
+            hostname: server.hostname,
+            hostname_display: server.hostnameDisplay,
+            gametype: server.gametype,
+            gametype_display: server.gametypeDisplay,
+            map: server.map,
+            map_display: server.mapDisplay,
+            clients: (server.game == 'iw4x' ? server.clients : server.players.length - server.bots),
+            clients_max: server.maxplayers,
+            bots: server.bots,
+            players: server.players,
+            hardcore: server.hardcore,
+            password: server.password,
+            round: server.round,
+            voice: server.voice,
+            aimassist: server.aimassist,
+            description: server.description,
+            version: server.revision,
+            country_code: server.country,
+            country: server.countryDisplay,
+            cod_info: server.codInfo,
+            last_seen: server.date,
+        })
     })
 
     for (server of parsed_data.servers) {
@@ -186,18 +217,7 @@ async function parse_getserversResponse(buffer) {
 //let previous_servers = []
 
 async function getServers() {
-    let xlabs_servers = {
-        iw4x: [],
-        iw6x: [],
-        s1x: [],
-        get all() {
-            const servers = [].concat(this.iw4x, this.iw6x, this.s1x)
-            servers.sort((a, b) => {
-                return (b.clients - b.bots) - (a.clients - a.bots)
-            })
-            return servers
-        }
-    }
+    let xlabs_servers = []
     const client = dgram.createSocket('udp4')
     for (game of config.xlabs.games) {
         const buffer = misc.strToCmdBuf(`getservers\n${game.game_id} ${game.protocol} full empty`)
@@ -219,20 +239,13 @@ async function getServers() {
         servers = servers.sort((a, b) => {
             return (b.clients - b.bots) - (a.clients - a.bots)
         })
-        switch (game.game_id) {
-            case 'IW4':
-                xlabs_servers.iw4x = servers
-                break
-            case 'IW6':
-                xlabs_servers.iw6x = servers
-                break
-            case 'S1':
-                xlabs_servers.s1x = servers
-                break
-        }
+        xlabs_servers = xlabs_servers.concat(servers)
     }
     client.close()
-    previous_servers = xlabs_servers.all
+    // xlabs_servers.sort((a, b) => {
+    //     return (b.clients - b.bots) - (a.clients - a.bots)
+    // })
+    previous_servers = xlabs_servers
     return {
         servers: xlabs_servers,
         date: Date.now(),

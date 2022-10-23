@@ -13,22 +13,7 @@ async function getServers() {
 
     const json = JSON.parse(api)
 
-    let servers = {
-        iw5mp: [],
-        t4sp: [],
-        t4mp: [],
-        t5sp: [],
-        t5mp: [],
-        t6zm: [],
-        t6mp: [],
-        get all() {
-            const servers = [].concat(this.iw5mp, this.t4sp, this.t4mp, this.t5sp, this.t5mp, this.t6zm, this.t6mp)
-            servers.sort((a, b) => {
-                return (b.players.length - b.bots) - (a.players.length - a.bots)
-            })
-            return servers
-        }
-    }
+    let servers = []
 
     let country_name = new Intl.DisplayNames(['en'], { type: 'region' })
     for (server of json) {
@@ -96,55 +81,61 @@ async function getServers() {
             server.countryDisplay = 'Unknown'
         }
 
-        // check whether a relevant server variable has changed since the last run
-        // helps us reduce the amount of preview images that have to be regenerated
-        let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
-        server.changed = false
-        if (prev_server.length > 0) {
-            if (prev_server[0].players.length != server.players.length ||
-                prev_server[0].map != server.map ||
-                prev_server[0].gametype != server.gametype ||
-                prev_server[0].hostname != server.hostname ||
-                prev_server[0].maxplayers != server.maxplayers) {
-                server.changed = true
-            }
-            server.identifier = prev_server[0].identifier
-        } else {
-            server.identifier = await misc.generateIdentifier(server)
-        }
+        // // check whether a relevant server variable has changed since the last run
+        // // helps us reduce the amount of preview images that have to be regenerated
+        // let prev_server = previous_servers.filter(it => it.ip == server.ip && it.port == server.port)
+        // server.changed = false
+        // if (prev_server.length > 0) {
+        //     if (prev_server[0].players.length != server.players.length ||
+        //         prev_server[0].map != server.map ||
+        //         prev_server[0].gametype != server.gametype ||
+        //         prev_server[0].hostname != server.hostname ||
+        //         prev_server[0].maxplayers != server.maxplayers) {
+        //         server.changed = true
+        //     }
+        //     server.identifier = prev_server[0].identifier
+        // } else {
+        //     server.identifier = await misc.generateIdentifier(server)
+        // }
 
-        server.platform = 'plutonium'
-
-        switch (server.game) {
-            case 'iw5mp':
-                servers.iw5mp.push(server)
-                break
-            case 't4sp':
-                servers.t4sp.push(server)
-                break
-            case 't4mp':
-                servers.t4mp.push(server)
-                break
-            case 't5sp':
-                servers.t5sp.push(server)
-                break
-            case 't5mp':
-                servers.t5mp.push(server)
-                break
-            case 't6zm':
-                servers.t6zm.push(server)
-                break
-            case 't6mp':
-                servers.t6mp.push(server)
-                break
-        }
-
-        //servers.push(server)
+        // add server to array
+        // values are assigned to keys again to have a consistent order
+        servers.push({
+            identifier: await misc.generateIdentifier(server),
+            ip: server.ip,
+            port: server.port,
+            platform: 'plutonium',
+            game: server.game,
+            game_display: server.gameDisplay,
+            hostname: server.hostname,
+            hostname_display: server.hostnameDisplay,
+            gametype: server.gametype,
+            gametype_display: server.gametypeDisplay,
+            map: server.map,
+            map_display: server.mapDisplay,
+            clients: server.players.length - server.bots,
+            clients_max: server.maxplayers,
+            bots: server.bots,
+            players: server.players,
+            hardcore: server.hardcore,
+            password: server.password,
+            round: server.round,
+            voice: server.voice,
+            aimassist: server.aimassist,
+            description: server.description,
+            version: server.revision,
+            country_code: server.country,
+            country: server.countryDisplay,
+            cod_info: server.codInfo,
+            last_seen: server.date,
+        })
     }
 
     // save new servers as previous servers for the next run
-    previous_servers = servers.all
-
+    previous_servers = servers
+    // servers.sort((a, b) => {
+    //     return (b.players.length - b.bots) - (a.players.length - a.bots)
+    // })
     return {
         servers,
         date: Date.now(),
