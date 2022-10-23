@@ -111,70 +111,57 @@ const get_xlabs_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_xlabs_s
 scheduler.addSimpleIntervalJob(get_xlabs_servers_job)
 get_xlabs_servers.execute()
 
-function appendServerStats(servers) {
+function appendStats(servers) {
     let countPlayers = 0
     let countBots = 0
     let maxPlayers = 0
 
     for (server of servers) {
-        if (server.platform == 'plutonium' || server.game !== 'iw4x') {
-            server.realClients = server.players.length - server.bots
-        } else if (server.game == 'iw4x') {
-            server.realClients = server.clients
-        }
-
-        countPlayers += server.realClients
-        maxPlayers += server.maxplayers
+        countPlayers += server.clients
+        maxPlayers += server.clients_max
         countBots += server.bots
     }
 
     return {
-        servers: servers,
-        countPlayers,
-        countBots,
-        maxPlayers,
-        countServers: servers.length,
+        clients_max: maxPlayers,
+        clients_total: countPlayers,
+        bots_total: countBots,
+        servers_total: servers.length,
+        servers: servers
     }
+}
+
+function prepareResponse(servers) {
+    let _servers = servers.sort((a, b) => {
+        return (b.clients) - (a.clients)
+    })
+    return appendStats(_servers)
 }
 
 const app = express()
 app.disable("x-powered-by")
 
-app.get(['/v1/servers', '/v1/servers/all'], (req, res) => {
+app.get(['/v1/servers', '/v1/servers/all'], async (req, res) => {
     try {
-        let ans = appendServerStats([...servers.xlabs.servers.all, ...servers.plutonium.servers.all])
-        ans.servers = ans.servers.sort((a, b) => {
-            return (b.realClients) - (a.realClients)
-        })
-
-        // average date because why not
-        ans.date = (servers.xlabs.date + servers.plutonium.date) / 2
-        ans.platform = 'all'
-        res.send(ans)
+        res.json(prepareResponse(await db.getServers()))
     } catch {
-        res.send([])
+        res.json([])
     }
 })
 
-app.get('/v1/servers/:platform', (req, res) => {
+app.get('/v1/servers/platform/:platform', async (req, res) => {
     try {
-        let ans = appendServerStats(servers[req.params.platform].servers.all)
-        ans.date = servers[req.params.platform].date
-        ans.platform = req.params.platform
-        res.send(ans)
+        res.json(prepareResponse(await db.getServersByPlatform(req.params.platform)))
     } catch {
-        res.send([])
+        res.json([])
     }
 })
 
-app.get('/v1/servers/:platform/:game', (req, res) => {
+app.get('/v1/servers/game/:game', async (req, res) => {
     try {
-        let ans = appendServerStats(servers[req.params.platform].servers[req.params.game])
-        ans.date = servers[req.params.platform].date
-        ans.platform = req.params.platform
-        res.send(ans)
+        res.json(prepareResponse(await db.getServersByGame(req.params.game)))
     } catch {
-        res.send([])
+        res.json([])
     }
 })
 
