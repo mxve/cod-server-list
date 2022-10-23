@@ -1,9 +1,9 @@
 const dgram = require('dgram')
-const got = require('got')
 const geoip = require('geoip-lite')
 const config = require('./config.json')
 const misc = require('./misc.js')
 const names2 = require('./names2.js')
+const http = require('../shared/http.js')
 
 function parse_codInfo(codInfo) {
     const codInfo_parsed = {
@@ -124,8 +124,8 @@ async function parse_getserversResponse(buffer) {
             }
 
             try {
-                let serverInfo = await got(`http://${server.ip}:${server.port}/info`)
-                serverInfo = JSON.parse(serverInfo.body)
+                let serverInfo = await http.getBody(`http://${server.ip}:${server.port}/info`)
+                serverInfo = JSON.parse(serverInfo)
 
                 let players = []
                 for (player of serverInfo.players) {

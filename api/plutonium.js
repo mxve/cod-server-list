@@ -1,16 +1,16 @@
-const got = require('got')
 const geoip = require('geoip-lite')
 const slugify = require('./slugify.js')
 const names2 = require('./names2.js')
 const misc = require('./misc.js')
+const http = require('../shared/http.js')
 
 let previous_servers = []
 async function getServers() {
-    const api = await got('https://plutonium.pw/api/servers')
-    let version = await got('https://cdn.plutonium.pw/updater/prod/info.json')
-    version = JSON.parse(version.body).revision
+    const api = await http.getBody('https://plutonium.pw/api/servers')
+    let version = await http.getBody('https://cdn.plutonium.pw/updater/prod/info.json')
+    version = JSON.parse(version).revision
 
-    const json = JSON.parse(api.body)
+    const json = JSON.parse(api)
 
     let servers = {
         iw5mp: [],
