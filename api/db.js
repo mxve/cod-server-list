@@ -32,6 +32,25 @@ const serverSchema = new mongoose.Schema({
     country: String
 })
 
+serverSchema.index({ 
+    'identifier': 'text',
+    'ip': 'text',
+    'port': 'text',
+    'platform': 'text',
+    'game': 'text',
+    'game_display': 'text',
+    'hostname': 'text',
+    'hostname_display': 'text',
+    'map': 'text',
+    'map_display': 'text',
+    'gametype': 'text',
+    'gametype_display': 'text',
+    'description': 'text',
+    'country_code': 'text',
+    'country': 'text',
+    //'players.username': 'text'
+})
+
 function two_minutes_ago() {
     const two_minutes_ago = new Date()
     two_minutes_ago.setMinutes(two_minutes_ago.getMinutes() - 2)
@@ -63,6 +82,11 @@ const getServersByGame = async (game) => {
 
 const getServersByPlatform = async (platform) => {
     const servers = await Server.find({ platform, last_seen: { $gte: two_minutes_ago() } }, ignored_fields)
+    return servers
+}
+
+const getServersBySearch = async (query, players = false) => {
+    const servers = await Server.find({ $text: { $search: query }, last_seen: { $gte: two_minutes_ago() } }, ignored_fields)
     return servers
 }
 
@@ -108,6 +132,7 @@ module.exports = {
     getServers,
     getServersByGame,
     getServersByPlatform,
+    getServersBySearch,
     insertServer,
     updateServer,
     updateOrInsertServer,

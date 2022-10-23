@@ -91,4 +91,13 @@ app.get('/v1/servers/game/:game', async (req, res) => {
     }
 })
 
+app.get('/v1/servers/search/:query', async (req, res) => {
+    try {
+        res.json(prepareResponse(await db.getServersBySearch(req.params.query)))
+    } catch(err) {
+        console.log(err)
+        res.json([])
+    }
+})
+
 app.listen(global_config.api.port)
