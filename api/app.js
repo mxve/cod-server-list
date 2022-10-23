@@ -43,6 +43,7 @@ const get_plutonium_servers = new Task('get_plutonium_servers', async () => {
         _server.password = server.password
         _server.round = server.round
         _server.voice = server.voice
+        _server.aimassist = server.aimassist
         _server.description = server.description
         _server.cod_info = server.codInfo
         _server.version = server.revision

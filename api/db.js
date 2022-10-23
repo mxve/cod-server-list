@@ -23,6 +23,7 @@ const serverSchema = new mongoose.Schema({
     password: Boolean,
     round: Number,
     voice: Boolean,
+    aimassist: String,
     description: String,
     cod_info: String,
     version: String,
