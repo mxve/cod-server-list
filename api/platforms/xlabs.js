@@ -1,9 +1,9 @@
 const dgram = require('dgram')
 const geoip = require('geoip-lite')
-const config = require('./config.json')
-const misc = require('./misc.js')
-const names2 = require('./names2.js')
-const http = require('../shared/http.js')
+const config = require('../config.json')
+const misc = require('../misc.js')
+const names2 = require('../names2.js')
+const http = require('../../shared/http.js')
 
 function parse_codInfo(codInfo) {
     const codInfo_parsed = {
