@@ -178,7 +178,7 @@ async function parse_getserversResponse(buffer) {
             voice: server.voice,
             aimassist: server.aimassist,
             description: server.description,
-            version: server.revision,
+            version: server.shortversion,
             country_code: server.country,
             country: server.countryDisplay,
             cod_info: server.codInfo,
