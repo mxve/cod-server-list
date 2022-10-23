@@ -3,10 +3,10 @@ const global_config = require('../config.json')
 const express = require('express')
 const jimp = require('jimp')
 const fs = require('fs')
-const got = require('got')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
 const images = require('./images')
+const http = require('../shared/http.js')
 
 let apiCache = { servers: [] }
 const scheduler = new ToadScheduler()
@@ -16,8 +16,8 @@ scheduler.addSimpleIntervalJob(update_api_data_job)
 update_api_data_task.execute()
 
 async function getApiData() {
-    const res = await got(`${global_config.api.url}/v1/servers/`)
-    return JSON.parse(res.body)
+    const res = await http.getBody(`${global_config.api.url}/v1/servers/`)
+    return JSON.parse(res)
 }
 
 async function getServer(ip, port) {
@@ -55,7 +55,7 @@ let previews_done = true
 const generate_previews_task = new Task('clear_images', async () => {
     if (previews_done) {
         previews_done = false
-        //got(config.preview_generator_heartbeat_url)
+        //http.getBody(config.preview_generator_heartbeat_url)
         let data = apiCache
         for (server of data.servers) {
             const preview_path = `data/img/server_previews/generated/${server.ip}_${server.port}.png`

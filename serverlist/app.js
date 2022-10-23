@@ -1,4 +1,3 @@
-const got = require('got')
 const express = require('express')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 const fs = require('fs')
@@ -6,6 +5,7 @@ const compression = require('compression')
 
 const config = require('./config.js')
 const global_config = require('../config.json')
+const http = require('../shared/http.js')
 
 const pluto_games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm']
 const xlabs_games = ['iw4x', 'iw6x', 's1x']
@@ -20,10 +20,10 @@ const update_api_data_job = new SimpleIntervalJob({ seconds: config.api_query_in
 scheduler.addSimpleIntervalJob(update_api_data_job)
 
 async function getApiData() {
-    let api = await got(`${global_config.api.url}/v1/servers/`)
-    api = JSON.parse(api.body).servers
-    let version = await got('https://cdn.plutonium.pw/updater/prod/info.json')
-    version = JSON.parse(version.body).revision
+    let api = await http.getBody(`${global_config.api.url}/v1/servers/`)
+    api = JSON.parse(api).servers
+    let version = await http.getBody('https://cdn.plutonium.pw/updater/prod/info.json')
+    version = JSON.parse(version).revision
 
     return {
         json: api,
@@ -229,7 +229,7 @@ app.get('/s/:identifier', async (req, res) => {
 // legacy serverbanner "proxy"
 async function resPreviewImage(res, server) {
     // move this to client side
-    let image = await got(`${global_config.serverbanner.url}/v1/${server.ip}/${server.port}`)
+    let image = await http.getBuffer(`${global_config.serverbanner.url}/v1/${server.ip}/${server.port}`)
     res.setHeader('Content-Type', 'image/png')
     res.set({
         'Pragma': 'no-cache',
@@ -240,7 +240,7 @@ async function resPreviewImage(res, server) {
     res.writeHead(200, {
         'Content-Type': 'image/png'
     })
-    res.end(image.rawBody)
+    res.end(image)	
 }
 
 // server preview image from ip & port
