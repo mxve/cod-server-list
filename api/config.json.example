@@ -1,4 +1,7 @@
 {
+    "db": {
+        "uri": "mongodb+srv://.."
+    },
     "xlabs": {
         "master": {
             "host": "master.xlabs.dev",
