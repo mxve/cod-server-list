@@ -124,6 +124,7 @@ function appendStats(servers) {
     }
 
     return {
+        date: new Date(),
         clients_max: maxPlayers,
         clients_total: countPlayers,
         bots_total: countBots,
