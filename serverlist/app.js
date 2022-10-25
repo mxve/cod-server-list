@@ -10,168 +10,44 @@ const http = require('../shared/http.js')
 const pluto_games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm']
 const xlabs_games = ['iw4x', 'iw6x', 's1x']
 
-let apiCache
+async function getServers(game = 'all', search = undefined, includePlayers = false) {
+    let endpoint = 'servers'
 
-const scheduler = new ToadScheduler()
-
-// api cache task
-const update_api_data_task = new Task('update_api_data', async () => { apiCache = await getApiData() })
-const update_api_data_job = new SimpleIntervalJob({ seconds: config.api_query_interval, }, update_api_data_task)
-scheduler.addSimpleIntervalJob(update_api_data_job)
-
-async function getApiData() {
-    let api = await http.getBody(`${global_config.api.url}/v1/servers/`)
-    api = JSON.parse(api).servers
-    let version = await http.getBody('https://cdn.plutonium.pw/updater/prod/info.json')
-    version = JSON.parse(version).revision
-
-    return {
-        json: api,
-        date: Date.now(),
-        revision: version
-    }
-}
-
-function searchInArray(search, searchables, searchablesFull = []) {
-    for (searchable of searchablesFull) {
-        if (searchable && searchable.toString().toLowerCase() === search.toString().toLowerCase()) {
-            return true
-        }
-    }
-
-    for (searchable of searchables) {
-        if (searchable && searchable.toString().toLowerCase().includes(search.toString().toLowerCase())) {
-            return true
-        }
-    }
-
-    return false
-}
-
-// used to get servers requested by client
-// includes crude search function & game filter
-async function getData(game = 'all', search = undefined, includePlayers = false) {
-    if (apiCache === undefined) {
-        apiCache = await getApiData()
-    }
-
-    const api = apiCache
-
-    let maxPlayers = 0
-    let countPlayers = 0
-    let countServers = 0
-    let countBots = 0
-
-    // filter servers
-    let servers = []
-    for (server of api.json) {
-        // we do a little searching
-        if (search !== undefined) {
-            // if any of these values contains search its a match
-            let searchables = [
-                server.hostname,
-                server.hostname_display,
-                server.map,
-                server.map_display,
-                server.gametype,
-                server.gametype_display,
-                server.country,
-                server.country_code,
-                server.game_display,
-                server.game
-            ]
-
-            // these values have to match completely (aside from case)
-            let searchablesFull = [
-                server.ip,
-                server.port,
-                server.clients_max,
-                server.clients,
-                server.round,
-                server.identifier
-            ]
-
-            // add player names to searchable values
-            if (includePlayers && server.players.length > 0) {
-                let players
-                for (player of server.players) {
-                    if (!players) {
-                        players = `${player.username}`
-                        continue
-                    }
-                    players = `${players};${player.username};${player.userslug}`
+    if (search) {
+        endpoint = `servers/search/${search}`
+    } else {
+        switch (game) {
+            case 'plutonium':
+                endpoint = 'servers/platform/plutonium'
+                break
+            case 'xlabs':
+                endpoint = 'servers/platform/xlabs'
+                break
+            default:
+                if (pluto_games.includes(game) || xlabs_games.includes(game)) {
+                    endpoint = `servers/game/${game}`
                 }
-                searchables.push(players)
-            }
-
-            if (!searchInArray(search, searchables, searchablesFull)) {
-                continue
-            }
         }
-
-        // filter by game
-        if (((game == 'plutonium' || game == 'xlabs') )) {
-            if (game != server.platform) { continue }
-        } else {
-            if ((game !== 'all' && server.game != game)) {
-                continue
-            }
-        }
-
-        // stats
-        maxPlayers += server.clients_max
-        countPlayers += server.clients
-        countServers += 1
-        countBots += server.bots
-
-        servers.push(server)
     }
 
-    return {
-        servers,
-        date: apiCache.date,
-        maxPlayers,
-        countPlayers,
-        countBots,
-        countServers
-    }
+    let servers = await http.getBody(`${global_config.api.url}/v1/${endpoint}`)
+
+    return data = JSON.parse(servers)
 }
 
 // get a single server
 async function getServer(ip, port) {
-    if (apiCache === undefined) {
-        apiCache = await getApiData()
-    }
-
-    const json = apiCache.json
-
-    // find server in api cache
-    let server = { ip, port }
-    for (iserver of json) {
-        if (iserver.ip == ip && iserver.port == port) {
-            server = iserver
-            break
-        }
-    }
+    let server = await http.getBody(`${global_config.api.url}/v1/server/address/${ip}/${port}`)
+    server = JSON.parse(server)
 
     return server
 }
 
 async function getServerByIdentifier(identifier) {
-    if (apiCache === undefined) {
-        apiCache = await getApiData()
-    }
+    let server = await http.getBody(`${global_config.api.url}/v1/server/identifier/${identifier}`)
+    server = JSON.parse(server)
 
-    const json = apiCache.json
-
-    // find server in api cache
-    for (iserver of json) {
-        if (iserver.identifier == identifier) {
-            return iserver
-        }
-    }
-
-    return { identifier }
+    return server
 }
 
 const app = express()
@@ -183,22 +59,12 @@ app.use(compression())
 
 // server list
 app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
-    let servers
-
-    const includePlayers = req.query.players == 'on' ? true : false
-    // game filter
-    if (pluto_games.includes(req.params.game) || xlabs_games.includes(req.params.game) || req.params.game == 'xlabs' || req.params.game == 'plutonium') {
-        servers = await getData(req.params.game, req.query.s, includePlayers)
-        servers.game = req.params.game
-    } else {
-        servers = await getData('all', req.query.s, includePlayers)
-        servers.game = 'all'
-    }
+    let data = await getServers(req.params.game, req.query.search, req.query.players)
 
     if (req.url.endsWith('json')) {
-        res.json(servers)
+        res.json(data)
     } else {
-        res.render('serverlist', { api: servers, config, revision: apiCache.revision })
+        res.render('serverlist', { api: data, config })
     }
 })
 
@@ -217,13 +83,13 @@ app.get('/s/:identifier/json', async (req, res) => {
 // server page from ip & port
 app.get('/server/:ip/:port', async (req, res) => {
     let server = await getServer(req.params.ip, req.params.port)
-    res.render('server', { server, config, revision: apiCache.revision, global_config })
+    res.render('server', { server, config, global_config })
 })
 
 // server page from identifier
 app.get('/s/:identifier', async (req, res) => {
     let server = await getServerByIdentifier(req.params.identifier)
-    res.render('server', { server, config, revision: apiCache.revision, global_config })
+    res.render('server', { server, config, global_config })
 })
 
 
@@ -241,7 +107,7 @@ async function resPreviewImage(res, server) {
     res.writeHead(200, {
         'Content-Type': 'image/png'
     })
-    res.end(image)	
+    res.end(image)
 }
 
 // server preview image from ip & port

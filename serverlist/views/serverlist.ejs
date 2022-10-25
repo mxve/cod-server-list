@@ -77,9 +77,9 @@ description = `View ${gamename} Servers`
     <body>
         <div id="search-container">
             <div id="search">
-                <form class="search" method="get">
-                    <input class="text-input" id="searchbar" size="24" type="text" placeholder="Search" value="" name="s"><br>
-                    <label class="search-players"><input class="check-input" type="checkbox" name="players"> Include players</label>
+                <form class="search" method="get" action="/">
+                    <input class="text-input" id="searchbar" size="24" type="text" placeholder="Search" value="" name="search"><br>
+                    <!-- <label class="search-players"><input class="check-input" type="checkbox" name="players"> Include players</label> -->
                 </form>
             </div>
         </div>
@@ -184,7 +184,7 @@ description = `View ${gamename} Servers`
                 </tbody>
             </table>
             <div id="stats">
-                Servers: <%= api.servers_total %> | Players: <%= api.clients_total %>/<%= api.clients_max %> (<%= api.bots_total %>) | Data age: <%= //Date.now() - api.date %>ms
+                Servers: <%= api.servers_total %> | Players: <%= api.clients_total %>/<%= api.clients_max %> (<%= api.bots_total %>)
             </div>
             <%- include('footer') %>
                 <script src="/js/serverlist.js"></script>
