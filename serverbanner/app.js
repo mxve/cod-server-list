@@ -59,11 +59,9 @@ const generate_previews_task = new Task('clear_images', async () => {
         //http.getBody(config.preview_generator_heartbeat_url)
         let data = apiCache
         for (server of data.servers) {
-            const preview_path = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
-            const exists = fs.existsSync(preview_path)
-            if (server.changed || !exists) {
-                await images.generate_server_preview(server, false)
-            }
+            //const preview_path = `data/img/server_previews/generated/${server.ip}_${server.port}.png`
+            //const exists = fs.existsSync(preview_path)
+            await images.generate_server_preview(server, false)
         }
         previews_done = true
     }
