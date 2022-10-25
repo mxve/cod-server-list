@@ -96,7 +96,7 @@ const insertServer = async (server) => {
 }
 
 const updateServer = async (server) => {
-    await Server.updateOne({ identifier: server.identifier, last_seen: { $gte: two_minutes_ago() } }, server)
+    await Server.updateOne({ identifier: server.identifier }, server)
 }
 
 const updateOrInsertServer = async (server) => {
