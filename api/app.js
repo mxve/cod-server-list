@@ -2,39 +2,36 @@ const global_config = require('../config.json')
 const config = require('./config.json')
 
 const express = require('express')
-const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
 const plutonium = require('./platforms/plutonium.js')
 const xlabs = require('./platforms/xlabs.js')
 const db = require('./db.js')
 db.connect(config.db.uri)
 
-const scheduler = new ToadScheduler()
+async function updateServers() {
+    let last_run = new Date() - 1000 * 30
 
-const get_plutonium_servers = new Task('get_plutonium_servers', async () => {
-    let _servers = await plutonium.getServers()
-    for (server of _servers.servers) {
-        // add server to database
-        await db.updateOrInsertServer(server)
+    while (true) {
+        if ((new Date() - last_run) < 30000) {
+            await new Promise(r => setTimeout(r, 2000))
+            continue
+        }
+    
+        let _servers = await plutonium.getServers()
+        for (server of _servers.servers) {
+            await db.updateOrInsertServer(server)
+        }
+    
+        _servers = await xlabs.getServers()
+        for (server of _servers.servers) {
+            // add server to database
+            await db.updateOrInsertServer(server)
+        }
+
+        last_run = new Date()
     }
-})
-const get_xlabs_servers = new Task('get_xlabs_servers', async () => {
-    let _servers = await xlabs.getServers()
-
-    for (server of _servers.servers) {
-        // add server to database
-        await db.updateOrInsertServer(server)
-    }
-})
-
-
-const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plutonium_servers)
-scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
-get_plutonium_servers.execute()
-
-const get_xlabs_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_xlabs_servers)
-scheduler.addSimpleIntervalJob(get_xlabs_servers_job)
-get_xlabs_servers.execute()
+}
+updateServers()
 
 function appendStats(servers) {
     let countPlayers = 0

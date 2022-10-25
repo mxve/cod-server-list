@@ -1,5 +1,4 @@
 const express = require('express')
-const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 const fs = require('fs')
 const compression = require('compression')
 
@@ -93,9 +92,10 @@ app.get('/s/:identifier', async (req, res) => {
 })
 
 
+
 // legacy serverbanner "proxy"
+// serverbanners are now linked directly to serverbanner generator api on the client side
 async function resPreviewImage(res, server) {
-    // move this to client side
     let image = await http.getBuffer(`${global_config.serverbanner.url}/v1/${server.ip}/${server.port}`)
     res.setHeader('Content-Type', 'image/png')
     res.set({
@@ -122,13 +122,14 @@ app.get('/s/:identifier/png', async (req, res) => {
     resPreviewImage(res, server)
 })
 
+
+
 // site banner
 app.get('/img/banner', async (req, res) => {
     const rand = Math.random()
     const dir = 'public/img/banner/'
     let img = 'default.png'
     if (rand < 0.02) {
-        // prepend dir with "serverlist" which has been omitted so dir can be used with sendFile root
         const files = fs.readdirSync(dir).filter(fn => fn.startsWith('special'))
         img = files[Math.floor(Math.random() * files.length)]
     }
