@@ -12,7 +12,7 @@ async function updateServers() {
     let last_run = new Date() - 1000 * 30
 
     while (true) {
-        if ((new Date() - last_run) < 30000) {
+        if ((new Date() - last_run) < 20000) {
             await new Promise(r => setTimeout(r, 2000))
             continue
         }
