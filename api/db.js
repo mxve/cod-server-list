@@ -3,7 +3,10 @@ const mongoose = require("mongoose")
 const ignored_fields = '-_id -__v'
 
 const serverSchema = new mongoose.Schema({
-    identifier: String,
+    identifier: {
+        type: String,
+        unique: true
+    },
     ip: String,
     port: Number,
     platform: String,
@@ -100,7 +103,7 @@ const updateServer = async (server) => {
 }
 
 const updateOrInsertServer = async (server) => {
-    const existingServer = await getServer(server.identifier)
+    const existingServer = await Server.findOne({ identifier: server.identifier })
     if (existingServer) {
         await updateServer(server)
     } else {
