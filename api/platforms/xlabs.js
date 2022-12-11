@@ -121,6 +121,11 @@ async function parse_getserversResponse(buffer) {
         }
 
         if (server.game == 'iw4x') {
+            // idc enough to do this right tbh
+            if (server.hostname.includes('NBS') && server.clients <= 2) {
+                server.clients = 0
+            }
+
             try {
                 let serverInfo = await http.getBody(`http://${server.ip}:${server.port}/info`)
                 serverInfo = JSON.parse(serverInfo)
