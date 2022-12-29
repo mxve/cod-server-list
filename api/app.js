@@ -55,10 +55,15 @@ function appendServerStats(servers) {
     let maxPlayers = 0
 
     for (server of servers) {
-        if (server.platform == 'plutonium' || server.game !== 'iw4x') {
+        if (
+          (server.platform == 'plutonium' && server.game !== 't4mp') ||
+          (server.game !== 'iw4x' && server.platf)
+        ){
             server.realClients = server.players.length - server.bots
         } else if (server.game == 'iw4x') {
             server.realClients = server.clients
+        } else if (server.game == 't4mp') {
+            server.realClients = server.players.length
         }
 
         countPlayers += server.realClients
