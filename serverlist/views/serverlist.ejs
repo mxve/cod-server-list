@@ -131,7 +131,7 @@ description = `View ${gamename} Servers`
                                 <span class="fp fp <%= server.country %>"></span>
                             </td>
                             <td class="hostname">
-                                <%= server.hostnameDisplayFull %>
+                                <%= server.hostnameDisplayFull.substring(0, 55) %>
                             </td>
                             <td class="slots" data-sort="<%= server.realClients %>">
                                 <%= server.realClients %>/<%= server.maxplayers %>
