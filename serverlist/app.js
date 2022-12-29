@@ -20,7 +20,7 @@ const update_api_data_job = new SimpleIntervalJob({ seconds: config.api_query_in
 scheduler.addSimpleIntervalJob(update_api_data_job)
 
 async function getApiData() {
-    let api = await http.getBody(`${global_config.api.url}/v1/servers/`)
+    let api = await http.getBody(`${global_config.api.url}/v1/servers/plutonium`)
     api = JSON.parse(api).servers
     let version = await http.getBody('https://cdn.plutonium.pw/updater/prod/info.json')
     version = JSON.parse(version).revision
