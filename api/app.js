@@ -9,8 +9,28 @@ const xlabs = require('./xlabs.js')
 const scheduler = new ToadScheduler()
 
 let servers = {
-    plutonium: {},
-    xlabs: {},
+    plutonium: {
+        servers: {
+            iw5mp: [],
+            t4mp: [],
+            t4sp: [],
+            t5mp: [],
+            t5sp: [],
+            t6mp: [],
+            t6zm: [],
+            all: []
+        },
+        date:  0
+    },
+    xlabs: {
+        servers: {
+                iw4x: [],
+                iw6x: [],
+                s1x: [],
+                all: []
+        },
+        date:  0
+    },
 }
 
 const get_plutonium_servers = new Task('get_plutonium_servers', async () => {
