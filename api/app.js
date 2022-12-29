@@ -57,7 +57,7 @@ function appendServerStats(servers) {
     for (server of servers) {
         if (
           (server.platform == 'plutonium' && server.game !== 't4mp') ||
-          (server.game !== 'iw4x' && server.platf)
+          (server.game !== 'iw4x' && server.platform == 'xlabs')
         ){
             server.realClients = server.players.length - server.bots
         } else if (server.game == 'iw4x') {
