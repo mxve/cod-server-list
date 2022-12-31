@@ -40,8 +40,17 @@
     "mp_fav_tropical": "Tropical Favela",
     "mp_estate_tropical": "Tropical Estate",
     "mp_crash_tropical": "Tropical Crash",
+    "mp_crash_snow": "Winter Crash",
     "mp_bloc_sh": "Forgotten City",
     "oilrig": "Oilrig",
     "iw4_credits": "Testmap",
-    "co_hunted": "Village"
+    "co_hunted": "Village",
+    "mp_broadcast": "Broadcast",
+    "mp_citystreets": "District",
+    "mp_convoy": "Ambush",
+    "mp_backlot": "Backlot",
+    "mp_carentan": "Carentan",
+    "mp_farm": "Farm",
+    "mp_pipeline": "Pipeline",
+    "mp_showdown": "Showdown"
 }
