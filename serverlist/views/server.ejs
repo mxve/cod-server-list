@@ -148,7 +148,7 @@ page_url = `${config.url}/s/${server.identifier}`
                 </td>
             </tr>
         </table>
-        <span onClick="copyServer()" class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span>
+        <span class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span> <span class="iconify copy-icon" onClick="copyServer()" data-icon="ph:copy-bold" data-tooltip="Click to copy connect command"></span>
         <%
             if ((server.platform == 'plutonium' || server.game == 'iw4x') && server.clients > 0) {
         %>
@@ -229,6 +229,7 @@ page_url = `${config.url}/s/${server.identifier}`
     </script>
     <script src="/js/tooltip.js"></script>
     <script src="/js/search.js"></script>
+    <script src="https://code.iconify.design/2/2.2.0/iconify.min.js"></script>
 </body>
 
 </html>
