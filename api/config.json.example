@@ -19,6 +19,11 @@
                 "name": "s1x",
                 "game_id": "S1",
                 "protocol": 1
+            },
+            {
+                "name": "boiii",
+                "game_id": "T7",
+                "protocol": 1
             }
         ]
     }

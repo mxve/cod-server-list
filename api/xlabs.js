@@ -46,7 +46,7 @@ function gamenameToGame(gamename) {
         case 'IW6':
             return 'iw6x'
         case 'T7':
-            return 't7'
+            return 'boiii'
     }
 }
 
