@@ -64,7 +64,16 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
 
     // filter servers
     let servers = []
+    api_iter:
     for (server of api.json) {
+        // iterate config.ignored_servers and check for either ip, ip and port or hostname
+        for (ignored_server of config.ignored_servers) {
+            if ((ignored_server.ip == server.ip && (ignored_server.port == server.port || ignored_server.port == 'any')) ||
+                ignored_server.hostname == server.hostname) {
+                continue api_iter
+            }
+        }
+
         // we do a little searching
         if (search !== undefined) {
             // if any of these values contains search its a match
@@ -109,7 +118,7 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
         }
 
         // filter by game
-        if (((game == 'plutonium' || game == 'xlabs') )) {
+        if (((game == 'plutonium' || game == 'xlabs'))) {
             if (game != server.platform) { continue }
         } else {
             if ((game !== 'all' && server.game != game)) {
@@ -240,7 +249,7 @@ async function resPreviewImage(res, server) {
     res.writeHead(200, {
         'Content-Type': 'image/png'
     })
-    res.end(image)	
+    res.end(image)
 }
 
 // server preview image from ip & port
