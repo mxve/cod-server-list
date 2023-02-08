@@ -31,7 +31,21 @@ async function getServers(game = 'all', search = undefined, includePlayers = fal
 
     let servers = await http.getBody(`${global_config.api.url}/v1/${endpoint}`)
 
-    return data = JSON.parse(servers)
+    let filtered_servers = []
+    api_iter:
+    for (server of JSON.parse(servers)) {
+        // iterate config.ignored_servers and check for either ip, ip and port or hostname
+        for (ignored_server of config.ignored_servers) {
+            if ((ignored_server.ip == server.ip && (ignored_server.port == server.port || ignored_server.port == 'any')) ||
+                ignored_server.hostname == server.hostname) {
+                continue api_iter
+            }
+        }
+
+        filtered_servers.push(server)
+    }
+
+    return data = filtered_servers
 }
 
 // get a single server
