@@ -27,6 +27,7 @@ let servers = {
                 iw4x: [],
                 iw6x: [],
                 s1x: [],
+                boiii: [],
                 all: []
         },
         date:  0

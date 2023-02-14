@@ -143,7 +143,12 @@ page_url = `${config.url}/s/${server.identifier}`
             <tr>
                 <td>
                     <% 
-                        __append(((server.platform == 'xlabs') ? 'X Labs' : 'Plutonium'))
+                        if (server.game = 'boiii') {
+                            __append('YEAH BOIII')
+                        } else {
+                            __append(((server.platform == 'xlabs') ? 'X Labs' : 'Plutonium'))
+                        }
+                        
                     %>
                 </td>
             </tr>

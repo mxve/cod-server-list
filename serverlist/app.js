@@ -8,7 +8,7 @@ const global_config = require('../config.json')
 const http = require('../shared/http.js')
 
 const pluto_games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm']
-const xlabs_games = ['iw4x', 'iw6x', 's1x']
+const xlabs_games = ['iw4x', 'iw6x', 's1x', 'boiii']
 
 let apiCache
 
@@ -70,6 +70,12 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
         for (ignored_server of config.ignored_servers) {
             if ((ignored_server.ip == server.ip && (ignored_server.port == server.port || ignored_server.port == 'any')) ||
                 ignored_server.hostname == server.hostname) {
+                continue api_iter
+            }
+
+            // hide boii from all for now
+            // TODO: remove boiii from xlabs?
+            if ((game == 'all' || game == 'xlabs') && server.game === 'boiii') {
                 continue api_iter
             }
         }
