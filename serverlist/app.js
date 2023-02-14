@@ -79,6 +79,7 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
             // if any of these values contains search its a match
             let searchables = [
                 server.hostname,
+                server.hostnameDisplay,
                 server.map,
                 server.mapDisplay,
                 server.gametype,
