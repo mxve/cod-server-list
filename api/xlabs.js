@@ -109,8 +109,8 @@ async function parse_getserversResponse(buffer) {
             codInfo,
             gametypeDisplay: names2.gametype(codInfo_parsed.gametype, codInfo_parsed.game),
             mapDisplay: names2.map(codInfo_parsed.map, codInfo_parsed.game),
-            hostnameDisplay: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
-            hostnameDisplayFull: codInfo_parsed.hostname.replace(/\^(\d|:)/g, ''),
+            hostnameDisplay: misc.strip_color_codes(codInfo_parsed.hostname),
+            hostnameDisplayFull: misc.strip_color_codes(codInfo_parsed.hostname),
             round: misc.get_codInfo_value('rounds', codInfo) || '0',
             gameDisplay: names2.game(codInfo_parsed.game),
             known: true,
@@ -125,7 +125,7 @@ async function parse_getserversResponse(buffer) {
                 let players = []
                 for (player of serverInfo.players) {
                     let newPlayer = {}
-                    newPlayer.username = player.name
+                    newPlayer.username = misc.strip_color_codes(player.name)
                     newPlayer.id = '-1'
                     newPlayer.ping = player.ping
                     newPlayer.score = player.score

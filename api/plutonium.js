@@ -43,7 +43,7 @@ async function getServers() {
         // generate human readable gametype, map & hostname
         server.gametypeDisplay = names2.gametype(server.gametype, server.game)
         server.mapDisplay = names2.map(server.map, server.game)
-        server.hostnameDisplay = server.hostname.replace(/\^\d/g, '')
+        server.hostnameDisplay = misc.strip_color_codes(server.hostname)
         server.hostnameDisplayFull = server.hostnameDisplay
         server.round = misc.get_codInfo_value('rounds', server.codInfo) || '0'
         server.gameDisplay = names2.game(server.game)

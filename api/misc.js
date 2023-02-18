@@ -21,6 +21,10 @@ function string_number_to_bool(string) {
     return !!num
 }
 
+function strip_color_codes(string) {
+    return string.replace(/\^(\d|:)/g, '')
+}
+
 function get_codInfo_value(key, codInfo, bool = false, int = false) {
     const key_index = codInfo.indexOf(key)
     if (key_index !== -1 && codInfo !== '' && codInfo.includes(key)) {
@@ -85,4 +89,5 @@ module.exports = {
     get_codInfo_value,
     generateIdentifier,
     randomString,
+    strip_color_codes,
 }
