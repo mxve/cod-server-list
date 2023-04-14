@@ -1,6 +1,6 @@
 const dgram = require('dgram');
-const misc = require('./misc.js');
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
+const misc = require('./misc.js');
 
 class DPMaster {
     #udpClient = dgram.createSocket('udp4');
@@ -63,24 +63,23 @@ class DPMaster {
     }
 
     #requestServers() {
-        const buffer = misc.strToCmdBuf(`getservers\n${this.game} ${this.protocol} ${this.filters}`);
-        this.#udpClient.send(buffer, 0, buffer.length, this.port, this.host, (err, bytes) => {
-            if (err) console.log(err);
-        });
-
-        if (this.debug)
-            console.log(`Sent ${buffer.length} bytes to ${this.host}:${this.port}\n----\n${buffer.toString()}\n----\n`);
+        this.#sendCmd(this.host, this.port, `getservers ${this.game} ${this.protocol} ${this.filters}`)
     }
 
     #requestServerInfo(ip, port) {
-        const buffer = misc.strToCmdBuf(`getinfo ${misc.randomString(8)}`);
-        this.#udpClient.send(buffer, 0, buffer.length, port, ip, (err, bytes) => {
-            if (err) {
-                throw err;
-            }
-        });
+        this.#sendCmd(ip, port, `getinfo ${misc.randomString(8)}`);
+    }
+
+    #sendCmd(ip, port, cmd) {
+        const buffer = misc.strToCmdBuf(cmd);
+        try {
+            this.#udpClient.send(buffer, 0, buffer.length, port, ip);
+        } catch (err) {
+            console.log(err);
+        }
+
         if (this.debug)
-            console.log(`Sent ${buffer.length} bytes to ${ip}:${port}\n----\n${buffer.toString()}\n----\n`);
+            console.log(`Sent "${cmd}" (${buffer.length} bytes) to ${ip}:${port}\n`);
     }
 
     #handle_getserversResponse(buffer) {
@@ -103,7 +102,7 @@ class DPMaster {
         }
 
         for (const server of servers) {
-            let server_data = {
+            const server_data = {
                 ip: `${server[0]}.${server[1]}.${server[2]}.${server[3]}`,
                 port: server[4] * 256 + server[5],
                 date: new Date()
@@ -114,7 +113,7 @@ class DPMaster {
     }
 
     #handle_infoResponse(buffer, ip, port) {
-        let server = {
+        const server = {
             identifier: misc.generateIdentifier({ ip, port }),
             ip: ip,
             port: port,
