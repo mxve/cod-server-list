@@ -93,6 +93,21 @@ async function getBoiiiProtocol() {
     return 3
 }
 
+function codInfoToKeyVal(info) {
+    if (info.startsWith('\\')) {
+        info = info.slice(1);
+    }
+
+    let info_array = info.split('\\');
+    let info_obj = {};
+
+    for (let i = 0; i < info_array.length; i += 2) {
+        info_obj[info_array[i]] = info_array[i + 1];
+    }
+
+    return info_obj
+}
+
 module.exports = {
     strToBuf,
     addCmdHeader,
@@ -102,5 +117,6 @@ module.exports = {
     generateIdentifier,
     randomString,
     strip_color_codes,
-    getBoiiiProtocol
+    getBoiiiProtocol,
+    codInfoToKeyVal
 }
