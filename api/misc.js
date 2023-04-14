@@ -1,4 +1,5 @@
 const crypto = require('crypto')
+const http = require('../shared/http.js')
 
 function strToBuf(string) {
     let arr = []
@@ -81,6 +82,17 @@ function randomString(length) {
 //     return combined
 // }
 
+// TODO: make general getProtocol function for boiii & xlabs games
+async function getBoiiiProtocol() {
+    let src = await http.getBody('https://raw.githubusercontent.com/momo5502/boiii/main/src/client/game/structs.hpp')
+    for (let line of src.split('\n')) {
+        if (line.startsWith('#define PROTOCOL')) {
+            return line.split(' ')[2]
+        }
+    }
+    return 3
+}
+
 module.exports = {
     strToBuf,
     addCmdHeader,
@@ -90,4 +102,5 @@ module.exports = {
     generateIdentifier,
     randomString,
     strip_color_codes,
+    getBoiiiProtocol
 }

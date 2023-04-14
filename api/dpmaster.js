@@ -1,6 +1,8 @@
 const dgram = require('dgram');
 const misc = require('./misc.js');
 
+const debug = process.env.debug === 'true' ? true : false;
+
 class dpmaster {
     constructor(host, port, game, protocol, filters = "full empty") {
         this.host = host;
@@ -8,11 +10,10 @@ class dpmaster {
         this.game = game;
         this.protocol = protocol;
         this.filters = filters;
-        this.servers = [];
-        this.temp_servers = [];
+        this.servers = new Map();
     }
 
-    async parse_getserversResponse(buffer) {
+    parseServers(buffer) {
         let segment = []
         let servers = []
 
@@ -39,9 +40,7 @@ class dpmaster {
                 date: new Date()
             }
 
-            if (!this.temp_servers.some(s => s.ip === server_data.ip && s.port === server_data.port)) {
-                this.temp_servers.push(server_data)
-            }
+            this.requestServerInfo(server_data.ip, server_data.port);
         }
     }
 
@@ -52,12 +51,15 @@ class dpmaster {
             if (err)
                 throw err;
         });
-        console.log(`Sent ${buffer.length} bytes to ${this.host}:${this.port}\n----\n${buffer.toString()}\n----\n`);
+
+        if (debug)
+            console.log(`Sent ${buffer.length} bytes to ${this.host}:${this.port}\n----\n${buffer.toString()}\n----\n`);
 
         client.on('message', (buffer, remote) => {
-            console.log(`Received ${buffer.length} bytes from ${remote.address}:${remote.port}`);
+            if (debug)
+                console.log(`Received ${buffer.length} bytes from ${remote.address}:${remote.port}`);
 
-            this.parse_getserversResponse(buffer);
+            this.parseServers(buffer);
         });
     }
 
@@ -66,27 +68,55 @@ class dpmaster {
         const buffer = misc.strToCmdBuf(`getinfo ${misc.randomString(8)}`);
         client.send(buffer, 0, buffer.length, port, ip, function (err, bytes) {
             if (err) {
-                this.temp_servers = this.temp_servers.filter(s => s.ip !== ip && s.port !== port);
                 throw err;
             }
         });
-        console.log(`Sent ${buffer.length} bytes to ${ip}:${port}\n----\n${buffer.toString()}\n----\n`);
+        if (debug)
+            console.log(`Sent ${buffer.length} bytes to ${ip}:${port}\n----\n${buffer.toString()}\n----\n`);
 
         client.on('message', (buffer, remote) => {
-            console.log(`Received ${buffer.length} bytes from ${remote.address}:${remote.port}`);
-            this.servers.push({
+            if (debug)
+                console.log(`Received ${buffer.length} bytes from ${remote.address}:${remote.port}`);
+            let server = {
+                identifier: misc.generateIdentifier({ ip, port }),
                 ip: ip,
                 port: port,
-                info: buffer.toString(),
-                date: new Date()
-            });
+                date: new Date(),
+                info: this.parseInfo(buffer.toString().slice(17))
+            }
+
+            this.servers.set(
+                server.identifier,
+                server
+            );
         });
     }
 
-    async refreshServerInfo() {
-        for (let server of this.temp_servers) {
-            await this.requestServerInfo(server.ip, server.port);
+    parseInfo(info) {
+        if (info.startsWith('\\')) {
+            info = info.slice(1);
         }
+
+        let info_array = info.split('\\');
+        let info_obj = {};
+
+        for (let i = 0; i < info_array.length; i += 2) {
+            info_obj[info_array[i]] = info_array[i + 1];
+        }
+
+        return info_obj
+    }
+
+    getServer(identifier) {
+        return this.servers.get(identifier);
+    }
+
+    getServerByAddress(ip, port) {
+        return this.getServer(misc.generateIdentifier({ ip, port }));
+    }
+
+    getServers() {
+        return [...this.servers.values()];
     }
 }
 
