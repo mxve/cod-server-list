@@ -43,21 +43,25 @@ class DPMaster {
 
     #setupUdpClient() {
         this.#udpClient.on('message', (buffer, remote) => {
-            let cmd = buffer.toString();
-            cmd = cmd.toString().substring(4, cmd.indexOf('Response') + 8);
-
-            if (this.debug)
-                console.log(`Received ${cmd}, ${buffer.length} bytes from ${remote.address}:${remote.port}`);
-
-            switch (cmd) {
-                case 'getserversResponse':
-                    this.#handle_getserversResponse(buffer);
-                    break;
-                case 'infoResponse':
-                    this.#handle_infoResponse(buffer, remote.address, remote.port);
-                    break;
-                default:
-                    break;
+            try {
+                let cmd = buffer.toString();
+                cmd = cmd.toString().substring(4, cmd.indexOf('Response') + 8);
+    
+                if (this.debug)
+                    console.log(`Received ${cmd}, ${buffer.length} bytes from ${remote.address}:${remote.port}`);
+    
+                switch (cmd) {
+                    case 'getserversResponse':
+                        this.#handle_getserversResponse(buffer);
+                        break;
+                    case 'infoResponse':
+                        this.#handle_infoResponse(buffer, remote.address, remote.port);
+                        break;
+                    default:
+                        break;
+                }
+            } catch (err) {
+                console.log(err);
             }
         });
     }
