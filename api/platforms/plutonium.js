@@ -1,8 +1,8 @@
 const geoip = require('geoip-lite')
-const slugify = require('./slugify.js')
-const names2 = require('./names2.js')
-const misc = require('./misc.js')
-const http = require('../shared/http.js')
+const slugify = require('../slugify.js')
+const names2 = require('../names2.js')
+const misc = require('../misc.js')
+const http = require('../../shared/http.js')
 
 let previous_servers = []
 async function getServers() {

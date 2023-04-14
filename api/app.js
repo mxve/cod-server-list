@@ -3,8 +3,8 @@ const global_config = require('../config.json')
 const express = require('express')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
-const plutonium = require('./plutonium.js')
-const xlabs = require('./xlabs.js')
+const plutonium = require('./platforms/plutonium.js')
+const xlabs = require('./platforms/xlabs.js')
 
 const scheduler = new ToadScheduler()
 
