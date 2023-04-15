@@ -21,7 +21,7 @@ let servers = {
             t6zm: [],
             all: []
         },
-        date: 0
+        date: Date.now()
     },
     xlabs: {
         servers: {
@@ -30,13 +30,13 @@ let servers = {
             s1x: [],
             all: []
         },
-        date: 0
+        date: Date.now()
     },
     boiii: {
         servers: {
             all: []
         },
-        date: 0
+        date: Date.now()
     }
 }
 
@@ -111,7 +111,7 @@ app.get(['/v1/servers', '/v1/servers/all'], (req, res) => {
         })
 
         // average date because why not
-        ans.date = (servers.xlabs.date + servers.plutonium.date + servers.boiii.date) / 3
+        ans.date = Math.trunc((servers.xlabs.date + servers.plutonium.date + servers.boiii.date) / 3)
         ans.platform = 'all'
         res.send(ans)
     } catch (err) {

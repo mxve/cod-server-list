@@ -66,7 +66,7 @@ async function getServers() {
             boiii: boiii_servers,
             all: boiii_servers,
         },
-        date: new Date(),
+        date: Date.now(),
     };
 }
 
