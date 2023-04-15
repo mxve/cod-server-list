@@ -72,12 +72,6 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
                 ignored_server.hostname == server.hostname) {
                 continue api_iter
             }
-
-            // hide boii from all for now
-            // TODO: remove boiii from xlabs?
-            if ((game == 'all' || game == 'xlabs') && server.game === 'boiii') {
-                continue api_iter
-            }
         }
 
         // we do a little searching
