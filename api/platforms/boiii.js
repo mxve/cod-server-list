@@ -52,6 +52,8 @@ async function getServers() {
             platform: 'boiii',
         }
 
+        info.players = Array(info.clients).fill('Unknown')
+
         try {
             info.country = geoip.lookup(info.ip).country.toLowerCase()
             info.countryDisplay = country_name.of(info.country.toUpperCase())
