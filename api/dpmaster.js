@@ -143,7 +143,7 @@ class DPMaster {
     }
 
     getServers() {
-        return [...this.servers.values()];
+        return this.servers;
     }
 }
 
