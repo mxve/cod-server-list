@@ -45,8 +45,6 @@ function gamenameToGame(gamename) {
             return 's1x'
         case 'IW6':
             return 'iw6x'
-        case 'T7':
-            return 'boiii'
     }
 }
 
@@ -190,9 +188,8 @@ async function getServers() {
         iw4x: [],
         iw6x: [],
         s1x: [],
-        boiii: [],
         get all() {
-            const servers = [].concat(this.iw4x, this.iw6x, this.s1x, this.boiii)
+            const servers = [].concat(this.iw4x, this.iw6x, this.s1x)
             servers.sort((a, b) => {
                 return (b.clients - b.bots) - (a.clients - a.bots)
             })
@@ -229,9 +226,6 @@ async function getServers() {
                 break
             case 'S1':
                 xlabs_servers.s1x = servers
-                break
-            case 'T7':
-                xlabs_servers.boiii = servers
                 break
         }
     }
