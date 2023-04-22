@@ -47,10 +47,7 @@ const get_xlabs_servers = new Task('get_xlabs_servers', async () => {
     servers.xlabs = await xlabs.getServers()
 })
 const get_boiii_servers = new Task('get_boiii_servers', async () => {
-    const _servers = await boiii.getServers()
-    if (_servers) {
-        servers.boiii = _servers
-    }
+    servers.boiii = await boiii.getServers()
 })
 
 

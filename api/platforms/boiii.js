@@ -14,10 +14,9 @@ main();
 async function getServers() {
     let servers = await master.getServers();
     let boiii_servers = [];
-    for (const server of servers.values()) {
-        if (!server.info) {
-            return;
-        }
+
+    for (const server_ref of servers.values()) {
+        let server = {...server_ref};
 
         let info = server.info;
         delete server.info;
