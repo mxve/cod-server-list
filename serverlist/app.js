@@ -8,7 +8,7 @@ const global_config = require('../config.json')
 const http = require('../shared/http.js')
 
 const pluto_games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm']
-const xlabs_games = ['iw4x', 'iw6x', 's1x', 'boiii']
+const xlabs_games = ['iw4x', 'iw6x', 's1x']
 
 let apiCache
 
