@@ -56,11 +56,11 @@ const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plu
 scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
 get_plutonium_servers.execute()
 
-const get_xlabs_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_xlabs_servers)
+const get_xlabs_servers_job = new SimpleIntervalJob({ seconds: 2 }, get_xlabs_servers)
 scheduler.addSimpleIntervalJob(get_xlabs_servers_job)
 get_xlabs_servers.execute()
 
-const get_boiii_servers_job = new SimpleIntervalJob({ seconds: 1 }, get_boiii_servers)
+const get_boiii_servers_job = new SimpleIntervalJob({ seconds: 2 }, get_boiii_servers)
 scheduler.addSimpleIntervalJob(get_boiii_servers_job)
 
 
