@@ -1,30 +1,37 @@
 {
-    "xlabs": {
-        "master": {
-            "host": "master.xlabs.dev",
-            "port": 20810
-        },
-        "games": [
-            {
-                "name": "iw4x",
-                "game_id": "IW4",
-                "protocol": 150
+    "dpmaster": {
+        "xlabs": {
+            "master": {
+                "host": "master.xlabs.dev",
+                "port": 20810
             },
-            {
-                "name": "iw6x",
-                "game_id": "IW6",
-                "protocol": 1
-            },
-            {
-                "name": "s1x",
-                "game_id": "S1",
-                "protocol": 1
-            },
-            {
-                "name": "boiii",
-                "game_id": "T7",
-                "protocol": 1
+            "games": {
+                "iw4x": {
+                    "game_id": "IW4",
+                    "protocol": 150
+                },
+                "iw6x": {
+                    "game_id": "IW6",
+                    "protocol": 1
+                },
+                "s1x": {
+                    "game_id": "S1",
+                    "protocol": 1
+                }
             }
-        ]
+        },
+        "boiii": {
+            "master": {
+                "host": "server.boiii.re",
+                "port": 20810
+            },
+            "games": {
+                "boiii": {
+                    "game_id": "T7",
+                    "protocol": 5,
+                    "protocol_file_url": "https://raw.githubusercontent.com/momo5502/boiii/main/src/client/game/structs.hpp"
+                }
+            }
+        }
     }
 }

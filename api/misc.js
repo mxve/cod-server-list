@@ -1,5 +1,6 @@
 const crypto = require('crypto')
 const http = require('../shared/http.js')
+const config = require('./config.json');
 
 function strToBuf(string) {
     let arr = []
@@ -84,13 +85,13 @@ function randomString(length) {
 
 // TODO: make general getProtocol function for boiii & xlabs games
 async function getBoiiiProtocol() {
-    let src = await http.getBody('https://raw.githubusercontent.com/momo5502/boiii/main/src/client/game/structs.hpp')
+    let src = await http.getBody(config.dpmaster.boiii.games.boiii.protocol_file_url)
     for (let line of src.split('\n')) {
         if (line.startsWith('#define PROTOCOL')) {
             return line.split(' ')[2]
         }
     }
-    return 3
+    return config.dpmaster.boiii.games.boiii.protcol
 }
 
 function codInfoToKeyVal(info) {

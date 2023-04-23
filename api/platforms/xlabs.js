@@ -2,6 +2,7 @@ const geoip = require('geoip-lite')
 const DPMaster = require('../dpmaster.js');
 const misc = require('../misc.js');
 const names = require('../names2.js');
+const config = require('../config.json');
 
 let masters = {
     IW4: null,
@@ -11,9 +12,9 @@ let masters = {
 const country_name = new Intl.DisplayNames(['en'], { type: 'region' });
 
 async function main() {
-    masters.IW4 = new DPMaster({ host: 'master.xlabs.dev', port: 20810 }, 5, 30, 'IW4', 150);
-    masters.S1 = new DPMaster({ host: 'master.xlabs.dev', port: 20810 }, 5, 30, 'S1', 1);
-    masters.IW6 = new DPMaster({ host: 'master.xlabs.dev', port: 20810 }, 5, 30, 'IW6', 1);
+    masters.IW4 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'IW4', config.dpmaster.xlabs.games.iw4x.protocol);
+    masters.S1 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'S1', config.dpmaster.xlabs.games.s1x.protocol);
+    masters.IW6 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'IW6', config.dpmaster.xlabs.games.iw6x.protocol);
 }
 main();
 
@@ -111,4 +112,4 @@ async function getServers() {
     }
 }
 
-module.exports = {getServers};
+module.exports = { getServers };

@@ -2,12 +2,13 @@ const geoip = require('geoip-lite')
 const DPMaster = require('../dpmaster.js');
 const misc = require('../misc.js');
 const names = require('../names2.js');
+const config = require('../config.json');
 
 let master;
 const country_name = new Intl.DisplayNames(['en'], { type: 'region' });
 
 async function main() {
-    master = new DPMaster({host: 'master.xlabs.dev', port: 20810}, 5, 30, 'T7', await misc.getBoiiiProtocol());
+    master = new DPMaster({host: config.dpmaster.boiii.master.host, port: config.dpmaster.boiii.master.port}, 5, 30, 'T7', await misc.getBoiiiProtocol());
 }
 main();
 
