@@ -91,7 +91,7 @@ async function getBoiiiProtocol() {
             return line.split(' ')[2]
         }
     }
-    return config.dpmaster.boiii.games.boiii.protcol
+    return config.dpmaster.boiii.games.boiii.protocol
 }
 
 function codInfoToKeyVal(info) {
