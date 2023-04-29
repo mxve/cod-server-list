@@ -7,7 +7,7 @@ class DPMaster {
     servers = new Map();
     debug = process.env.debug === 'true'
 
-    constructor(address, refreshInterval, maxAge, game, protocol, filters = "full empty") {
+    constructor(address, refreshInterval, maxAge, game, protocol, filters = "full empty", enableInfoEndpoint = true) {
         this.host = address.host;
         this.port = address.port;
         this.refreshInterval = refreshInterval;
@@ -15,6 +15,7 @@ class DPMaster {
         this.game = game;
         this.protocol = protocol;
         this.filters = filters;
+        this.enableInfoEndpoint = enableInfoEndpoint;
 
         this.#setupUdpClient();
         this.#setupScheduler();
@@ -125,6 +126,20 @@ class DPMaster {
             info: misc.codInfoToKeyVal(buffer.toString().slice(17))
         }
 
+        if (this.enableInfoEndpoint === true) {
+            server.info.endpoint = `http://${ip}:${port}/info`
+
+            fetch(server.info.endpoint)
+                .then(res => res.json())
+                .then(json => {
+                    server.info = {...server.info, ...json}
+                    server.info.endpoint_available = true
+                })
+                .catch(err => {
+                    server.info.endpoint_available = false
+                })
+        }
+    
         if (this.debug && !this.servers.has(server.identifier))
             console.log(`Added ${server.identifier} to server list.\n----\n${JSON.stringify(server)}\n----\n`)
 

@@ -12,7 +12,7 @@ let masters = {
 const country_name = new Intl.DisplayNames(['en'], { type: 'region' });
 
 async function main() {
-    masters.IW4 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'IW4', config.dpmaster.xlabs.games.iw4x.protocol);
+    masters.IW4 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'IW4', config.dpmaster.xlabs.games.iw4x.protocol, "full empty", true);
     masters.S1 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'S1', config.dpmaster.xlabs.games.s1x.protocol);
     masters.IW6 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'IW6', config.dpmaster.xlabs.games.iw6x.protocol);
 }
@@ -60,7 +60,9 @@ function formatInfo(info) {
         aimassist: misc.string_number_to_bool(info.aimassist),
         known: true,
         changed: true,
-        platform: 'xlabs'
+        platform: 'xlabs',
+        players: info.players,
+        endpoint_available: info.endpoint_available
     }
 }
 
@@ -77,7 +79,11 @@ async function formatServers(game) {
             ...server,
             ...info
         }
-        info.players = Array(info.clients).fill('Unknown')
+
+        if (!(info.game === 'iw4x' && info.endpoint_available === true)) {
+            info.players = Array(info.clients).fill('Unknown')
+        }
+
         try {
             info.country = geoip.lookup(info.ip).country.toLowerCase()
             info.countryDisplay = country_name.of(info.country.toUpperCase())

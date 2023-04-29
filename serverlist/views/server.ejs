@@ -155,7 +155,7 @@ page_url = `${config.url}/s/${server.identifier}`
         </table>
         <span class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span> <span class="iconify copy-icon" onClick="copyServer()" data-icon="ph:copy-bold" data-tooltip="Click to copy connect command"></span>
         <%
-            if ((server.platform == 'plutonium' || server.game == 'iw4x') && server.realClients > 0) {
+            if ((server.platform == 'plutonium' || (server.game == 'iw4x' && server.endpoint_available === true)) && server.realClients > 0) {
         %>
         <table class="player-list-table">
             <tr>
@@ -168,16 +168,16 @@ page_url = `${config.url}/s/${server.identifier}`
             </tr>
             <%
                 for (player of server.players) {
+                    if (player.test_client === 1) {
+                        continue
+                    }
             %>
                     <tr>
                         <td>
                             <%
-                                if (player.id == -1) {
-
-                            %>
-                            <%= player.username %>
-                            <%
-                                } else {
+                            if (server.game == 'iw4x' && server.endpoint_available === true) {
+                                __append(player.name.replace(/\^(\d|:)/g, ''))
+                            } else {
                             %>
                             <a href="https://forum.plutonium.pw/user/<%= player.userslug %>" title="Forum Profile"><%= player.username %></a>
                             <%
