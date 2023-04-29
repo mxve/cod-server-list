@@ -13,7 +13,7 @@
 ---
 
 ## Links
-[![PluTools](gh_assets/plutools_64.png)](https://plutools.pw/) [![Discord Server](gh_assets/discord.png)](https://discord.gg/SnJQusteNZ) [![Plutonium](gh_assets/plutonium.jpg)](https://plutonium.pw/) [![X Labs](gh_assets/xlabs.png)](https://xlabs.dev) [![YEAH OIII](gh_assets/boiii.jpg)](https://boiii.re)
+[![PluTools](gh_assets/plutools_64.png)](https://plutools.pw/) [![Discord Server](gh_assets/discord.png)](https://discord.gg/SnJQusteNZ) [![Plutonium](gh_assets/plutonium.jpg)](https://plutonium.pw/) [![X Labs](gh_assets/xlabs.png)](https://xlabs.dev) [![YEAH 🅱️OIII](gh_assets/boiii.jpg)](https://boiii.re)
 
 ---
 
