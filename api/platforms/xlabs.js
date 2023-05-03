@@ -57,7 +57,7 @@ function formatInfo(info) {
         sv_running: misc.string_number_to_bool(info.sv_running),
         wwwDownload: misc.string_number_to_bool(info.wwwDownload),
         wwwUrl: info.wwwUrl,
-        aimassist: misc.string_number_to_bool(info.aimassist),
+        aimassist: (typeof info.aimAssist !== "undefined") ? info.aimAssist : '-1',
         known: true,
         changed: true,
         online: true,
