@@ -47,6 +47,7 @@ async function getServers() {
             sv_running: misc.string_number_to_bool(info.sv_running),
             dedicated: misc.string_number_to_bool(info.dedicated),
             shortversion: info.shortversion,
+            aimassist: true,
             known: true,
             changed: true,
             online: true,
