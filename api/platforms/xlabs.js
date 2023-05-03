@@ -60,6 +60,7 @@ function formatInfo(info) {
         aimassist: misc.string_number_to_bool(info.aimassist),
         known: true,
         changed: true,
+        online: true,
         platform: 'xlabs',
         players: info.players,
         endpoint_available: info.endpoint_available

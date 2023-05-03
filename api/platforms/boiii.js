@@ -49,6 +49,7 @@ async function getServers() {
             shortversion: info.shortversion,
             known: true,
             changed: true,
+            online: true,
             platform: 'boiii',
         }
 
