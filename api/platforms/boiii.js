@@ -51,6 +51,7 @@ async function getServers() {
             known: true,
             changed: true,
             online: true,
+            round: parseInt(info.rounds_played) || -1,
             platform: 'boiii',
         }
 
