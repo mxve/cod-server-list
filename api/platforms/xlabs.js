@@ -58,6 +58,7 @@ function formatInfo(info) {
         wwwDownload: misc.string_number_to_bool(info.wwwDownload),
         wwwUrl: info.wwwUrl,
         aimassist: (typeof info.aimAssist !== "undefined") ? info.aimAssist : '-1',
+        round: -1,
         known: true,
         changed: true,
         online: true,

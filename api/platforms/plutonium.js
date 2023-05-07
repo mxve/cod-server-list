@@ -45,7 +45,7 @@ async function getServers() {
         server.mapDisplay = names2.map(server.map, server.game)
         server.hostnameDisplay = misc.strip_color_codes(server.hostname)
         server.hostnameDisplayFull = server.hostnameDisplay
-        server.round = misc.get_codInfo_value('rounds', server.codInfo) || '0'
+        server.round = server.game === 't6zm' ? (parseInt(misc.get_codInfo_value('rounds', server.codInfo)) || -1) : -1
         server.gameDisplay = names2.game(server.game)
 
         // server.password is only correct for iw5mp, so we have to parse codInfo for the correct value

@@ -48,10 +48,10 @@ async function getServers() {
             dedicated: misc.string_number_to_bool(info.dedicated),
             shortversion: info.shortversion,
             aimassist: "1",
+            round: (info.gametype == 'zclassic' || info.gametype == 'CLASSICX') ? parseInt(info.rounds_played) + 1 || -1 : -1,
             known: true,
             changed: true,
             online: true,
-            round: parseInt(info.rounds_played) || -1,
             platform: 'boiii',
         }
 

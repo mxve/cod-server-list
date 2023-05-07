@@ -47,7 +47,6 @@ switch (api.game) {
         break
     case 'boiii':
         gamename = '☄️ BOIII'
-        css = `${css_disable_round}`
         break
     default:
         gamename = 'Plutonium, X Labs & BOIII'
@@ -109,7 +108,7 @@ description = `View ${gamename} Servers`
                         <th class="map">
                             Map
                         </th>
-                        <th class="round symbol" data-tooltip="Current round, T6 ZM only.">
+                        <th class="round symbol" data-tooltip="Current round, T6 ZM and boiii only.">
                             <span class="iconify" data-icon="mdi:tally-mark-5" data-width="22" data-height="22"></span>
                         </th>
                         <th class="aimassist symbol" data-tooltip="Aim-assist for controller. ? means unknown.">
@@ -155,7 +154,7 @@ description = `View ${gamename} Servers`
                             </td>
                             <td class="round">
                                 <%
-    if (server.game === 't6zm') {
+    if (server.round >= 0) {
         __append(server.round)
     }
 %>

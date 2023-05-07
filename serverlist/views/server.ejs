@@ -57,7 +57,7 @@ page_url = `${config.url}/s/${server.identifier}`
                     Players
                 </th>
                 <%
-                    if (server.game == 't6zm') {
+                    if (server.round >= 0) {
                         __append(`<th>Round</th>`)
                     }
                 %>
@@ -68,7 +68,7 @@ page_url = `${config.url}/s/${server.identifier}`
                     <% if (server.bots > 0) { __append(` (${server.bots})`) } %>
                 </td>
                 <%
-                    if (server.game == 't6zm') {
+                    if (server.round >= 0) {
                         __append(`<td>${server.round}</td>`)
                     }
                 %>
