@@ -1,8 +1,8 @@
 <%
 let title
 if (server.known) {
-    title = `${server.hostnameDisplay} [${server.realClients}/${server.maxplayers}]`
-    description = `View player count, map and gamemode of ${server.hostnameDisplay}`
+    title = `${server.hostnameDisplayFull} [${server.realClients}/${server.maxplayers}]`
+    description = `View player count, map and gamemode of ${server.hostnameDisplayFull}`
 } else {
     title = "Unknown server"
     description = `Unknown or offline server`
@@ -205,11 +205,11 @@ page_url = `${config.url}/s/${server.identifier}`
             <label for="url">Image link</label>
             <input onClick="copy(getElementById('url').value)" class="text-input" id="url" size="64" type="text" value="<%= preview_image %>" readonly>
             <label data-tooltip="Use this for the forum" for="markdown">Markdown</label>
-            <input onClick="copy(getElementById('markdown').value)" class="text-input" id="markdown" size="64" type="text" value="[![<%= server.hostnameDisplay %>](<%= preview_image %>)](<%= page_url %>)" readonly>
+            <input onClick="copy(getElementById('markdown').value)" class="text-input" id="markdown" size="64" type="text" value="[![<%= server.hostnameDisplayFull %>](<%= preview_image %>)](<%= page_url %>)" readonly>
             <label for="bbcode">BBCode</label>
             <input onClick="copy(getElementById('bbcode').value)" class="text-input" id="bbcode" size="64" type="text" value="[URL=<%= page_url %>][IMG]<%= preview_image %>[/IMG][/URL]" readonly>
             <label for="html">HTML</label>
-            <input onClick="copy(getElementById('html').value)" class="text-input" id="html" size="64" type="text" value="<a href=&quot;<%= page_url %>&quot; title=&quot;<%= server.hostnameDisplay %>&quot;><img src=&quot;<%= preview_image %>&quot; alt=&quot;<%= server.hostnameDisplay %>&quot;></a>" readonly>
+            <input onClick="copy(getElementById('html').value)" class="text-input" id="html" size="64" type="text" value="<a href=&quot;<%= page_url %>&quot; title=&quot;<%= server.hostnameDisplayFull %>&quot;><img src=&quot;<%= preview_image %>&quot; alt=&quot;<%= server.hostnameDisplayFull %>&quot;></a>" readonly>
         </p>
     </div>
     <% } else { %>

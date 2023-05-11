@@ -3,6 +3,7 @@ const slugify = require('../slugify.js')
 const names2 = require('../names2.js')
 const misc = require('../misc.js')
 const http = require('../../shared/http.js')
+const config = require('../config.json')
 
 let previous_servers = []
 async function getServers() {
@@ -43,8 +44,8 @@ async function getServers() {
         // generate human readable gametype, map & hostname
         server.gametypeDisplay = names2.gametype(server.gametype, server.game)
         server.mapDisplay = names2.map(server.map, server.game)
-        server.hostnameDisplay = misc.strip_color_codes(server.hostname)
-        server.hostnameDisplayFull = server.hostnameDisplay
+        server.hostnameDisplay = misc.limitLength(misc.strip_color_codes(server.hostname), config.misc.hostname_max_length)
+        server.hostnameDisplayFull = misc.strip_color_codes(server.hostname)
         server.round = server.game === 't6zm' ? (parseInt(misc.get_codInfo_value('rounds', server.codInfo)) || -1) : -1
         server.gameDisplay = names2.game(server.game)
 
@@ -60,9 +61,6 @@ async function getServers() {
             server.aimassist = '-1'
         }
 
-        if (server.hostnameDisplay.length > 44) {
-            server.hostnameDisplay = `${server.hostnameDisplay.substring(0, 42)}...`
-        }
         if (server.mapDisplay.length > 24) {
             server.mapDisplay = `${server.mapDisplay.substring(0, 22)}...`
         }

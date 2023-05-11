@@ -28,7 +28,7 @@ async function getServers() {
             password: misc.string_number_to_bool(info.isPrivate),
             playmode: parseInt(info.playmode),
             hostname: info.hostname,
-            hostnameDisplay: misc.strip_color_codes(info.hostname),
+            hostnameDisplay: misc.limitLength(misc.strip_color_codes(info.hostname), config.misc.hostname_max_length),
             hostnameDisplayFull: misc.strip_color_codes(info.hostname),
             gamename: info.gamename,
             game: 'boiii',

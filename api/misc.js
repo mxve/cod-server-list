@@ -109,6 +109,13 @@ function codInfoToKeyVal(info) {
     return info_obj
 }
 
+function limitLength(string, length) {
+    if (string.length > length) {
+        return `${string.substring(0, length - 2)}..`
+    }
+    return string
+}
+
 module.exports = {
     strToBuf,
     addCmdHeader,
@@ -119,5 +126,6 @@ module.exports = {
     randomString,
     strip_color_codes,
     getBoiiiProtocol,
-    codInfoToKeyVal
+    codInfoToKeyVal,
+    limitLength
 }
