@@ -35,6 +35,15 @@
         }
     },
     "misc": {
-        "hostname_max_length": 48
+        "hostname_max_length": 48,
+        "plutonium_min_revision": {
+            "iw5mp": 3514,
+            "t4sp": 0,
+            "t4mp": 0,
+            "t5sp": 0,
+            "t5mp": 0,
+            "t6mp": 0,
+            "t6zm": 0
+        }
     }
 }

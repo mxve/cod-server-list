@@ -32,6 +32,10 @@ async function getServers() {
 
     let country_name = new Intl.DisplayNames(['en'], { type: 'region' })
     for (server of json) {
+        if (server.revision < config.misc.plutonium_min_revision[server.game]) {
+            continue
+        }
+
         // if (is_ignored_server(server)) {
         //     continue
         // }
