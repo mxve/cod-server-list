@@ -28,7 +28,7 @@
             "games": {
                 "boiii": {
                     "game_id": "T7",
-                    "protocol": 5,
+                    "protocol": 7,
                     "protocol_file_url": "https://raw.githubusercontent.com/momo5502/boiii/main/src/client/game/structs.hpp"
                 }
             }
@@ -37,7 +37,7 @@
     "misc": {
         "hostname_max_length": 48,
         "plutonium_min_revision": {
-            "iw5mp": 3514,
+            "iw5mp": 3519,
             "t4sp": 0,
             "t4mp": 0,
             "t5sp": 0,
