@@ -35,6 +35,10 @@ For the other games the data isn't (correctly) provided by the platforms, so we 
 #### Why is some of this code so bad?
 Because I don't care, as long as it works.
 
+#### API returns 403, please help!
+Cloudflare DDoS mitigation go brrrr.
+Join the [Discord server](https://discord.gg/SnJQusteNZ) to get your IP whitelisted.
+
 ---
 
 ## API
