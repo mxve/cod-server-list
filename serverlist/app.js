@@ -269,7 +269,7 @@ app.get('/s/:identifier/png', async (req, res) => {
 app.get('/img/banner', async (req, res) => {
     const rand = Math.random()
     const dir = 'public/img/banner/'
-    let img = 'default.png'
+    let img = 'special_1.png'
     if (rand < 0.02) {
         // prepend dir with "serverlist" which has been omitted so dir can be used with sendFile root
         const files = fs.readdirSync(dir).filter(fn => fn.startsWith('special'))
