@@ -201,6 +201,16 @@ label {
     margin-bottom: 6px;
 }
 
+#banner a {
+    color: var(--foreground);
+    text-decoration: none;
+    border-bottom: 1px var(--foreground) dashed;
+}
+
+#banner a:hover {
+    border-bottom: 1px var(--foreground-highlight) dotted;
+}
+
 .server {
     margin-bottom: 8px;
     font-family: 'Roboto Condensed', sans-serif;
