@@ -143,19 +143,14 @@ page_url = `${config.url}/s/${server.identifier}`
             <tr>
                 <td>
                     <% 
-                        if (server.game == 'boiii') {
-                            __append('YEAH BOIII')
-                        } else {
-                            __append(((server.platform == 'xlabs') ? 'X Labs' : 'Plutonium'))
-                        }
-                        
+                        __append(((server.platform == 'alterware') ? 'AlterWare' : 'Plutonium'))
                     %>
                 </td>
             </tr>
         </table>
         <span class="connect" data-tooltip="Paste this into the game console to connect">connect <%- server.ip %>:<%- server.port %></span> <span class="iconify copy-icon" onClick="copyServer()" data-icon="ph:copy-bold" data-tooltip="Click to copy connect command"></span>
         <%
-            if ((server.platform == 'plutonium' || (server.game == 'iw4x' && server.endpoint_available === true)) && server.realClients > 0) {
+            if (server.platform == 'plutonium' && server.realClients > 0) {
         %>
         <table class="player-list-table">
             <tr>
@@ -174,15 +169,7 @@ page_url = `${config.url}/s/${server.identifier}`
             %>
                     <tr>
                         <td>
-                            <%
-                            if (server.game == 'iw4x') {
-                                __append(player.name.replace(/\^(\d|:)/g, ''))
-                            } else {
-                            %>
                             <a href="https://forum.plutonium.pw/user/<%= player.userslug %>" title="Forum Profile"><%= player.username %></a>
-                            <%
-                                }
-                            %>
                         </td>
                         <td>
                             <%- player.ping %>
@@ -193,9 +180,7 @@ page_url = `${config.url}/s/${server.identifier}`
             %>
         </table>
         <%
-        } else if (server.game == 'iw4x' && server.endpoint_available !== true) {
-            __append('<br><br><p data-tooltip="If this is your Server open the game Server port for TCP traffic and make sure you are NOT using -disable-mongoose">Player list unavailable</p>')
-        }
+            }
         %>
     </div>
     <div id="banner">

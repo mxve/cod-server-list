@@ -5,27 +5,23 @@ const names = require('../names2.js');
 const config = require('../config.json');
 
 let masters = {
-    IW4: null,
     S1: null,
     IW6: null
 };
 const country_name = new Intl.DisplayNames(['en'], { type: 'region' });
 
 async function main() {
-    masters.IW4 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'IW4', config.dpmaster.xlabs.games.iw4x.protocol, "full empty", true);
-    masters.S1 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'S1', config.dpmaster.xlabs.games.s1x.protocol);
-    masters.IW6 = new DPMaster({ host: config.dpmaster.xlabs.master.host, port: config.dpmaster.xlabs.master.port }, 5, 30, 'IW6', config.dpmaster.xlabs.games.iw6x.protocol);
+    masters.S1 = new DPMaster({ host: config.dpmaster.alterware.master.host, port: config.dpmaster.alterware.master.port }, 5, 30, 'S1', config.dpmaster.alterware.games.s1.protocol);
+    masters.IW6 = new DPMaster({ host: config.dpmaster.alterware.master.host, port: config.dpmaster.alterware.master.port }, 5, 30, 'IW6', config.dpmaster.alterware.games.iw6.protocol);
 }
 main();
 
 function gamenameToGame(gamename) {
     switch (gamename) {
-        case 'IW4':
-            return 'iw4x'
         case 'S1':
-            return 's1x'
+            return 's1'
         case 'IW6':
-            return 'iw6x'
+            return 'iw6'
     }
 }
 
@@ -62,7 +58,7 @@ function formatInfo(info) {
         known: true,
         changed: true,
         online: true,
-        platform: 'xlabs',
+        platform: 'alterware',
         players: info.players,
         endpoint_available: info.endpoint_available
     }
@@ -82,9 +78,7 @@ async function formatServers(game) {
             ...info
         }
 
-        if (!(info.game === 'iw4x' && info.endpoint_available === true)) {
-            info.players = Array(info.clients).fill('Unknown')
-        }
+        info.players = Array(info.clients).fill('Unknown')
 
         try {
             info.country = geoip.lookup(info.ip).country.toLowerCase()
@@ -99,17 +93,15 @@ async function formatServers(game) {
 }
 
 async function getServers() {
-    const iw4x = await formatServers('IW4');
-    const s1x = await formatServers('S1');
-    const iw6x = await formatServers('IW6');
+    const s1 = await formatServers('S1');
+    const iw6 = await formatServers('IW6');
 
     return {
         servers: {
-            iw4x,
-            iw6x,
-            s1x,
+            iw6,
+            s1,
             get all() {
-                const servers = [].concat(this.iw4x, this.iw6x, this.s1x)
+                const servers = [].concat(this.iw6, this.s1)
                 servers.sort((a, b) => {
                     return (b.clients - b.bots) - (a.clients - a.bots)
                 })

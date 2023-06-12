@@ -1,4 +1,4 @@
-# [Plutonium](https://plutonium.pw), [X Labs](https://xlabs.dev) & [BOIII](https://boiii.re) Server List
+# [Plutonium](https://plutonium.pw) & [AlterWare](https://alterware.dev)
 ### -> [Show server list](https://list.plutools.pw)
 
 ---
@@ -12,10 +12,6 @@
 
 ---
 
-## Links
-[![PluTools](gh_assets/plutools_64.png)](https://plutools.pw/) [![Discord Server](gh_assets/discord.png)](https://discord.gg/SnJQusteNZ) [![Plutonium](gh_assets/plutonium.jpg)](https://plutonium.pw/) [![X Labs](gh_assets/xlabs.png)](https://xlabs.dev) [![YEAH 🅱️OIII](gh_assets/boiii.jpg)](https://boiii.re)
-
----
 
 ## Screenshots
 
@@ -47,7 +43,7 @@ Join the [Discord server](https://discord.gg/SnJQusteNZ) to get your IP whitelis
 - ```/servers```
   - Return all servers
 - ```/servers/<platform>```
-  - ```<platform>``` can be ```xlabs```, ```plutonium``` or ```boiii```
+  - ```<platform>``` can be ```alterware``` or ```plutonium```
   - Return all servers on specified platform
 - ```/servers/<platform>/<game>```
   - ```<game>``` can be ```iw4x```, ```iw6x```, ```s1x```, ```iw5mp```, ```t4sp```, ```t4mp```, ```t5sp```, ```t5mp```, ```t6zm```, ```t6mp``` or ```boiii```

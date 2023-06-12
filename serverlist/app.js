@@ -8,7 +8,7 @@ const global_config = require('../config.json')
 const http = require('../shared/http.js')
 
 const pluto_games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm']
-const xlabs_games = ['iw4x', 'iw6x', 's1x']
+const alterware_games = ['iw6', 's1']
 
 let apiCache
 
@@ -119,7 +119,7 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
         }
 
         // filter by game
-        if (((game == 'plutonium' || game == 'xlabs'))) {
+        if (((game == 'plutonium' || game == 'alterware'))) {
             if (game != server.platform) { continue }
         } else {
             if ((game !== 'all' && server.game != game)) {
@@ -196,7 +196,7 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
 
     const includePlayers = req.query.players == 'on' ? true : false
     // game filter
-    if (pluto_games.includes(req.params.game) || xlabs_games.includes(req.params.game) || req.params.game == 'xlabs' || req.params.game == 'plutonium' || req.params.game == 'boiii') {
+    if (pluto_games.includes(req.params.game) || alterware_games.includes(req.params.game) || req.params.game == 'alterware' || req.params.game == 'plutonium' || req.params.game == 'boiii') {
         servers = await getData(req.params.game, req.query.s, includePlayers)
         servers.game = req.params.game
     } else {

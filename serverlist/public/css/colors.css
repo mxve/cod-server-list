@@ -24,11 +24,11 @@
 .iw4x.color {
     color: var(--iw4x) !important;
 }
-.iw6x.color {
-    color: var(--iw6x) !important;
+.iw6.color {
+    color: var(--iw6) !important;
 }
-.s1x.color {
-    color: var(--s1x) !important;
+.s1.color {
+    color: var(--s1) !important;
 }
 .boiii.color {
     color: var(--boiii) !important;
@@ -58,11 +58,11 @@
 .iw4x.border {
     border-color: var(--iw4x) !important;
 }
-.iw6x.border {
-    border-color: var(--iw6x) !important;
+.iw6.border {
+    border-color: var(--iw6) !important;
 }
-.s1x.border {
-    border-color: var(--s1x) !important;
+.s1.border {
+    border-color: var(--s1) !important;
 }
 .boiii.border {
     border-color: var(--boiii) !important;
@@ -92,11 +92,11 @@
 .iw4x.background {
     background-color: var(--iw4x-bg) !important;
 }
-.iw6x.background {
-    background-color: var(--iw6x-bg) !important;
+.iw6.background {
+    background-color: var(--iw6-bg) !important;
 }
-.s1x.background {
-    background-color: var(--s1x-bg) !important;
+.s1.background {
+    background-color: var(--s1-bg) !important;
 }
 .boiii.background {
     background-color: var(--boiii-bg) !important;
@@ -126,11 +126,11 @@
 .iw4x.backgroundhover:hover {
     background-color: var(--iw4x-bg) !important;
 }
-.iw6x.backgroundhover:hover {
-    background-color: var(--iw6x-bg) !important;
+.iw6.backgroundhover:hover {
+    background-color: var(--iw6-bg) !important;
 }
-.s1x.backgroundhover:hover {
-    background-color: var(--s1x-bg) !important;
+.s1.backgroundhover:hover {
+    background-color: var(--s1-bg) !important;
 }
 .boiii.backgroundhover:hover {
     background-color: var(--boiii-bg) !important;

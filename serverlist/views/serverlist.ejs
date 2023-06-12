@@ -4,7 +4,7 @@ let description
 let css
 
 const css_disable_round = ".serverlist tr .round { display: none; }"
-let gamename = 'Plutonium & X Labs'
+let gamename = 'Plutonium & AlterWare'
 switch (api.game) {
     case 'iw5mp':
         gamename = 'Plutonium IW5'
@@ -33,23 +33,16 @@ switch (api.game) {
         gamename = 'Plutonium T4 Zombies'
         css = `${css_disable_round}`
         break
-    case 'iw4x':
-        gamename = 'X Labs IW4x'
+    case 'iw6':
+        gamename = 'AlterWare IW6'
         css = `${css_disable_round}`
         break
-    case 'iw6x':
-        gamename = 'X Labs IW6x'
+    case 's1':
+        gamename = 'AlterWare S1'
         css = `${css_disable_round}`
-        break
-    case 's1x':
-        gamename = 'X Labs S1x'
-        css = `${css_disable_round}`
-        break
-    case 'boiii':
-        gamename = '☄️ BOIII'
         break
     default:
-        gamename = 'Plutonium, X Labs & BOIII'
+        gamename = 'Plutonium & AlterWare'
 }
 title = `PluTools | ${gamename} Server List`
 description = `View ${gamename} Servers`

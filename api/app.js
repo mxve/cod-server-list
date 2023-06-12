@@ -4,8 +4,7 @@ const express = require('express')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
 const plutonium = require('./platforms/plutonium.js')
-const xlabs = require('./platforms/xlabs.js')
-const boiii = require('./platforms/boiii.js')
+const alterware = require('./platforms/alterware.js')
 
 const scheduler = new ToadScheduler()
 
@@ -23,17 +22,9 @@ let servers = {
         },
         date: Date.now()
     },
-    xlabs: {
+    alterware: {
         servers: {
-            iw4x: [],
-            iw6x: [],
-            s1x: [],
-            all: []
-        },
-        date: Date.now()
-    },
-    boiii: {
-        servers: {
+            s1: [],
             all: []
         },
         date: Date.now()
@@ -43,26 +34,18 @@ let servers = {
 const get_plutonium_servers = new Task('get_plutonium_servers', async () => {
     servers.plutonium = await plutonium.getServers()
 })
-const get_xlabs_servers = new Task('get_xlabs_servers', async () => {
-    servers.xlabs = await xlabs.getServers()
+const get_alterware_servers = new Task('get_alterware_servers', async () => {
+    servers.alterware = await alterware.getServers()
 })
-const get_boiii_servers = new Task('get_boiii_servers', async () => {
-    servers.boiii = await boiii.getServers()
-})
-
 
 
 const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plutonium_servers)
 scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
 get_plutonium_servers.execute()
 
-const get_xlabs_servers_job = new SimpleIntervalJob({ seconds: 2 }, get_xlabs_servers)
-scheduler.addSimpleIntervalJob(get_xlabs_servers_job)
-get_xlabs_servers.execute()
-
-const get_boiii_servers_job = new SimpleIntervalJob({ seconds: 2 }, get_boiii_servers)
-scheduler.addSimpleIntervalJob(get_boiii_servers_job)
-
+const get_alterware_servers_job = new SimpleIntervalJob({ seconds: 2 }, get_alterware_servers)
+scheduler.addSimpleIntervalJob(get_alterware_servers_job)
+get_alterware_servers.execute()
 
 function appendServerStats(servers) {
     let countPlayers = 0
@@ -71,16 +54,11 @@ function appendServerStats(servers) {
 
     for (server of servers) {
         if (
-            (server.platform == 'plutonium' && server.game !== 't4mp') ||
-            (server.game !== 'iw4x' && server.platform == 'xlabs')
+            (server.platform == 'plutonium' && server.game !== 't4mp') || server.platform == 'alterware'
         ) {
             server.realClients = server.players.length - server.bots
-        } else if (server.game == 'iw4x') {
-            server.realClients = server.clients
         } else if (server.game == 't4mp') {
             server.realClients = server.players.length
-        } else if (server.platform == 'boiii') {
-            server.realClients = server.clients - server.bots
         }
 
         countPlayers += server.realClients
@@ -102,13 +80,13 @@ app.disable("x-powered-by")
 
 app.get(['/v1/servers', '/v1/servers/all'], (req, res) => {
     try {
-        let ans = appendServerStats([...servers.xlabs.servers.all, ...servers.plutonium.servers.all, ...servers.boiii.servers.all])
+        let ans = appendServerStats([...servers.alterware.servers.all, ...servers.plutonium.servers.all])
         ans.servers = ans.servers.sort((a, b) => {
             return (b.realClients) - (a.realClients)
         })
 
         // average date because why not
-        ans.date = Math.trunc((servers.xlabs.date + servers.plutonium.date + servers.boiii.date) / 3)
+        ans.date = Math.trunc((servers.alterware.date + servers.plutonium.date) / 2)
         ans.platform = 'all'
         res.send(ans)
     } catch (err) {

@@ -1,35 +1,18 @@
 {
     "dpmaster": {
-        "xlabs": {
+        "alterware": {
             "master": {
-                "host": "master.xlabs.dev",
+                "host": "server.alterware.dev",
                 "port": 20810
             },
             "games": {
-                "iw4x": {
-                    "game_id": "IW4",
-                    "protocol": 150
-                },
-                "iw6x": {
+                "iw6": {
                     "game_id": "IW6",
                     "protocol": 1
                 },
-                "s1x": {
+                "s1": {
                     "game_id": "S1",
                     "protocol": 1
-                }
-            }
-        },
-        "boiii": {
-            "master": {
-                "host": "server.boiii.re",
-                "port": 20810
-            },
-            "games": {
-                "boiii": {
-                    "game_id": "T7",
-                    "protocol": 7,
-                    "protocol_file_url": "https://raw.githubusercontent.com/momo5502/boiii/main/src/client/game/structs.hpp"
                 }
             }
         }
