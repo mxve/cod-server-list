@@ -46,7 +46,7 @@ Join the [Discord server](https://discord.gg/SnJQusteNZ) to get your IP whitelis
   - ```<platform>``` can be ```alterware``` or ```plutonium```
   - Return all servers on specified platform
 - ```/servers/<platform>/<game>```
-  - ```<game>``` can be ```iw4x```, ```iw6x```, ```s1x```, ```iw5mp```, ```t4sp```, ```t4mp```, ```t5sp```, ```t5mp```, ```t6zm```, ```t6mp``` or ```boiii```
+  - ```<game>``` can be ```iw6```, ```s1```, ```iw5mp```, ```t4sp```, ```t4mp```, ```t5sp```, ```t5mp```, ```t6zm```, ```t6mp```
   - Return all servers for specified game
 
 ### Server banner
