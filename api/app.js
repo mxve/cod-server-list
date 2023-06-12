@@ -25,6 +25,7 @@ let servers = {
     alterware: {
         servers: {
             s1: [],
+            iw6: [],
             all: []
         },
         date: Date.now()
