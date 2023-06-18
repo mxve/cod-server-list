@@ -143,7 +143,13 @@ page_url = `${config.url}/s/${server.identifier}`
             <tr>
                 <td>
                     <% 
-                        __append(((server.platform == 'alterware') ? 'AlterWare' : 'Plutonium'))
+                        if (server.platform == 'alterware') {
+                            __append('AlterWare')
+                        } else if (server.platform == 'plutonium') {
+                            __append('Plutonium')
+                        } else if (server.platform == 'iw4x') {
+                            __append('IW4x')
+                        }
                     %>
                 </td>
             </tr>
