@@ -5,6 +5,7 @@ const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
 const plutonium = require('./platforms/plutonium.js')
 const alterware = require('./platforms/alterware.js')
+const iw4x = require('./platforms/iw4x.js')
 
 const scheduler = new ToadScheduler()
 
@@ -29,6 +30,14 @@ let servers = {
             all: []
         },
         date: Date.now()
+    },
+    iw4x: {
+        servers: {
+            all: [],
+            get iw4x() {
+                return this.all
+            }
+        }
     }
 }
 
@@ -37,6 +46,9 @@ const get_plutonium_servers = new Task('get_plutonium_servers', async () => {
 })
 const get_alterware_servers = new Task('get_alterware_servers', async () => {
     servers.alterware = await alterware.getServers()
+})
+const get_iw4x_servers = new Task('get_iw4x_servers', async () => {
+    servers.iw4x.servers.all = iw4x.getServers()
 })
 
 
@@ -47,6 +59,10 @@ get_plutonium_servers.execute()
 const get_alterware_servers_job = new SimpleIntervalJob({ seconds: 2 }, get_alterware_servers)
 scheduler.addSimpleIntervalJob(get_alterware_servers_job)
 get_alterware_servers.execute()
+
+const get_iw4x_servers_job = new SimpleIntervalJob({ seconds: 5 }, get_iw4x_servers)
+scheduler.addSimpleIntervalJob(get_iw4x_servers_job)
+get_iw4x_servers.execute()
 
 function appendServerStats(servers) {
     let countPlayers = 0
@@ -60,6 +76,8 @@ function appendServerStats(servers) {
             server.realClients = server.players.length - server.bots
         } else if (server.game == 't4mp') {
             server.realClients = server.players.length
+        }  else if (server.game == 'iw4x') {
+            server.realClients = server.clients
         }
 
         countPlayers += server.realClients
@@ -81,13 +99,13 @@ app.disable("x-powered-by")
 
 app.get(['/v1/servers', '/v1/servers/all'], (req, res) => {
     try {
-        let ans = appendServerStats([...servers.alterware.servers.all, ...servers.plutonium.servers.all])
+        let ans = appendServerStats([...servers.alterware.servers.all, ...servers.plutonium.servers.all, ...servers.iw4x.servers.all])
         ans.servers = ans.servers.sort((a, b) => {
             return (b.realClients) - (a.realClients)
         })
 
         // average date because why not
-        ans.date = Math.trunc((servers.alterware.date + servers.plutonium.date) / 2)
+        ans.date = Math.trunc((servers.alterware.date + servers.plutonium.date + servers.iw4x.date) / 3)
         ans.platform = 'all'
         res.send(ans)
     } catch (err) {
