@@ -4,6 +4,7 @@ const geoip = require('geoip-lite');
 const misc = require('../misc.js');
 const config = require('../config.json');
 const names = require('../names2.js')
+const country_name = new Intl.DisplayNames(['en'], { type: 'region' });
 
 const server_list = new Map();
 let server_address_list = [];
@@ -70,11 +71,11 @@ function formatServer(info, address, port) {
         date: Date.now()
     }
     try {
-        info.country = geoip.lookup(info.ip).country.toLowerCase()
-        info.countryDisplay = country_name.of(info.country.toUpperCase())
+        ret.country = geoip.lookup(ret.ip).country.toLowerCase()
+        ret.countryDisplay = country_name.of(ret.country.toUpperCase())
     } catch {
-        info.country = 'lgbt'
-        info.countryDisplay = 'Unknown'
+        ret.country = 'lgbt'
+        ret.countryDisplay = 'Unknown'
     }
 
     return ret;
