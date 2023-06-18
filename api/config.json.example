@@ -17,6 +17,11 @@
             }
         }
     },
+    "iw4x": {
+        "nodes": [
+            ""
+        ]
+    },
     "misc": {
         "hostname_max_length": 48,
         "plutonium_min_revision": {
