@@ -11,8 +11,8 @@ let masters = {
 const country_name = new Intl.DisplayNames(['en'], { type: 'region' });
 
 async function main() {
-    masters.S1 = new DPMaster({ host: config.dpmaster.alterware.master.host, port: config.dpmaster.alterware.master.port }, 5, 30, 'S1', config.dpmaster.alterware.games.s1.protocol);
-    masters.IW6 = new DPMaster({ host: config.dpmaster.alterware.master.host, port: config.dpmaster.alterware.master.port }, 5, 30, 'IW6', config.dpmaster.alterware.games.iw6.protocol);
+    masters.S1 = new DPMaster({ host: config.dpmaster.alterware.master.host, port: config.dpmaster.alterware.master.port }, 20, 50, 'S1', config.dpmaster.alterware.games.s1.protocol);
+    masters.IW6 = new DPMaster({ host: config.dpmaster.alterware.master.host, port: config.dpmaster.alterware.master.port }, 20, 50, 'IW6', config.dpmaster.alterware.games.iw6.protocol);
 }
 main();
 
