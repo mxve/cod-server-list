@@ -18,9 +18,7 @@
         }
     },
     "iw4x": {
-        "nodes": [
-            ""
-        ]
+        "master": "https://iw4x.plutools.pw/v1/servers/iw4x"
     },
     "misc": {
         "hostname_max_length": 48,

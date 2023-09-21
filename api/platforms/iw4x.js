@@ -109,19 +109,9 @@ function sendCmd(address, port, cmd) {
 refreshAddresses();
 
 async function refreshAddresses() {
-    const promises = config.iw4x.nodes.map(async (node) => {
-        try {
-            const response = await fetch(`${node}/serverlist`);
-            const servers = JSON.parse(await response.text());
-            return servers;
-        } catch (e) {
-            console.log(e);
-            return [];
-        }
-    });
-
-    const results = await Promise.all(promises);
-    server_address_list = [...new Set(results.flat())];
+    const servers = await fetch(`${config.iw4x.master}`).then(res => res.json());
+    let server_addresses = servers.servers.map(server => `${server.ip}:${server.port}`);
+    server_address_list = [...new Set(server_addresses.flat())];
 }
 
 async function refreshServers() {
