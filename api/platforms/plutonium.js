@@ -1,6 +1,6 @@
 const geoip = require('geoip-lite')
 const slugify = require('../slugify.js')
-const names2 = require('../names2.js')
+const names = require('../names.js')
 const misc = require('../misc.js')
 const http = require('../../shared/http.js')
 const config = require('../config.json')
@@ -46,12 +46,12 @@ async function getServers() {
         }
 
         // generate human readable gametype, map & hostname
-        server.gametypeDisplay = names2.gametype(server.gametype, server.game)
-        server.mapDisplay = names2.map(server.map, server.game)
+        server.gametypeDisplay = names.gametype(server.gametype, server.game)
+        server.mapDisplay = names.map(server.map, server.game)
         server.hostnameDisplay = misc.limitLength(misc.strip_color_codes(server.hostname), config.misc.hostname_max_length)
         server.hostnameDisplayFull = misc.strip_color_codes(server.hostname)
         server.round = server.game === 't6zm' ? (parseInt(misc.get_codInfo_value('rounds', server.codInfo)) || -1) : -1
-        server.gameDisplay = names2.game(server.game)
+        server.gameDisplay = names.game(server.game)
 
         // server.password is only correct for iw5mp, so we have to parse codInfo for the correct value
         if (server.codInfo.includes('password')) {
@@ -116,31 +116,7 @@ async function getServers() {
 
         server.platform = 'plutonium'
 
-        switch (server.game) {
-            case 'iw5mp':
-                servers.iw5mp.push(server)
-                break
-            case 't4sp':
-                servers.t4sp.push(server)
-                break
-            case 't4mp':
-                servers.t4mp.push(server)
-                break
-            case 't5sp':
-                servers.t5sp.push(server)
-                break
-            case 't5mp':
-                servers.t5mp.push(server)
-                break
-            case 't6zm':
-                servers.t6zm.push(server)
-                break
-            case 't6mp':
-                servers.t6mp.push(server)
-                break
-        }
-
-        //servers.push(server)
+        servers[server.game].push(server)
     }
 
     // save new servers as previous servers for the next run

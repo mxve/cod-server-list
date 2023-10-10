@@ -1,7 +1,7 @@
 const geoip = require('geoip-lite')
 const DPMaster = require('../dpmaster.js');
 const misc = require('../misc.js');
-const names = require('../names2.js');
+const names = require('../names.js');
 const config = require('../config.json');
 
 let masters = {

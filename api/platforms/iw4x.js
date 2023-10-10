@@ -3,7 +3,7 @@ const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler');
 const geoip = require('geoip-lite');
 const misc = require('../misc.js');
 const config = require('../config.json');
-const names = require('../names2.js')
+const names = require('../names.js')
 const country_name = new Intl.DisplayNames(['en'], { type: 'region' });
 
 const server_list = new Map();

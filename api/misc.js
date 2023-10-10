@@ -83,17 +83,6 @@ function randomString(length) {
 //     return combined
 // }
 
-// TODO: make general getProtocol function for boiii & xlabs games
-async function getBoiiiProtocol() {
-    let src = await http.getBody(config.dpmaster.boiii.games.boiii.protocol_file_url)
-    for (let line of src.split('\n')) {
-        if (line.startsWith('#define PROTOCOL')) {
-            return line.split(' ')[2]
-        }
-    }
-    return config.dpmaster.boiii.games.boiii.protocol
-}
-
 function codInfoToKeyVal(info) {
     if (info.startsWith('\\')) {
         info = info.slice(1);
@@ -125,7 +114,6 @@ module.exports = {
     generateIdentifier,
     randomString,
     strip_color_codes,
-    getBoiiiProtocol,
     codInfoToKeyVal,
     limitLength
 }

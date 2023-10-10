@@ -47,10 +47,10 @@ class DPMaster {
             try {
                 let cmd = buffer.toString();
                 cmd = cmd.toString().substring(4, cmd.indexOf('Response') + 8);
-    
+
                 if (this.debug)
                     console.log(`Received ${cmd}, ${buffer.length} bytes from ${remote.address}:${remote.port}`);
-    
+
                 switch (cmd) {
                     case 'getserversResponse':
                         this.#handle_getserversResponse(buffer);
@@ -132,14 +132,14 @@ class DPMaster {
             fetch(server.info.endpoint)
                 .then(res => res.json())
                 .then(json => {
-                    server.info = {...server.info, ...json}
+                    server.info = { ...server.info, ...json }
                     server.info.endpoint_available = true
                 })
                 .catch(err => {
                     server.info.endpoint_available = false
                 })
         }
-    
+
         if (this.debug && !this.servers.has(server.identifier))
             console.log(`Added ${server.identifier} to server list.\n----\n${JSON.stringify(server)}\n----\n`)
 

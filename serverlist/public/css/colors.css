@@ -30,9 +30,6 @@
 .s1.color {
     color: var(--s1) !important;
 }
-.boiii.color {
-    color: var(--boiii) !important;
-}
 
 .iw5mp.border {
     border-color: var(--iw5mp) !important;
@@ -63,9 +60,6 @@
 }
 .s1.border {
     border-color: var(--s1) !important;
-}
-.boiii.border {
-    border-color: var(--boiii) !important;
 }
 
 .iw5mp.background {
@@ -98,9 +92,6 @@
 .s1.background {
     background-color: var(--s1-bg) !important;
 }
-.boiii.background {
-    background-color: var(--boiii-bg) !important;
-}
 
 .iw5mp.backgroundhover:hover {
     background-color: var(--iw5mp-bg) !important;
@@ -131,7 +122,4 @@
 }
 .s1.backgroundhover:hover {
     background-color: var(--s1-bg) !important;
-}
-.boiii.backgroundhover:hover {
-    background-color: var(--boiii-bg) !important;
 }
