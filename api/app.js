@@ -70,6 +70,10 @@ function appendServerStats(servers) {
     let maxPlayers = 0
 
     for (server of servers) {
+        if (server.hostname.includes("_PLUTOOLSHIDDEN")) {
+            continue
+        }
+
         if (
             (server.platform == 'plutonium' && server.game !== 't4mp') || server.platform == 'alterware'
         ) {

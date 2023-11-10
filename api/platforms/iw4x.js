@@ -85,10 +85,6 @@ async function handle_infoResponse(buffer, address, port) {
     const info = misc.codInfoToKeyVal(buffer.toString().slice(17));
     const server = formatServer(info, address, port);
 
-    if (server.hostname.includes("_PLUTOOLSHIDDEN")) {
-        return
-    }
-
     if (server.protocol < 150) { // update your servers 149 bruh
         return
     }
