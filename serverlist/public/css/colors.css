@@ -30,6 +30,9 @@
 .s1.color {
     color: var(--s1) !important;
 }
+.t7.color {
+    color: var(--t7) !important;
+}
 
 .iw5mp.border {
     border-color: var(--iw5mp) !important;
@@ -60,6 +63,9 @@
 }
 .s1.border {
     border-color: var(--s1) !important;
+}
+.t7.border {
+    border-color: var(--t7) !important;
 }
 
 .iw5mp.background {
@@ -92,6 +98,9 @@
 .s1.background {
     background-color: var(--s1-bg) !important;
 }
+.t7.background {
+    background-color: var(--t7-bg) !important;
+}
 
 .iw5mp.backgroundhover:hover {
     background-color: var(--iw5mp-bg) !important;
@@ -122,4 +131,7 @@
 }
 .s1.backgroundhover:hover {
     background-color: var(--s1-bg) !important;
+}
+.t7.backgroundhover:hover {
+    background-color: var(--t7-bg) !important;
 }

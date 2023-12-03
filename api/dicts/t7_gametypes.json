@@ -1,0 +1,22 @@
+{
+    "tdm": "Team Deathmatch",
+    "dm": "Free-for-all",
+    "ball": "Uplink",
+    "sd": "Search and Destroy",
+    "sr": "Search and Rescue",
+    "dom": "Domination",
+    "dem": "Demolition",
+    "conf": "Kill Confirmed",
+    "ctf": "Capture the Flag",
+    "shrp": "Sharpshooter",
+    "gun": "Gun Game",
+    "sas": "Sticks and Stones",
+    "koth": "Hardpoint",
+    "escort": "Safeguard",
+    "clean": "Fracture",
+    "prop": "Prop Hunt",
+    "infect": "Infected",
+    "sniperonly": "Snipers Only",
+    "coop": "Co-op",
+    "zclassic": "Zombies"
+}
