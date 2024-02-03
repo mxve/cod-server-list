@@ -68,7 +68,7 @@ const generate_previews_task = new Task('clear_images', async () => {
     }
 })
 
-const generate_previews_job = new SimpleIntervalJob({ seconds: 1, }, generate_previews_task)
+const generate_previews_job = new SimpleIntervalJob({ seconds: 10, }, generate_previews_task)
 scheduler.addSimpleIntervalJob(generate_previews_job)
 
 
