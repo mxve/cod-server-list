@@ -102,7 +102,7 @@ page_url = `${config.url}/s/${server.identifier}`
                     <%- server.gameDisplay %>
                 </td>
                 <td>
-                    <span class="fp fp <%= server.country %>"></span> <%= server.countryDisplay %>
+                    <span class="fp fp <%= server.country %>"></span><a href="/?s=<%= encodeURIComponent(server.countryDisplay) %>"><%= server.countryDisplay %></a>
                 </td>
             </tr>
             <tr>

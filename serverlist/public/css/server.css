@@ -34,6 +34,12 @@
     padding: 0px 12px 12px 0px;
 }
 
+#server-info table.server-info-table td a {
+    color: var(--foreground);
+    text-decoration: none;
+    border-bottom: 1px var(--foreground) dotted;
+}
+
 #server-info table.player-list-table td {
     padding: 0px 12px 0px 0px;
 }
