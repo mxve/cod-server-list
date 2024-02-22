@@ -75,9 +75,9 @@ const get_aurora_servers = new Task('get_aurora_servers', async () => {
 })
 
 
-// const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plutonium_servers)
-// scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
-// get_plutonium_servers.execute()
+const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plutonium_servers)
+scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
+get_plutonium_servers.execute()
 
 const get_alterware_servers_job = new SimpleIntervalJob({ seconds: 2 }, get_alterware_servers)
 scheduler.addSimpleIntervalJob(get_alterware_servers_job)
