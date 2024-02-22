@@ -1,4 +1,4 @@
-@import url('vars.css');
+@import url('vars.css?v=00003');
 
 .iw5mp.color {
     color: var(--iw5mp) !important;

@@ -1,5 +1,5 @@
-@import url('vars.css');
-@import url('colors.css');
+@import url('vars.css?v=00003');
+@import url('colors.css?v=00003');
 
 .serverlist {
     width: 960px;
