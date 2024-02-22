@@ -6,5 +6,8 @@
     "conf": "Kill Confirmed",
     "sab": "Sabotage",
     "koth": "Headquarters",
-    "gun": "Gun Game"
+    "hp": "Hardpoint",
+    "gun": "Gun Game",
+    "dd": "Demolition",
+    "ctf": "Capture the Flag"
 }
