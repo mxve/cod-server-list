@@ -120,16 +120,12 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
         }
 
         // filter by game
-        if (((game == 'plutonium' || game == 'alterware' || game == 'aurora'))) {
+        if (((game == 'plutonium' || game == 'alterware' || game == 'aurora' || game == 't7'))) {
             if (game != server.platform) { continue }
         } else {
             if ((game !== 'all' && server.game != game)) {
                 continue
             }
-        }
-
-        if ((game !== 'aurora' && game !== 'h1' && game !== 'iw7') && server.platform == 'aurora') {
-            continue
         }
 
         // stats
