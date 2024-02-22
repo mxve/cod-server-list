@@ -5,6 +5,7 @@ const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
 
 const plutonium = require('./platforms/plutonium.js')
 const alterware = require('./platforms/alterware.js')
+const t7 = require('./platforms/t7.js')
 const iw4x = require('./platforms/iw4x.js')
 const aurora = require('./platforms/aurora.js')
 
@@ -28,14 +29,17 @@ let servers = {
         servers: {
             s1: [],
             iw6: [],
-            all: []
+            iw4: [],
+            get all() {
+                return [].concat(this.s1, this.iw6, this.iw4)
+            }
         },
         date: Date.now()
     },
-    iw4x: {
+    t7: {
         servers: {
             all: [],
-            get iw4x() {
+            get t7() {
                 return this.all
             }
         },
@@ -55,23 +59,33 @@ const get_plutonium_servers = new Task('get_plutonium_servers', async () => {
     servers.plutonium = await plutonium.getServers()
 })
 const get_alterware_servers = new Task('get_alterware_servers', async () => {
-    servers.alterware = await alterware.getServers()
+    let _servers = await alterware.getServers()
+    servers.alterware.servers.s1 = _servers.servers.s1
+    servers.alterware.servers.iw6 = _servers.servers.iw6
+    servers.alterware.date = _servers.date
+})
+const get_t7_servers = new Task('get_t7_servers', async () => {
+    servers.t7 = await t7.getServers()
 })
 const get_iw4x_servers = new Task('get_iw4x_servers', async () => {
-    servers.iw4x.servers.all = iw4x.getServers()
+    servers.alterware.servers.iw4 = iw4x.getServers()
 })
 const get_aurora_servers = new Task('get_aurora_servers', async () => {
     servers.aurora = await aurora.getServers()
 })
 
 
-const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plutonium_servers)
-scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
-get_plutonium_servers.execute()
+// const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plutonium_servers)
+// scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
+// get_plutonium_servers.execute()
 
 const get_alterware_servers_job = new SimpleIntervalJob({ seconds: 2 }, get_alterware_servers)
 scheduler.addSimpleIntervalJob(get_alterware_servers_job)
 get_alterware_servers.execute()
+
+const get_t7_servers_job = new SimpleIntervalJob({ seconds: 5 }, get_t7_servers)
+scheduler.addSimpleIntervalJob(get_t7_servers_job)
+get_t7_servers.execute()
 
 const get_iw4x_servers_job = new SimpleIntervalJob({ seconds: 5 }, get_iw4x_servers)
 scheduler.addSimpleIntervalJob(get_iw4x_servers_job)
@@ -93,12 +107,12 @@ function appendServerStats(servers) {
         }
 
         if (
-            (server.platform == 'plutonium' && server.game !== 't4mp') || server.platform == 'alterware' || server.platform == 'aurora'
+            (server.platform == 'plutonium' && server.game !== 't4mp') || (server.platform == 'alterware' && server.game !== 'iw4') || server.platform == 'aurora' || server.platform == 't7'
         ) {
             server.realClients = server.players.length - server.bots
         } else if (server.game == 't4mp') {
             server.realClients = server.players.length
-        }  else if (server.game == 'iw4x') {
+        }  else if (server.game == 'iw4') {
             server.realClients = server.clients
         }
 
@@ -121,13 +135,13 @@ app.disable("x-powered-by")
 
 app.get(['/v1/servers', '/v1/servers/all'], (req, res) => {
     try {
-        let ans = appendServerStats([...servers.alterware.servers.all, ...servers.plutonium.servers.all, ...servers.iw4x.servers.all, ...servers.aurora.servers.all])
+        let ans = appendServerStats([...servers.alterware.servers.all, ...servers.plutonium.servers.all, ...servers.aurora.servers.all, ...servers.t7.servers.all])
         ans.servers = ans.servers.sort((a, b) => {
             return (b.realClients) - (a.realClients)
         })
 
         // average date because why not
-        ans.date = Math.trunc((servers.alterware.date + servers.plutonium.date + servers.iw4x.date, servers.aurora.date) / 4)
+        ans.date = Math.trunc((servers.alterware.date + servers.plutonium.date + servers.aurora.date + servers.t7.date) / 4)
         ans.platform = 'all'
         res.send(ans)
     } catch (err) {

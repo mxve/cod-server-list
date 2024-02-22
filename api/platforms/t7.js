@@ -5,23 +5,19 @@ const names = require('../names.js');
 const config = require('../config.json');
 
 let masters = {
-    S1: null,
-    IW6: null
+    T7: null
 };
 const country_name = new Intl.DisplayNames(['en'], { type: 'region' });
 
 async function main() {
-    masters.S1 = new DPMaster({ host: config.dpmaster.alterware.master.host, port: config.dpmaster.alterware.master.port }, 20, 50, 'S1', config.dpmaster.alterware.games.s1.protocol);
-    masters.IW6 = new DPMaster({ host: config.dpmaster.alterware.master.host, port: config.dpmaster.alterware.master.port }, 20, 50, 'IW6', config.dpmaster.alterware.games.iw6.protocol);
+    masters.T7 = new DPMaster({ host: config.dpmaster.alterware.master.host, port: config.dpmaster.alterware.master.port }, 20, 50, 'T7', config.dpmaster.alterware.games.t7.protocol);
 }
 main();
 
 function gamenameToGame(gamename) {
     switch (gamename) {
-        case 'S1':
-            return 's1'
-        case 'IW6':
-            return 'iw6'
+        case 'T7':
+            return 't7'
     }
 }
 
@@ -58,7 +54,7 @@ function formatInfo(info) {
         known: true,
         changed: true,
         online: true,
-        platform: 'alterware',
+        platform: 't7',
         players: info.players,
         endpoint_available: info.endpoint_available
     }
@@ -93,15 +89,13 @@ async function formatServers(game) {
 }
 
 async function getServers() {
-    const s1 = await formatServers('S1');
-    const iw6 = await formatServers('IW6');
+    const t7 = await formatServers('T7');
 
     return {
         servers: {
-            iw6,
-            s1,
+            t7,
             get all() {
-                const servers = [].concat(this.iw6, this.s1)
+                const servers = [].concat(this.t7)
                 servers.sort((a, b) => {
                     return (b.clients - b.bots) - (a.clients - a.bots)
                 })

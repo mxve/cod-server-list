@@ -49,8 +49,8 @@ switch (api.game) {
         gamename = 'AlterWare S1'
         css = `${css_disable_round}`
         break
-    case 'iw4x':
-        gamename = 'IW4x'
+    case 'iw4':
+        gamename = 'IW4'
         css = `${css_disable_round}`
         break
     case 'aurora':
@@ -100,6 +100,49 @@ description = `View ${gamename} Servers`
             </div>
         </div>
         <%- include('header') %>
+<div id="banner">
+    <%
+        function plutonium() {
+            __append('Get this client on <a href="https://plutonium.pw">Plutonium.pw</a>')
+        }
+        function alterware() {
+            __append('Get this client on <a href="https://alterware.dev">AlterWare.dev</a>')
+        }
+        function aurora() {
+            __append('Get this client on <a href="https://auroramod.dev">AuroraMod.dev</a>')
+        }
+        function default_text() {
+            __append('<a href="https://hetzner.cloud/?ref=xAd5ndPeibsR">Host your own server with 20€ free credit</a>')
+        }
+
+        switch (api.game) {
+            case 'alterware':
+            case 's1':
+            case 'iw4':
+            case 'iw6':
+                alterware()
+                break
+            case 'plutonium':
+            case 'iw5mp':
+            case 't4mp':
+            case 't4sp':
+            case 't5mp':
+            case 't5sp':
+            case 't6mp':
+            case 't6zm':
+                plutonium()
+                break
+            case 'aurora':
+            case 'h1':
+            case 'iw7':
+                aurora()
+                break
+            default:
+                default_text()
+                break
+        }
+    %>
+</div>
             <table class="serverlist sortable" id="serverlist">
                 <thead>
                     <tr>

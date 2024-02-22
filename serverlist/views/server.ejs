@@ -48,6 +48,7 @@ page_url = `${config.url}/s/${server.identifier}`
         </div>
     </div>
     <%- include('header') %>
+    <div id="banner"></div>
     <% if (server.known === true) { %>
     <div id="server-info">
         <div class="hostname <%- server.game %> border"><%- server.hostnameDisplayFull %></div>
@@ -144,13 +145,11 @@ page_url = `${config.url}/s/${server.identifier}`
                 <td>
                     <% 
                         if (server.platform == 'alterware') {
-                            __append('AlterWare')
+                            __append('<a href="https://alterware.dev">AlterWare</a>')
                         } else if (server.platform == 'plutonium') {
-                            __append('Plutonium')
-                        } else if (server.platform == 'iw4x') {
-                            __append('IW4x')
+                            __append('<a href="https://plutonium.pw">Plutonium</a>')
                         } else if (server.platform == 'aurora') {
-                            __append('Aurora')
+                            __append('<a href="https://auroramod.dev/">Aurora</a>')
                         }
                     %>
                 </td>

@@ -8,7 +8,7 @@ const global_config = require('../config.json')
 const http = require('../shared/http.js')
 
 const pluto_games = ['iw5mp', 't4mp', 't4sp', 't5mp', 't5sp', 't6mp', 't6zm']
-const alterware_games = ['iw6', 's1', 't7']
+const alterware_games = ['iw6', 's1', 'iw4']
 const aurora_games = ['h1', 'iw7']
 
 let apiCache
@@ -120,7 +120,7 @@ async function getData(game = 'all', search = undefined, includePlayers = false)
         }
 
         // filter by game
-        if (((game == 'plutonium' || game == 'alterware' || game == 'iw4x' || game == 'aurora'))) {
+        if (((game == 'plutonium' || game == 'alterware' || game == 'aurora'))) {
             if (game != server.platform) { continue }
         } else {
             if ((game !== 'all' && server.game != game)) {
@@ -201,7 +201,7 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
 
     const includePlayers = req.query.players == 'on' ? true : false
     // game filter
-    if (pluto_games.includes(req.params.game) || alterware_games.includes(req.params.game) || aurora_games.includes(req.params.game) || req.params.game == 'alterware' || req.params.game == 'plutonium' || req.params.game == 'iw4x' || req.params.game == 'aurora') {
+    if (pluto_games.includes(req.params.game) || alterware_games.includes(req.params.game) || aurora_games.includes(req.params.game) || req.params.game == 'alterware' || req.params.game == 'plutonium' || req.params.game == 'aurora' || req.params.game == 't7') {
         servers = await getData(req.params.game, req.query.s, includePlayers)
         servers.game = req.params.game
     } else {
