@@ -1,0 +1,10 @@
+{
+    "dm": "Free-for-all",
+    "war": "Team Deathmatch",
+    "sd": "Search and Destroy",
+    "dom": "Domination",
+    "conf": "Kill Confirmed",
+    "sab": "Sabotage",
+    "koth": "Headquarters",
+    "gun": "Gun Game"
+}

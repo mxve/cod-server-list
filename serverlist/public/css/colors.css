@@ -33,6 +33,9 @@
 .t7.color {
     color: var(--t7) !important;
 }
+.h1.color {
+    color: var(--h1) !important;
+}
 
 .iw5mp.border {
     border-color: var(--iw5mp) !important;
@@ -66,6 +69,9 @@
 }
 .t7.border {
     border-color: var(--t7) !important;
+}
+.h1.border {
+    border-color: var(--h1) !important;
 }
 
 .iw5mp.background {
@@ -101,6 +107,9 @@
 .t7.background {
     background-color: var(--t7-bg) !important;
 }
+.h1.background {
+    background-color: var(--h1-bg) !important;
+}
 
 .iw5mp.backgroundhover:hover {
     background-color: var(--iw5mp-bg) !important;
@@ -134,4 +143,7 @@
 }
 .t7.backgroundhover:hover {
     background-color: var(--t7-bg) !important;
+}
+.h1.backgroundhover:hover {
+    background-color: var(--h1-bg) !important;
 }
