@@ -1,3 +1,22 @@
 {
+    "mp_backlot": "Backlot",
+    "mp_bloc": "Bloc",
+    "mp_bog": "Bog",
+    "mp_bog_summer": "Bog Summer",
+    "mp_cargoship": "Wet Work",
+    "mp_citystreets": "District",
+    "mp_convoy": "Ambush",
+    "mp_countdown": "Countdown",
+    "mp_crash": "Crash",
+    "mp_crash_snow": "Crash (Snow)",
+    "mp_crossfire": "Crossfire",
+    "mp_farm": "Farm",
+    "mp_farm_spring": "Farm (Spring)",
+    "mp_overgrown": "Overgrown",
+    "mp_pipeline": "Pipeline",
+    "mp_shipment": "Shipment",
+    "mp_showdown": "Showdown",
+    "mp_strike": "Strike",
+    "mp_vacant": "Vacant",
     "mp_killhouse": "Killhouse"
 }
