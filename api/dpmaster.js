@@ -94,16 +94,15 @@ class DPMaster {
         // first 24 bytes are
         //  "0xFF0xFF0xFF0xFFgetserversResponse\n "
         for (const byte of buffer.slice(24)) {
-            if (byte !== 92) {
-                segment.push(byte)
-                continue
+            // add everything except for delimiter to segment
+            if (segment.length !== 6) {
+                segment.push(byte);
+                continue;
             }
-
-            if (segment.length === 6) {
-                servers.push(segment)
-            }
-
-            segment = []
+            // add segment to servers
+            servers.push(segment);
+            // reset segment
+            segment = [];
         }
 
         for (const server of servers) {
