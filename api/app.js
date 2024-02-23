@@ -8,7 +8,6 @@ const alterware = require('./platforms/alterware.js')
 const t7 = require('./platforms/t7.js')
 const iw4x = require('./platforms/iw4x.js')
 const aurora = require('./platforms/aurora.js')
-const cod4x = require('./platforms/cod4x.js')
 
 const scheduler = new ToadScheduler()
 
@@ -53,15 +52,6 @@ let servers = {
             all: []
         },
         date: Date.now()
-    },
-    cod4x: {
-        servers: {
-            iw3: [],
-            get all() {
-                return this.iw3
-            }
-        },
-        date: Date.now()
     }
 }
 
@@ -83,14 +73,11 @@ const get_iw4x_servers = new Task('get_iw4x_servers', async () => {
 const get_aurora_servers = new Task('get_aurora_servers', async () => {
     servers.aurora = await aurora.getServers()
 })
-const get_cod4x_servers = new Task('get_cod4x_servers', async () => {
-    servers.cod4x = await cod4x.getServers()
-})
 
 
-// const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plutonium_servers)
-// scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
-// get_plutonium_servers.execute()
+const get_plutonium_servers_job = new SimpleIntervalJob({ seconds: 20 }, get_plutonium_servers)
+scheduler.addSimpleIntervalJob(get_plutonium_servers_job)
+get_plutonium_servers.execute()
 
 const get_alterware_servers_job = new SimpleIntervalJob({ seconds: 2 }, get_alterware_servers)
 scheduler.addSimpleIntervalJob(get_alterware_servers_job)
@@ -108,10 +95,6 @@ const get_aurora_servers_job = new SimpleIntervalJob({ seconds: 5 }, get_aurora_
 scheduler.addSimpleIntervalJob(get_aurora_servers_job)
 get_aurora_servers.execute()
 
-const get_cod4x_servers_job = new SimpleIntervalJob({ seconds: 5 }, get_cod4x_servers)
-scheduler.addSimpleIntervalJob(get_cod4x_servers_job)
-get_cod4x_servers.execute()
-
 
 function appendServerStats(servers) {
     let countPlayers = 0
@@ -124,11 +107,7 @@ function appendServerStats(servers) {
         }
 
         if (
-            (server.platform == 'plutonium' && server.game !== 't4mp') ||
-            (server.platform == 'alterware' && server.game !== 'iw4') ||
-            server.platform == 'aurora' ||
-            server.platform == 't7' ||
-            server.platform == 'cod4x'
+            (server.platform == 'plutonium' && server.game !== 't4mp') || (server.platform == 'alterware' && server.game !== 'iw4') || server.platform == 'aurora' || server.platform == 't7'
         ) {
             server.realClients = server.players.length - server.bots
         } else if (server.game == 't4mp') {
@@ -156,13 +135,13 @@ app.disable("x-powered-by")
 
 app.get(['/v1/servers', '/v1/servers/all'], (req, res) => {
     try {
-        let ans = appendServerStats([...servers.alterware.servers.all, ...servers.plutonium.servers.all, ...servers.aurora.servers.all, ...servers.t7.servers.all, ...servers.cod4x.servers.all])
+        let ans = appendServerStats([...servers.alterware.servers.all, ...servers.plutonium.servers.all, ...servers.aurora.servers.all, ...servers.t7.servers.all])
         ans.servers = ans.servers.sort((a, b) => {
             return (b.realClients) - (a.realClients)
         })
 
         // average date because why not
-        ans.date = Math.trunc((servers.alterware.date + servers.plutonium.date + servers.aurora.date + servers.t7.date + servers.cod4x.date) / 5)
+        ans.date = Math.trunc((servers.alterware.date + servers.plutonium.date + servers.aurora.date + servers.t7.date) / 4)
         ans.platform = 'all'
         res.send(ans)
     } catch (err) {
