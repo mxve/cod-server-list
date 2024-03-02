@@ -197,8 +197,8 @@ app.get(['/', '/:game', '/json', '/:game/json'], async (req, res) => {
 
     const includePlayers = req.query.players == 'on' ? true : false
     // game filter
-    if (pluto_games.includes(req.params.game) || alterware_games.includes(req.params.game) || aurora_games.includes(req.params.game) || req.params.game == 'alterware' || req.params.game == 'plutonium' || req.params.game == 'aurora' || req.params.game == 't7') {
-        servers = await getData(req.params.game, req.query.s, includePlayers)
+    if (pluto_games.includes(req.params.game) || alterware_games.includes(req.params.game) || aurora_games.includes(req.params.game) || req.params.game == 'alterware' || req.params.game == 'plutonium' || req.params.game == 'aurora' || req.params.game == 't7' || req.params.game == 'iw4x') {
+        servers = await getData(req.params.game == 'iw4x' ? 'iw4' : req.params.game, req.query.s, includePlayers)
         servers.game = req.params.game
     } else {
         servers = await getData('all', req.query.s, includePlayers)
