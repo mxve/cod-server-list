@@ -2,6 +2,7 @@ const global_config = require('../config.json')
 
 const express = require('express')
 const { ToadScheduler, SimpleIntervalJob, Task } = require('toad-scheduler')
+const cors = require('cors')
 
 const plutonium = require('./platforms/plutonium.js')
 const alterware = require('./platforms/alterware.js')
@@ -132,6 +133,7 @@ function appendServerStats(servers) {
 
 const app = express()
 app.disable("x-powered-by")
+app.use(cors())
 
 app.get(['/v1/servers', '/v1/servers/all'], (req, res) => {
     try {
